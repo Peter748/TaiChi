@@ -47,6 +47,9 @@
   .speed-row{display:flex;justify-content:center;gap:8px;margin-top:8px;}
   .speed-btn{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;border:0.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s;}
   .speed-btn.active{border-color:var(--border2);color:var(--gold);background:rgba(200,169,110,0.08);}
+  .lang-row{display:flex;justify-content:center;gap:6px;margin-top:8px;}
+  .lang-btn{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:0.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+  .lang-btn.active{border-color:var(--border2);color:var(--gold);background:rgba(200,169,110,0.08);}
   .step-list-wrap{flex:1;overflow-y:auto;padding:4px 16px 16px;scrollbar-width:none;}
   .step-list-wrap::-webkit-scrollbar{display:none;}
   .list-header{font-size:11px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;padding:8px 4px 6px;}
@@ -110,6 +113,11 @@
       <button class="speed-btn" onclick="setSpeed(1.25)">1.25x</button>
       <button class="speed-btn" onclick="setSpeed(1.5)">1.5x</button>
     </div>
+    <div class="lang-row">
+      <button class="lang-btn" onclick="setLang('zh')" id="lb-zh">中文</button>
+      <button class="lang-btn active" onclick="setLang('both')" id="lb-both">中文 + English</button>
+      <button class="lang-btn" onclick="setLang('en')" id="lb-en">English</button>
+    </div>
   </div>
 
   <div class="step-list-wrap">
@@ -169,16 +177,69 @@ const YANG28 = [
   { t: "Cross hands and closing form" }
 ];
 
+const STANDARD = [
+  { t: "Raise hands" },
+  { t: "Ward off left" },
+  { t: "Ward off right" },
+  { t: "Roll back", w: [[2, "and press"]] },
+  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
+  { t: "Single whip" },
+  { t: "Raise hands" },
+  { t: "White crane spreads its wings" },
+  { t: "Left brush knee" },
+  { t: "Step up and strum the lute" },
+  { t: "Fist under elbow" },
+  { t: "Left repulse the monkey" },
+  { t: "Right repulse the monkey" },
+  { t: "High pat the horse, stand tall" },
+  { t: "Right toe kick" },
+  { t: "Left toe kick" },
+  { t: "Left tame the tiger" },
+  { t: "Right tame the tiger" },
+  { t: "Cloud hands one" },
+  { t: "Cloud hands two" },
+  { t: "Fair lady works at shuttles left" },
+  { t: "Fair lady works at shuttles right" },
+  { t: "Parting the wild horse's mane, left" },
+  { t: "Parting the wild horse's mane, right" },
+  { t: "Left knee brushing and high punch" },
+  { t: "Ward off right" },
+  { t: "Roll back", w: [[2, "and press"]] },
+  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
+  { t: "Single whip" },
+  { t: "Snake creeps down" },
+  { t: "Golden rooster stands on one leg, right" },
+  { t: "Then left" },
+  { t: "Step up to form seven stars" },
+  { t: "Retreat to ride the tiger" },
+  { t: "Block and push" },
+  { t: "Turn about" },
+  { t: "Sweep the lotus leg" },
+  { t: "Bend the bow and shoot the tiger" },
+  { t: "Step up to parry and punch" },
+  { t: "Apparent close up" },
+  { t: "Cross hands and closing form" }
+];
+
 const SHIBASHI = [
-  "Commencing form — rising and lowering hands","Broadening the chest",
-  "Painting rainbows","Separating clouds","Fixed stance whirling arms",
-  "Rowing in the still lake","Holding the ball in front of shoulders",
-  "Turning to gaze at the moon","Turning the waist and pushing palms",
-  "Playing with clouds in horse-riding stance",
-  "Scooping the sea while looking at the sky","Pushing the waves",
-  "Flying dove spreads its wings","Punching in horse-riding stance",
-  "Flying wild goose","Spinning wheels","Stepping and bouncing ball",
-  "Pressing palms in calmness — closing form"
+  { t:"Commencing form, rising and lowering hands", reps:6, mode:"repeat" },
+  { t:"Broadening the chest",                       reps:6, mode:"repeat" },
+  { t:"Painting rainbows",                          reps:3, mode:"alternate" },
+  { t:"Separating clouds",                          reps:3, mode:"alternate" },
+  { t:"Fixed stance whirling arms",                 reps:3, mode:"alternate" },
+  { t:"Rowing in the still lake",                   reps:6, mode:"repeat" },
+  { t:"Holding the ball in front of shoulders",     reps:3, mode:"alternate" },
+  { t:"Turning to gaze at the moon",                reps:6, mode:"repeat" },
+  { t:"Turning the waist and pushing palms",        reps:6, mode:"repeat" },
+  { t:"Cloud hands",                                reps:3, mode:"alternate" },
+  { t:"Scooping the sea while looking at the sky",  reps:3, mode:"side" },
+  { t:"Pushing the waves",                          reps:3, mode:"side" },
+  { t:"Flying dove spreads its wings",              reps:3, mode:"side" },
+  { t:"Punching in horse-riding stance",            reps:3, mode:"alternate" },
+  { t:"Flying wild goose",                          reps:6, mode:"repeat" },
+  { t:"Spinning wheels",                            reps:3, mode:"side" },
+  { t:"Stepping and bouncing ball",                 reps:3, mode:"side" },
+  { t:"Pressing palms in calmness, closing form",   reps:6, mode:"repeat" }
 ];
 
 const SABRE = [
@@ -207,11 +268,241 @@ const JIAN = [
   "Closing — return sword"
 ];
 
+
+const ZH = {
+  yang28: [
+    {c:"起势",p:"Qǐ shì"},
+    {c:"提手上势",p:"Tí shǒu shàng shì"},
+    {c:"左掤",p:"Zuǒ péng"},
+    {c:"右掤捋挤",p:"Yòu péng lǚ jǐ"},
+    {c:"按势",p:"Àn shì"},
+    {c:"单鞭",p:"Dān biān"},
+    {c:"提手",p:"Tí shǒu"},
+    {c:"白鹤亮翅",p:"Bái hè liàng chì"},
+    {c:"左搂膝拗步",p:"Zuǒ lōu xī ào bù"},
+    {c:"手挥琵琶",p:"Shǒu huī pí pá"},
+    {c:"肘底捶",p:"Zhǒu dǐ chuí"},
+    {c:"左倒撵猴",p:"Zuǒ dào niǎn hóu"},
+    {c:"右倒撵猴",p:"Yòu dào niǎn hóu"},
+    {c:"高探马",p:"Gāo tàn mǎ"},
+    {c:"右分脚",p:"Yòu fēn jiǎo"},
+    {c:"左分脚",p:"Zuǒ fēn jiǎo"},
+    {c:"左伏虎势",p:"Zuǒ fú hǔ shì"},
+    {c:"右伏虎势",p:"Yòu fú hǔ shì"},
+    {c:"云手一",p:"Yún shǒu yī"},
+    {c:"左玉女穿梭",p:"Zuǒ yù nǚ chuān suō"},
+    {c:"右玉女穿梭",p:"Yòu yù nǚ chuān suō"},
+    {c:"左野马分鬃",p:"Zuǒ yě mǎ fēn zōng"},
+    {c:"右野马分鬃",p:"Yòu yě mǎ fēn zōng"},
+    {c:"搂膝栽捶",p:"Lōu xī zāi chuí"},
+    {c:"右掤",p:"Yòu péng"},
+    {c:"捋挤",p:"Lǚ jǐ"},
+    {c:"按势",p:"Àn shì"},
+    {c:"单鞭",p:"Dān biān"},
+    {c:"蛇身下势",p:"Shé shēn xià shì"},
+    {c:"上步七星",p:"Shàng bù qī xīng"},
+    {c:"退步跨虎",p:"Tuì bù kuà hǔ"},
+    {c:"搬拦捶",p:"Bān lán chuí"},
+    {c:"转身",p:"Zhuǎn shēn"},
+    {c:"摆莲腿",p:"Bǎi lián tuǐ"},
+    {c:"弯弓射虎",p:"Wān gōng shè hǔ"},
+    {c:"上步搬拦捶",p:"Shàng bù bān lán chuí"},
+    {c:"如封似闭",p:"Rú fēng sì bì"},
+    {c:"十字手收势",p:"Shí zì shǒu shōu shì"}
+  ],
+  standard: [
+    {c:"提手上势",p:"Tí shǒu shàng shì"},
+    {c:"左掤",p:"Zuǒ péng"},
+    {c:"右掤",p:"Yòu péng"},
+    {c:"捋挤",p:"Lǚ jǐ"},
+    {c:"按势",p:"Àn shì"},
+    {c:"单鞭",p:"Dān biān"},
+    {c:"提手",p:"Tí shǒu"},
+    {c:"白鹤亮翅",p:"Bái hè liàng chì"},
+    {c:"左搂膝拗步",p:"Zuǒ lōu xī ào bù"},
+    {c:"手挥琵琶",p:"Shǒu huī pí pá"},
+    {c:"肘底捶",p:"Zhǒu dǐ chuí"},
+    {c:"左倒撵猴",p:"Zuǒ dào niǎn hóu"},
+    {c:"右倒撵猴",p:"Yòu dào niǎn hóu"},
+    {c:"高探马",p:"Gāo tàn mǎ"},
+    {c:"右分脚",p:"Yòu fēn jiǎo"},
+    {c:"左分脚",p:"Zuǒ fēn jiǎo"},
+    {c:"左伏虎势",p:"Zuǒ fú hǔ shì"},
+    {c:"右伏虎势",p:"Yòu fú hǔ shì"},
+    {c:"云手一",p:"Yún shǒu yī"},
+    {c:"云手二",p:"Yún shǒu èr"},
+    {c:"左玉女穿梭",p:"Zuǒ yù nǚ chuān suō"},
+    {c:"右玉女穿梭",p:"Yòu yù nǚ chuān suō"},
+    {c:"左野马分鬃",p:"Zuǒ yě mǎ fēn zōng"},
+    {c:"右野马分鬃",p:"Yòu yě mǎ fēn zōng"},
+    {c:"搂膝栽捶",p:"Lōu xī zāi chuí"},
+    {c:"右掤",p:"Yòu péng"},
+    {c:"捋挤",p:"Lǚ jǐ"},
+    {c:"按势",p:"Àn shì"},
+    {c:"单鞭",p:"Dān biān"},
+    {c:"蛇身下势",p:"Shé shēn xià shì"},
+    {c:"右金鸡独立",p:"Yòu jīn jī dú lì"},
+    {c:"左金鸡独立",p:"Zuǒ jīn jī dú lì"},
+    {c:"上步七星",p:"Shàng bù qī xīng"},
+    {c:"退步跨虎",p:"Tuì bù kuà hǔ"},
+    {c:"搬拦捶",p:"Bān lán chuí"},
+    {c:"转身",p:"Zhuǎn shēn"},
+    {c:"摆莲腿",p:"Bǎi lián tuǐ"},
+    {c:"弯弓射虎",p:"Wān gōng shè hǔ"},
+    {c:"上步搬拦捶",p:"Shàng bù bān lán chuí"},
+    {c:"如封似闭",p:"Rú fēng sì bì"},
+    {c:"十字手收势",p:"Shí zì shǒu shōu shì"}
+  ],
+  shibashi: [
+    {c:"起势调息",p:"Qǐ shì tiáo xī"},
+    {c:"开阔胸怀",p:"Kāi kuò xiōng huái"},
+    {c:"挥舞彩虹",p:"Huī wǔ cǎi hóng"},
+    {c:"挥臂分云",p:"Huī bì fēn yún"},
+    {c:"定步倒卷肱",p:"Dìng bù dào juǎn gōng"},
+    {c:"湖心划舟",p:"Hú xīn huá zhōu"},
+    {c:"肩前抱球",p:"Jiān qián bào qiú"},
+    {c:"转身望月",p:"Zhuǎn shēn wàng yuè"},
+    {c:"转腰推掌",p:"Zhuǎn yāo tuī zhǎng"},
+    {c:"马步云手",p:"Mǎ bù yún shǒu"},
+    {c:"捞海观天",p:"Lāo hǎi guān tiān"},
+    {c:"推波助浪",p:"Tuī bō zhù làng"},
+    {c:"鸽子展翅",p:"Gē zi zhǎn chì"},
+    {c:"马步冲拳",p:"Mǎ bù chōng quán"},
+    {c:"飞雁式",p:"Fēi yàn shì"},
+    {c:"转身拍球",p:"Zhuǎn shēn pāi qiú"},
+    {c:"行步拍球",p:"Xíng bù pāi qiú"},
+    {c:"按掌平气",p:"Àn zhǎng píng qì"}
+  ],
+  sabre: [
+    {c:"持刀起势",p:"Chí dāo qǐ shì"},
+    {c:"护膝上步",p:"Hù xī shàng bù"},
+    {c:"仙人指路",p:"Xiān rén zhǐ lù"},
+    {c:"三环套月",p:"Sān huán tào yuè"},
+    {c:"燕子抄水",p:"Yàn zi chāo shuǐ"},
+    {c:"右截刀",p:"Yòu jié dāo"},
+    {c:"左截刀",p:"Zuǒ jié dāo"},
+    {c:"摘星换斗",p:"Zhāi xīng huàn dǒu"},
+    {c:"燕子抄水二",p:"Yàn zi chāo shuǐ èr"},
+    {c:"抱月势",p:"Bào yuè shì"},
+    {c:"风扫梅花",p:"Fēng sǎo méi huā"},
+    {c:"狮子摇头",p:"Shī zi yáo tóu"},
+    {c:"虎抱头",p:"Hǔ bào tóu"},
+    {c:"野马跳涧",p:"Yě mǎ tiào jiàn"},
+    {c:"转身斜劈",p:"Zhuǎn shēn xié pī"},
+    {c:"悬崖勒马",p:"Xuán yá lè mǎ"},
+    {c:"左右车轮",p:"Zuǒ yòu chē lún"},
+    {c:"夜叉探海",p:"Yè chā tàn hǎi"},
+    {c:"射雁式",p:"Shè yàn shì"},
+    {c:"青龙出水",p:"Qīng lóng chū shuǐ"},
+    {c:"风扫梅花二",p:"Fēng sǎo méi huā èr"},
+    {c:"架刺势",p:"Jià cì shì"},
+    {c:"抱月收势",p:"Bào yuè shōu shì"}
+  ],
+  jian: [
+    {c:"持剑起势",p:"Chí jiàn qǐ shì"},
+    {c:"三环套月",p:"Sān huán tào yuè"},
+    {c:"野马跳涧",p:"Yě mǎ tiào jiàn"},
+    {c:"摘星换斗",p:"Zhāi xīng huàn dǒu"},
+    {c:"燕子抄水",p:"Yàn zi chāo shuǐ"},
+    {c:"右拦剑",p:"Yòu lán jiàn"},
+    {c:"左截刺",p:"Zuǒ jié cì"},
+    {c:"蜜蜂入洞",p:"Mì fēng rù dòng"},
+    {c:"灵猫扑鼠",p:"Líng māo pū shǔ"},
+    {c:"凤凰双展翅",p:"Fèng huáng shuāng zhǎn chì"},
+    {c:"黄蜂入洞",p:"Huáng fēng rù dòng"},
+    {c:"燕子入巢",p:"Yàn zi rù cháo"},
+    {c:"提膝上刺",p:"Tí xī shàng cì"},
+    {c:"射雁式",p:"Shè yàn shì"},
+    {c:"白猿献果",p:"Bái yuán xiàn guǒ"},
+    {c:"龙潭取水",p:"Lóng tán qǔ shuǐ"},
+    {c:"抱月势",p:"Bào yuè shì"},
+    {c:"风扫梅花",p:"Fēng sǎo méi huā"},
+    {c:"独立上刺",p:"Dú lì shàng cì"},
+    {c:"弓步平刺",p:"Gōng bù píng cì"},
+    {c:"仆步横扫",p:"Pū bù héng sǎo"},
+    {c:"金鸡独立",p:"Jīn jī dú lì"},
+    {c:"旋风势",p:"Xuàn fēng shì"},
+    {c:"左右车轮",p:"Zuǒ yòu chē lún"},
+    {c:"定海神针",p:"Dìng hǎi shén zhēn"},
+    {c:"托天势",p:"Tuō tiān shì"},
+    {c:"燕子抄水收",p:"Yàn zi chāo shuǐ shōu"},
+    {c:"上步搬拦刺",p:"Shàng bù bān lán cì"},
+    {c:"收剑还原",p:"Shōu jiàn huán yuán"}
+  ]
+};
+
+
+const SHIBASHI2 = [
+  { t:"Connecting heaven and earth",                reps:6, mode:"repeat" },
+  { t:"Setting the sun",                            reps:6, mode:"repeat" },
+  { t:"Pushing palms alternating",                  reps:3, mode:"alternate" },
+  { t:"Plucking stars",                             reps:3, mode:"alternate" },
+  { t:"Turning to look behind",                     reps:3, mode:"alternate" },
+  { t:"Flying and landing",                         reps:6, mode:"repeat" },
+  { t:"Embracing the moon",                         reps:3, mode:"alternate" },
+  { t:"Chest expansion",                            reps:6, mode:"repeat" },
+  { t:"Turning body and pushing palms",             reps:6, mode:"repeat" },
+  { t:"Horse stance cloud hands",                   reps:3, mode:"alternate" },
+  { t:"Lifting water",                              reps:3, mode:"side" },
+  { t:"Pushing the mountain",                       reps:3, mode:"side" },
+  { t:"Eagle spreads its wings",                    reps:3, mode:"side" },
+  { t:"Horse stance punching",                      reps:3, mode:"alternate" },
+  { t:"Wild goose in flight",                       reps:6, mode:"repeat" },
+  { t:"Turning the wheel",                          reps:3, mode:"side" },
+  { t:"Stepping and swinging arms",                 reps:3, mode:"side" },
+  { t:"Closing form, peaceful breath",              reps:6, mode:"repeat" }
+];
+
+const LOTUS = [
+  { t:"Opening, standing in stillness",             reps:1, mode:"repeat" },
+  { t:"Lotus opening, arms rise",                   reps:3, mode:"repeat" },
+  { t:"Cloud hands, lotus style",                   reps:3, mode:"alternate" },
+  { t:"Lotus petals unfold",                        reps:3, mode:"alternate" },
+  { t:"Dragon stirs the water",                     reps:3, mode:"side" },
+  { t:"Lotus rises from the mud",                   reps:3, mode:"repeat" },
+  { t:"Embracing the lotus",                        reps:3, mode:"alternate" },
+  { t:"Lotus turns to face the sun",                reps:3, mode:"alternate" },
+  { t:"Roots reach deep",                           reps:3, mode:"repeat" },
+  { t:"Petals float on water",                      reps:3, mode:"alternate" },
+  { t:"Golden lotus standing",                      reps:3, mode:"side" },
+  { t:"Lotus closing, arms lower",                  reps:3, mode:"repeat" },
+  { t:"Closing, return to stillness",               reps:1, mode:"repeat" }
+];
+
+// Expand step objects into individual timed entries with spoken text
+function expandSteps(arr) {
+  const out = [];
+  arr.forEach(s => {
+    const base = typeof s === 'string' ? { t: s, reps: 1, mode: 'repeat' } : s;
+    if (base.mode === 'repeat') {
+      for (let r = 0; r < base.reps; r++) {
+        out.push({ t: base.t, say: r === 0 ? base.t : (r + 1) + (["st","nd","rd"][r] || "th") + " time", orig: base.t, rep: r + 1, total: base.reps });
+      }
+    } else if (base.mode === 'alternate') {
+      for (let r = 0; r < base.reps; r++) {
+        out.push({ t: base.t + (r % 2 === 0 ? ", left" : ", right"), say: base.t + (r % 2 === 0 ? ", left side" : ", right side"), orig: base.t, rep: r + 1, total: base.reps });
+      }
+    } else if (base.mode === 'side') {
+      // 3 times left first, then 3 times right
+      for (let r = 0; r < base.reps; r++) {
+        out.push({ t: base.t + ", left", say: r === 0 ? base.t + ", left side" : (r + 1) + (["st","nd","rd"][r] || "th") + " time left", orig: base.t, rep: r + 1, total: base.reps });
+      }
+      for (let r = 0; r < base.reps; r++) {
+        out.push({ t: base.t + ", right", say: r === 0 ? base.t + ", right side" : (r + 1) + (["st","nd","rd"][r] || "th") + " time right", orig: base.t, rep: r + 1, total: base.reps });
+      }
+    }
+  });
+  return out;
+}
+
 const FORMS = {
-  yang28:   { name:"Yang 28",           short:"Yang 28",  duration:290, steps:YANG28,   hasOpening:true },
-  shibashi: { name:"ShiBaShi 18",       short:"ShiBaShi", duration:600, steps:SHIBASHI, hasOpening:false },
-  sabre:    { name:"Yang Sabre",        short:"Sabre",    duration:240, steps:SABRE,    hasOpening:false },
-  jian:     { name:"Yang Jian (Sword)", short:"Jian",     duration:300, steps:JIAN,     hasOpening:false }
+  yang28:    { name:"Yang 28 — Competition", short:"Competition", duration:290,  steps:YANG28,    hasOpening:true,  repeats:1, expand:false },
+  standard:  { name:"Yang 28 — Standard",    short:"Standard",    duration:315,  steps:STANDARD,  hasOpening:true,  repeats:1, expand:false },
+  shibashi:  { name:"ShiBaShi Set 1",        short:"ShiBaShi 1",  duration:600,  steps:expandSteps(SHIBASHI),  hasOpening:false, repeats:1, expand:true },
+  shibashi2: { name:"ShiBaShi Set 2",        short:"ShiBaShi 2",  duration:600,  steps:expandSteps(SHIBASHI2), hasOpening:false, repeats:1, expand:true },
+  lotus:     { name:"Qigong Lotus Form",     short:"Lotus",       duration:480,  steps:expandSteps(LOTUS),     hasOpening:false, repeats:1, expand:true },
+  sabre:     { name:"Yang Sabre",            short:"Sabre",       duration:120,  steps:SABRE,     hasOpening:false, repeats:1, expand:false },
+  jian:      { name:"Yang Jian (Sword)",     short:"Jian",        duration:100,  steps:JIAN,      hasOpening:false, repeats:1, expand:false }
 };
 
 let cf = 'yang28';
@@ -225,9 +516,12 @@ let stepElapsed = 0;
 let raf = null;
 let deferredPrompt = null;
 let inOpening = false;
+let lang = 'both'; // 'zh' | 'both' | 'en'
+let zhVoice = null;
+let enVoice = null;
 
 function form() { return FORMS[cf]; }
-function stepDur() { return form().duration / form().steps.length; }
+function stepDur() { const f = form(); return f.duration / (f.steps.length * f.repeats); }
 function fmt(s) {
   s = Math.max(0, Math.round(s));
   return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
@@ -257,8 +551,9 @@ function renderTabs() {
 
 function renderMeta() {
   const f = form();
+  const repStr = f.repeats > 1 ? ` × ${f.repeats} sets` : '';
   document.getElementById('metaText').textContent =
-    `${f.steps.length} steps · ${fmt(f.duration)} · ${stepDur().toFixed(1)}s each`;
+    `${f.steps.length} steps${repStr} · ${fmt(f.duration)} · ${stepDur().toFixed(1)}s each`;
   document.getElementById('timeTotal').textContent = fmt(f.duration);
   document.getElementById('listHeader').textContent = f.name + ' — Steps';
 }
@@ -273,8 +568,27 @@ function renderStep() {
     document.getElementById('timeElapsed').textContent = '0:00';
     return;
   }
-  document.getElementById('stepLabel').textContent = `Step ${ci} of ${f.steps.length - 1}`;
-    const st = f.steps[ci]; const sd = typeof st === 'string' ? st : st.t + (st.w ? st.w.map(x=>' / '+x[1]).join('') : ''); document.getElementById('stepTitle').textContent = sd;
+  const rep = f.repeats > 1 ? Math.floor(ci / f.steps.length) + 1 : null;
+  const stepInRep = ci % f.steps.length;
+  const totalSteps = f.steps.length * f.repeats;
+  document.getElementById('stepLabel').textContent = rep
+    ? `Set ${rep} of ${f.repeats}  ·  Step ${stepInRep + 1} of ${f.steps.length}`
+    : `Step ${ci} of ${totalSteps - 1}`;
+    const _si = ci % f.steps.length;
+  const st = f.steps[_si];
+  const sd = typeof st === 'string' ? st : st.t || st.say || '';
+  const repInfo = (st && st.total > 1) ? st.rep + ' of ' + st.total : '';
+  const zhd = getZh(ci);
+  if (lang === 'zh' && zhd) {
+    document.getElementById('stepTitle').textContent = zhd.c;
+    document.getElementById('stepSubtitle').textContent = zhd.p + (repInfo ? '  · ' + repInfo : '');
+  } else if (lang === 'both' && zhd) {
+    document.getElementById('stepTitle').textContent = zhd.c + '  ' + (st.orig || sd);
+    document.getElementById('stepSubtitle').textContent = zhd.p + (repInfo ? '  ·  ' + repInfo : '');
+  } else {
+    document.getElementById('stepTitle').textContent = sd;
+    document.getElementById('stepSubtitle').textContent = repInfo ? repInfo : (ci === 0 && f.hasOpening ? 'Timer running' : '');
+  }
   document.getElementById('stepSubtitle').textContent =
     ci === 0 && f.hasOpening ? 'Timer running — 4:50' : '';
 }
@@ -282,16 +596,23 @@ function renderStep() {
 function renderList() {
   const f = form();
   const dur = stepDur();
-  document.getElementById('stepList').innerHTML = f.steps.map((s,i) => {
+  const totalRows = f.steps.length * f.repeats;
+  const rows = [];
+  for (let i = 0; i < totalRows; i++) {
+    const s = f.steps[i % f.steps.length];
+    const repN = f.repeats > 1 ? Math.floor(i / f.steps.length) + 1 : null;
     let cls = 'step-row';
     if (i === ci) cls += ' active';
     else if (i < ci) cls += ' done';
-    return `<div class="${cls}" id="sr${i}" onclick="jumpTo(${i})">
-      <div class="sr-num">${i}</div>
-      <div class="sr-name">${typeof s === "string" ? s : s.t + (s.w ? s.w.map(x=>" / "+x[1]).join("") : "")}</div>
-      <div class="sr-time">${fmt(i*dur)}</div>
-    </div>`;
-  }).join('');
+    const name = typeof s === "string" ? s : s.t + (s.w ? s.w.map(x=>" / "+x[1]).join("") : "");
+    const prefix = repN ? `<span style="font-size:10px;color:var(--text3);margin-right:4px">S${repN}</span>` : '';
+    rows.push(`<div class="${cls}" id="sr${i}" onclick="jumpTo(${i})">
+      <div class="sr-num">${i % f.steps.length}</div>
+      <div class="sr-name">${prefix}${name}</div>
+      <div class="sr-time">${fmt(i * stepDur())}</div>
+    </div>`);
+  }
+  document.getElementById('stepList').innerHTML = rows.join('');
 }
 
 function scrollToStep(i) {
@@ -299,25 +620,82 @@ function scrollToStep(i) {
   if (el) el.scrollIntoView({ block:'nearest', behavior:'smooth' });
 }
 
-function speakOne(txt) {
+function loadVoices() {
+  const voices = synth.getVoices();
+  zhVoice = voices.find(v => v.lang.startsWith('zh')) || null;
+  enVoice = voices.find(v => v.lang.startsWith('en-AU')) ||
+            voices.find(v => v.lang.startsWith('en-GB')) ||
+            voices.find(v => v.lang.startsWith('en')) || null;
+}
+if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+setTimeout(loadVoices, 500);
+
+function utter(txt, isZh) {
   if (!synth || muted) return;
   const u = new SpeechSynthesisUtterance(txt);
-  u.rate = Math.min(speed * 0.55, 0.75);
+  if (isZh && zhVoice) u.voice = zhVoice;
+  if (!isZh && enVoice) u.voice = enVoice;
+  u.rate = isZh ? Math.min(speed * 0.7, 0.9) : Math.min(speed * 0.55, 0.75);
   u.pitch = 1.0;
   synth.speak(u);
 }
-function speak(step) {
+
+function speakOne(txt) { utter(txt, false); }
+
+function getZh(idx) {
+  const key = cf === 'yang28' ? 'yang28' : cf === 'standard' ? 'standard' :
+              cf === 'shibashi' ? 'shibashi' : cf === 'sabre' ? 'sabre' :
+              cf === 'jian' ? 'jian' : null;
+  if (!key) return null;
+  const arr = ZH[key];
+  if (!arr) return null;
+  const f = form();
+  const st = f.steps[idx % f.steps.length];
+  // For expanded forms find base step index by orig name
+  if (f.expand && st && st.orig) {
+    const baseArr = cf === 'shibashi' ? SHIBASHI : null;
+    if (baseArr) {
+      const bi = baseArr.findIndex(x => (x.t || x) === st.orig);
+      return bi >= 0 ? arr[bi] : null;
+    }
+    return null;
+  }
+  const realIdx = idx % f.steps.length;
+  return arr[realIdx] || null;
+}
+
+function speak(step, ciIdx) {
   if (!synth || muted) return;
   synth.cancel();
   const s = typeof step === 'string' ? { t: step } : step;
-  speakOne(s.t);
-  if (s.w) {
-    let delay = 0;
-    s.w.forEach(([sec, phrase]) => {
-      delay += (sec * 1000) / speed;
-      const d = delay;
-      setTimeout(() => { if (!muted) speakOne(phrase); }, d);
-    });
+  const sayText = s.say || s.t;
+  const zh = (lang !== 'en') ? getZh(ciIdx !== undefined ? ciIdx : ci) : null;
+
+  if (lang === 'zh' && zh) {
+    utter(zh.c, true);
+  } else if (lang === 'both' && zh) {
+    utter(zh.c, true);
+    const zhDelay = Math.max(1200, zh.c.length * 350) / speed;
+    setTimeout(() => { if (!muted) utter(sayText, false); }, zhDelay);
+    if (s.w) {
+      let delay = zhDelay;
+      s.w.forEach(([sec, phrase]) => {
+        delay += (sec * 1000) / speed;
+        const d = delay;
+        setTimeout(() => { if (!muted) utter(phrase, false); }, d);
+      });
+    }
+  } else {
+    // English only
+    utter(sayText, false);
+    if (s.w) {
+      let delay = 0;
+      s.w.forEach(([sec, phrase]) => {
+        delay += (sec * 1000) / speed;
+        const d = delay;
+        setTimeout(() => { if (!muted) utter(phrase, false); }, d);
+      });
+    }
   }
 }
 
@@ -341,7 +719,7 @@ function startTimer() {
 function advance() {
   ci++;
   const f = form();
-  if (ci >= f.steps.length) {
+  if (ci >= f.steps.length * f.repeats) {
     ci = f.steps.length - 1; playing = false;
     document.getElementById('playBtn').innerHTML = '&#9654;';
     document.getElementById('progressFill').style.width = '100%';
@@ -349,7 +727,14 @@ function advance() {
     speak('Form complete. Well done.');
     renderStep(); renderList(); return;
   }
-  speak(f.steps[ci]);
+  const repNum = f.repeats > 1 ? Math.floor(ci / f.steps.length) + 1 : null;
+  const _idx = ci % f.steps.length;
+  if (f.repeats > 1 && _idx === 0 && ci > 0) {
+    speakOne('Set ' + repNum);
+    setTimeout(() => speak(f.steps[0], ci), 1200 / speed);
+  } else {
+    speak(f.steps[_idx], ci);
+  }
   renderStep(); renderList(); scrollToStep(ci);
   startTimer();
 }
@@ -404,21 +789,21 @@ function togglePlay() {
 
 function prevStep() {
   if (inOpening || ci <= 0) return;
-  ci--; speak(form().steps[ci]);
+  ci--; speak(form().steps[ci % form().steps.length], ci);
   renderStep(); renderList(); scrollToStep(ci);
   if (playing) startTimer();
 }
 
 function nextStep() {
   if (inOpening || ci >= form().steps.length - 1) return;
-  ci++; speak(form().steps[ci]);
+  ci++; speak(form().steps[ci % form().steps.length], ci);
   renderStep(); renderList(); scrollToStep(ci);
   if (playing) startTimer();
 }
 
 function jumpTo(i) {
   if (inOpening) return;
-  ci = i; speak(form().steps[i]);
+  ci = i; speak(form().steps[i % form().steps.length], i);
   renderStep(); renderList(); scrollToStep(i);
   if (!playing) { playing = true; document.getElementById('playBtn').innerHTML = '&#9646;&#9646;'; }
   startTimer();
@@ -433,6 +818,12 @@ function restart() {
   document.getElementById('progressFill').style.width = '0%';
   document.getElementById('timeElapsed').textContent = '0:00';
   renderStep(); renderList();
+}
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lb-' + l).classList.add('active');
 }
 
 function setSpeed(s) {
