@@ -220,10 +220,12 @@
       </div>
 
       <div class="hist-form-title">Qigong Lotus Form</div>
-      <div class="hist-chinese">气功莲花功 · Qìgōng Liánhuā Gōng</div>
+      <div class="hist-chinese">莲花气功 · Liánhuā Qìgōng · Jade Lady Tai Chi · Suzette Hosken 2021</div>
       <div class="hist-body">
-        <p>The Lotus Form draws its imagery from the lotus flower — a profound symbol in Chinese culture representing <strong>purity, enlightenment and resilience</strong>. Like the lotus that rises from muddy water to bloom in perfect beauty, the form guides practitioners through movements that cultivate inner stillness and radiant energy regardless of external circumstances.</p>
-        <p>The flowing circular movements of the Lotus Form are designed to open the major energy meridians, particularly those associated with the heart and lungs, while the grounding postures encourage a deep sense of rootedness and calm. It is often used as a meditative practice, bridging the active movement of Tai Chi with the stillness of seated meditation.</p>
+        <p>The Lotus Qigong was created by <strong>Suzette Hosken of Jade Lady Tai Chi</strong> (jadeladytaichi.com.au). The form draws its imagery from the lotus flower — one of the most profound symbols in Chinese and Buddhist culture, representing <strong>purity, awakening and resilience</strong>: the lotus rises from muddy water to bloom in perfect beauty, undisturbed by the conditions around it.</p>
+        <p>The form begins and ends in <strong>Wuji stance</strong> — the state of open emptiness before movement — bookending the sequence with stillness. Each of the 14 movements flows into the next <strong>without repetition</strong>, giving the form a meditative, continuous quality distinct from the repetitive structure of Shibashi.</p>
+        <p>The 14 movements in order: Wuji opening · Waving hands in the air · Turtle treads water · Rabbit digs the earth · Fair maiden sprinkles water on the young lotus · Young lotus blossoms · Turn to press the wind left then right · Lift to the sky · Press to the earth · White crane spreads wings left then right · Rabbit digs the earth · Waving hands in the air · Wuji closing.</p>
+        <p>The animal imagery — turtle, rabbit, white crane — reflects the ancient Chinese tradition of observing nature's creatures to understand health and graceful movement. The white crane is a symbol of longevity and spiritual elevation appearing across Tai Chi and Qigong traditions for over a thousand years.</p>
       </div>
 
       <div class="hist-form-title">Yang Sabre — Dao (刀)</div>
@@ -624,19 +626,20 @@ const SHIBASHI2 = [
 ];
 
 const LOTUS = [
-  { t:"Opening, standing in stillness",             reps:1, mode:"repeat" },
-  { t:"Lotus opening, arms rise",                   reps:3, mode:"repeat" },
-  { t:"Cloud hands, lotus style",                   reps:3, mode:"alternate" },
-  { t:"Lotus petals unfold",                        reps:3, mode:"alternate" },
-  { t:"Dragon stirs the water",                     reps:3, mode:"side" },
-  { t:"Lotus rises from the mud",                   reps:3, mode:"repeat" },
-  { t:"Embracing the lotus",                        reps:3, mode:"alternate" },
-  { t:"Lotus turns to face the sun",                reps:3, mode:"alternate" },
-  { t:"Roots reach deep",                           reps:3, mode:"repeat" },
-  { t:"Petals float on water",                      reps:3, mode:"alternate" },
-  { t:"Golden lotus standing",                      reps:3, mode:"side" },
-  { t:"Lotus closing, arms lower",                  reps:3, mode:"repeat" },
-  { t:"Closing, return to stillness",               reps:1, mode:"repeat" }
+  { t:"Wuji — opening stillness",                       reps:1, mode:"repeat" },
+  { t:"Waving hands in the air",                        reps:1, mode:"repeat" },
+  { t:"Turtle treads water",                            reps:1, mode:"repeat" },
+  { t:"Rabbit digs the earth",                          reps:1, mode:"repeat" },
+  { t:"Fair maiden sprinkles water on the young lotus", reps:1, mode:"repeat" },
+  { t:"Young lotus blossoms",                           reps:1, mode:"repeat" },
+  { t:"Turn to press the wind — left hand",             reps:1, mode:"repeat" },
+  { t:"Turn to press the wind — right hand",            reps:1, mode:"repeat" },
+  { t:"Lift to the sky",                                reps:1, mode:"repeat" },
+  { t:"Press to the earth",                             reps:1, mode:"repeat" },
+  { t:"White crane spreads wings left then right",      reps:1, mode:"repeat" },
+  { t:"Rabbit digs the earth",                          reps:1, mode:"repeat" },
+  { t:"Waving hands in the air",                        reps:1, mode:"repeat" },
+  { t:"Wuji — closing stillness",                       reps:1, mode:"repeat" }
 ];
 
 
@@ -748,7 +751,7 @@ const FORMS = {
   standard:  { name:"Yang 28 — Standard",    short:"Standard",    duration:315,  steps:STANDARD,  hasOpening:true,  repeats:1, expand:false },
   shibashi:  { name:"ShiBaShi Set 1",        short:"ShiBaShi 1",  duration:720,  steps:expandSteps(SHIBASHI),  hasOpening:false, repeats:1, expand:true, intro:"Taiji Qigong Shibashi, 太极气功十八式. 18 fluid movements designed to enhance energy, Qi, and relaxation. Created by Professor Lin Housheng in 1979. Each movement is performed with 6 repetitions. Beginning now." },
   shibashi2: { name:"ShiBaShi Set 3",        short:"ShiBaShi 3",  duration:720,  steps:expandSteps(SHIBASHI2), hasOpening:false, repeats:1, expand:true },
-  lotus:     { name:"Qigong Lotus Form",     short:"Lotus",       duration:480,  steps:expandSteps(LOTUS),     hasOpening:false, repeats:1, expand:true },
+  lotus:     { name:"Qigong Lotus Form",     short:"Lotus",       duration:98,  steps:expandSteps(LOTUS),     hasOpening:false, repeats:1, expand:true },
   sabre:     { name:"Yang Sabre",            short:"Sabre",       duration:120,  steps:SABRE,     hasOpening:false, repeats:1, expand:false },
   jian:      { name:"Yang Jian (Sword)",     short:"Jian",        duration:100,  steps:JIAN,      hasOpening:false, repeats:1, expand:false },
   baduan:    { name:"Ba Duan Jin",            short:"Ba Duan Jin", duration:480,  steps:expandSteps(BADUAN),        hasOpening:false, repeats:1, expand:true },
