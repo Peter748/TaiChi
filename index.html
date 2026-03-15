@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tai Chi">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Tai Chi Form Guide</title>
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --bg2: #242424;
+    --bg3: #2e2e2e;
+    --gold: #c8a96e;
+    --gold2: #e8c98e;
+    --text: #f0ede8;
+    --text2: #a09880;
+    --text3: #6a6050;
+    --border: rgba(200,169,110,0.15);
+    --border2: rgba(200,169,110,0.3);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Text', sans-serif; overflow: hidden; }
+
+  #root {
+    display: flex; flex-direction: column; height: 100%;
+    padding-top: var(--safe-top); padding-bottom: var(--safe-bottom);
+  }
+
+  /* Header */
+  .header {
+    padding: 14px 20px 10px;
+    border-bottom: 0.5px solid var(--border);
+    flex-shrink: 0;
+  }
+  .header-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+
+  /* Form tabs */
+  .tabs {
+    display: flex; gap: 0; overflow-x: auto; padding: 10px 16px;
+    border-bottom: 0.5px solid var(--border); flex-shrink: 0;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    color: var(--text2); cursor: pointer; white-space: nowrap; border: 0.5px solid transparent;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .tab.active { color: var(--gold); border-color: var(--border2); background: rgba(200,169,110,0.08); }
+
+  /* Player area */
+  .player { padding: 16px 20px 12px; flex-shrink: 0; }
+
+  .step-card {
+    background: var(--bg2); border-radius: 14px; padding: 18px 20px;
+    border: 0.5px solid var(--border); margin-bottom: 14px; min-height: 90px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .step-label { font-size: 11px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .step-title { font-size: 22px; font-weight: 600; color: var(--text); line-height: 1.25; }
+
+  /* Progress */
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .progress-track { flex: 1; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; width: 0%; transition: width 0.4s linear; }
+  .time-left { font-size: 12px; color: var(--text2); min-width: 36px; text-align: right; }
+  .time-total { font-size: 12px; color: var(--text3); min-width: 36px; }
+
+  /* Controls */
+  .controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 4px; }
+  .btn-icon {
+    width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--border2);
+    background: var(--bg2); color: var(--text); font-size: 16px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .btn-icon:active { transform: scale(0.92); background: var(--bg3); }
+  .btn-play {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--gold); border: none; color: #1a1a1a; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .btn-play:active { transform: scale(0.93); background: var(--gold2); }
+
+  .meta-row { display: flex; justify-content: center; margin-top: 10px; }
+  .meta-text { font-size: 12px; color: var(--text3); }
+
+  /* Speed pill */
+  .speed-row { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+  .speed-btn {
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 0.5px solid var(--border); background: transparent; color: var(--text2); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .speed-btn.active { border-color: var(--border2); color: var(--gold); background: rgba(200,169,110,0.08); }
+
+  /* Step list */
+  .step-list-wrap { flex: 1; overflow-y: auto; padding: 4px 16px 16px; scrollbar-width: none; }
+  .step-list-wrap::-webkit-scrollbar { display: none; }
+
+  .list-header { font-size: 11px; letter-spacing: 0.1em; color: var(--text3); text-transform: uppercase; padding: 8px 4px 6px; }
+
+  .step-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 12px; border-radius: 10px; cursor: pointer; transition: background 0.12s;
+  }
+  .step-row:active, .step-row.active { background: var(--bg2); }
+  .step-row.done .sr-name { color: var(--text3); }
+  .step-row.active .sr-name { color: var(--gold); }
+  .sr-num {
+    width: 26px; height: 26px; border-radius: 50%; border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--text3); flex-shrink: 0;
+  }
+  .step-row.done .sr-num { background: var(--bg2); }
+  .step-row.active .sr-num { border-color: var(--gold); color: var(--gold); }
+  .sr-name { flex: 1; font-size: 14px; color: var(--text2); line-height: 1.3; }
+  .sr-time { font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+  /* Install banner */
+  #installBanner {
+    display: none; align-items: center; justify-content: space-between;
+    padding: 10px 20px; background: rgba(200,169,110,0.1); border-bottom: 0.5px solid var(--border2);
+    flex-shrink: 0;
+  }
+  #installBanner.show { display: flex; }
+  .install-text { font-size: 13px; color: var(--text); }
+  .install-btn {
+    padding: 6px 14px; border-radius: 20px; background: var(--gold); color: #1a1a1a;
+    font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  }
+  .install-dismiss { font-size: 18px; color: var(--text3); cursor: pointer; padding: 0 4px; }
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="installBanner">
+    <span class="install-text">Add to Home Screen for offline use</span>
+    <button class="install-btn" id="installBtn">Install</button>
+    <span class="install-dismiss" onclick="document.getElementById('installBanner').classList.remove('show')">&#x2715;</span>
+  </div>
+
+  <div class="header">
+    <div class="header-title">Newcastle Tai Chi &mdash; Form Guide</div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="player">
+    <div class="step-card">
+      <div class="step-label" id="stepLabel">&nbsp;</div>
+      <div class="step-title" id="stepTitle">Press play to begin</div>
+    </div>
+
+    <div class="progress-row">
+      <div class="time-total" id="timeElapsed">0:00</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="time-left" id="timeTotal">0:00</div>
+    </div>
+
+    <div class="controls">
+      <div class="btn-icon" onclick="restart()" title="Restart">&#8635;</div>
+      <div class="btn-icon" onclick="prevStep()">&#9664;</div>
+      <div class="btn-play" id="playBtn" onclick="togglePlay()">&#9654;</div>
+      <div class="btn-icon" onclick="nextStep()">&#9654;&#9654;</div>
+      <div class="btn-icon" onclick="toggleMute()" id="muteBtn" title="Mute voice">&#128264;</div>
+    </div>
+
+    <div class="meta-row">
+      <span class="meta-text" id="metaText"></span>
+    </div>
+
+    <div class="speed-row" id="speedRow">
+      <button class="speed-btn" onclick="setSpeed(0.75)">0.75x</button>
+      <button class="speed-btn active" onclick="setSpeed(1)">1x</button>
+      <button class="speed-btn" onclick="setSpeed(1.25)">1.25x</button>
+      <button class="speed-btn" onclick="setSpeed(1.5)">1.5x</button>
+    </div>
+  </div>
+
+  <div class="step-list-wrap">
+    <div class="list-header" id="listHeader">Steps</div>
+    <div id="stepList"></div>
+  </div>
+</div>
+
+<script>
+const YANG28 = [
+  "Opening stance","Opening form","Ward off left","Roll back","Press","Push",
+  "Raise hands","Left knee brush","Strumming the lute","Fist under elbow",
+  "Repulse the monkey","Pat the high horse","Left heel kick","Left heel kick",
+  "Sidle to left and right to tame the tiger","Tame the tiger — right",
+  "Wave hands like moving clouds — one","Fair lady works at shuttles left",
+  "Fair lady works at shuttles right","Parting the wild horse's mane — left",
+  "Parting the wild horse's mane — right","Left knee brushing and groin punch",
+  "Roll back","Press","Push","Single whip","Snake creeps down",
+  "Step up to form seven stars","Retreat to ride the tiger",
+  "Turn to sweep the lotus feet","Bend the bow and shoot the tiger",
+  "Step up to parry and punch","Apparent close up","Cross hands and closing form"
+];
+
+const SHIBASHI = [
+  "Commencing form — rising and lowering hands","Broadening the chest",
+  "Painting rainbows","Separating clouds","Fixed stance whirling arms",
+  "Rowing in the still lake","Holding the ball in front of shoulders",
+  "Turning to gaze at the moon","Turning the waist and pushing palms",
+  "Playing with clouds in horse-riding stance",
+  "Scooping the sea while looking at the sky","Pushing the waves",
+  "Flying dove spreads its wings","Punching in horse-riding stance",
+  "Flying wild goose","Spinning wheels","Stepping and bouncing ball",
+  "Pressing palms in calmness — closing form"
+];
+
+const SABRE = [
+  "Opening — hold sabre","Protect the knee — left step","Immortal points the way",
+  "Three rings around the moon","Swallow skims the water","Right intercept",
+  "Left intercept","Little star of Dipper","Swallow skims the water — second",
+  "Holding the moon","Wind sweeps plum blossom","Lion shakes its head",
+  "Tiger holds its head","Wild horse leaps over stream","Turn body to downward chop",
+  "Rein in horse on the cliff","Compass — left and right",
+  "Night traveler searches the sea","Shoot the wild goose",
+  "Blue dragon coming out of water","Wind sweeps plum blossom — second",
+  "Blocking and stabbing","Embrace the moon — closing"
+];
+
+const JIAN = [
+  "Opening — hold sword","Three rings around the moon","Wild horse jumps the stream",
+  "Little star of the Dipper","Swallow skims the water","Blocking right",
+  "Left intercept thrust","Bee enters the hive","Spirit cat catches the rat",
+  "Phoenix spreads both wings","Yellow bee enters the hive","Swallow enters the nest",
+  "Lift knee to thrust upward","Shoot the wild goose","White ape presents fruit",
+  "Fishing in the dragon pond","Embrace the moon","Wind sweeps the plum blossom",
+  "Stand on one leg — thrust upward","Bow step — thrust forward",
+  "Crouch down to sweep","Golden cock stands alone","Whirlwind",
+  "Compass — left and right","Steady the sea needle","Support the sky",
+  "Swallow skims the water — closing","Step forward — parry and thrust",
+  "Closing — return sword"
+];
+
+const FORMS = {
+  yang28:   { name:"Yang 28",           short:"Yang 28",  duration:290, steps:YANG28 },
+  shibashi: { name:"ShiBaShi 18",       short:"ShiBaShi", duration:600, steps:SHIBASHI },
+  sabre:    { name:"Yang Sabre",        short:"Sabre",    duration:240, steps:SABRE },
+  jian:     { name:"Yang Jian (Sword)", short:"Jian",     duration:300, steps:JIAN }
+};
+
+let cf = 'yang28';
+let ci = -1;
+let playing = false;
+let speed = 1.0;
+let muted = false;
+let synth = window.speechSynthesis;
+let stepStart = 0;
+let stepElapsed = 0;
+let raf = null;
+let deferredPrompt = null;
+
+function form() { return FORMS[cf]; }
+function stepDur() { return form().duration / form().steps.length; }
+function fmt(s) {
+  s = Math.max(0, Math.round(s));
+  return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+}
+
+// Install prompt
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('installBanner').classList.add('show');
+});
+document.getElementById('installBtn').onclick = async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBanner').classList.remove('show');
+};
+
+// Service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = Object.entries(FORMS).map(([k,v]) =>
+    `<div class="tab${k===cf?' active':''}" onclick="selectForm('${k}')">${v.short}</div>`
+  ).join('');
+}
+
+function renderMeta() {
+  const f = form();
+  document.getElementById('metaText').textContent =
+    `${f.steps.length} steps · ${fmt(f.duration)} · ${stepDur().toFixed(1)}s each`;
+  document.getElementById('timeTotal').textContent = fmt(f.duration);
+  document.getElementById('listHeader').textContent = f.name + ' — Steps';
+}
+
+function renderStep() {
+  const f = form();
+  if (ci < 0) {
+    document.getElementById('stepLabel').innerHTML = '&nbsp;';
+    document.getElementById('stepTitle').textContent = 'Press play to begin';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('timeElapsed').textContent = '0:00';
+    return;
+  }
+  document.getElementById('stepLabel').textContent = `Step ${ci} of ${f.steps.length - 1}`;
+  document.getElementById('stepTitle').textContent = f.steps[ci];
+}
+
+function renderList() {
+  const f = form();
+  const dur = stepDur();
+  document.getElementById('stepList').innerHTML = f.steps.map((s,i) => {
+    let cls = 'step-row';
+    if (i === ci) cls += ' active';
+    else if (i < ci) cls += ' done';
+    return `<div class="${cls}" id="sr${i}" onclick="jumpTo(${i})">
+      <div class="sr-num">${i}</div>
+      <div class="sr-name">${s}</div>
+      <div class="sr-time">${fmt(i*dur)}</div>
+    </div>`;
+  }).join('');
+}
+
+function scrollToStep(i) {
+  const el = document.getElementById('sr'+i);
+  if (el) el.scrollIntoView({ block:'nearest', behavior:'smooth' });
+}
+
+function speak(text) {
+  if (!synth || muted) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = Math.min(speed * 0.85, 1.3);
+  u.pitch = 1.0;
+  synth.speak(u);
+}
+
+function tick() {
+  if (!playing) return;
+  stepElapsed = (performance.now() - stepStart) / 1000;
+  const realDur = stepDur() / speed;
+  const total = ci * stepDur() + stepElapsed * speed;
+  document.getElementById('timeElapsed').textContent = fmt(total);
+  document.getElementById('progressFill').style.width = Math.min((total / form().duration) * 100, 100) + '%';
+  if (stepElapsed >= realDur) advance();
+  else raf = requestAnimationFrame(tick);
+}
+
+function startTimer() {
+  stepStart = performance.now(); stepElapsed = 0;
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(tick);
+}
+
+function advance() {
+  ci++;
+  const f = form();
+  if (ci >= f.steps.length) {
+    ci = f.steps.length - 1; playing = false;
+    document.getElementById('playBtn').innerHTML = '&#9654;';
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('timeElapsed').textContent = fmt(f.duration);
+    speak('Form complete. Well done.');
+    renderStep(); renderList(); return;
+  }
+  speak(f.steps[ci]);
+  renderStep(); renderList(); scrollToStep(ci);
+  startTimer();
+}
+
+function togglePlay() {
+  if (playing) {
+    playing = false;
+    document.getElementById('playBtn').innerHTML = '&#9654;';
+    synth && synth.cancel();
+    cancelAnimationFrame(raf);
+  } else {
+    playing = true;
+    document.getElementById('playBtn').innerHTML = '&#9646;&#9646;';
+    if (ci < 0) {
+      ci = 0; speak(form().steps[0]);
+      renderStep(); renderList(); scrollToStep(0);
+    }
+    startTimer();
+  }
+}
+
+function prevStep() {
+  if (ci <= 0) return;
+  ci--; speak(form().steps[ci]);
+  renderStep(); renderList(); scrollToStep(ci);
+  if (playing) startTimer();
+}
+
+function nextStep() {
+  if (ci >= form().steps.length - 1) return;
+  ci++; speak(form().steps[ci]);
+  renderStep(); renderList(); scrollToStep(ci);
+  if (playing) startTimer();
+}
+
+function jumpTo(i) {
+  ci = i; speak(form().steps[i]);
+  renderStep(); renderList(); scrollToStep(i);
+  if (!playing) { playing = true; document.getElementById('playBtn').innerHTML = '&#9646;&#9646;'; }
+  startTimer();
+}
+
+function restart() {
+  playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
+  ci = -1; stepElapsed = 0;
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('timeElapsed').textContent = '0:00';
+  renderStep(); renderList();
+}
+
+function setSpeed(s) {
+  speed = s;
+  document.querySelectorAll('.speed-btn').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.textContent) === s);
+  });
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('muteBtn').innerHTML = muted ? '&#128263;' : '&#128264;';
+  if (muted) synth && synth.cancel();
+}
+
+function selectForm(key) {
+  playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
+  cf = key; ci = -1; stepElapsed = 0;
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  renderTabs(); renderMeta(); renderStep(); renderList();
+}
+
+// Keep speech synthesis alive on iOS (it pauses in background)
+setInterval(() => {
+  if (playing && synth && synth.paused) synth.resume();
+}, 3000);
+
+renderTabs(); renderMeta(); renderStep(); renderList();
+</script>
+</body>
+</html>
