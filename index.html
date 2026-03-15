@@ -2,432 +2,317 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0d1117">
+<meta name="theme-color" content="#07090f">
 <title>Golden Lotus Tai Chi</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;700&display=swap">
 <style>
-:root {
-  --bg:        #0d1117;
-  --bg2:       #161b24;
-  --bg3:       #1c2333;
-  --card:      #1e2638;
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.14);
-  --gold:      #d4a843;
-  --gold2:     #f0c060;
-  --gold-dim:  rgba(212,168,67,0.15);
-  --gold-glow: rgba(212,168,67,0.35);
-  --text:      #e8eaf0;
-  --text2:     #9ba3b8;
-  --text3:     #5a6480;
-  --jade:      #4ecdc4;
-  --jade-dim:  rgba(78,205,196,0.12);
-  --red:       #e05555;
-  --green:     #52c47a;
-  --safe-top:  env(safe-area-inset-top);
-  --safe-bot:  env(safe-area-inset-bottom);
-  --r:         14px;
-  --r-sm:      10px;
-  --font:      'Outfit', sans-serif;
+:root{
+  --bg:#07090f;--bg2:#0d1020;--bg3:#131828;--card:#181e30;--card2:#1c2338;
+  --b:rgba(255,255,255,.055);--b2:rgba(255,255,255,.11);
+  --teal:#5ec4c0;--teal2:#87d8d5;--tg:rgba(94,196,192,.14);--tglo:rgba(94,196,192,.25);
+  --gold:#c9993a;--gold2:#e8b84b;--goldg:rgba(201,153,58,.14);
+  --pur:rgba(110,80,180,.18);
+  --text:#eceef5;--text2:#8b94b0;--text3:#434d6a;--green:#52c47a;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --st:env(safe-area-inset-top);--sb:env(safe-area-inset-bottom);
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--sans);}
+#root{display:flex;flex-direction:column;height:100%;padding-top:var(--st);padding-bottom:var(--sb);}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--font); }
-#root { display: flex; flex-direction: column; height: 100%; padding-top: var(--safe-top); padding-bottom: var(--safe-bot); }
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 9px;
+  background:linear-gradient(180deg,rgba(7,9,15,.98),rgba(7,9,15,.88));
+  border-bottom:1px solid var(--b);flex-shrink:0;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.hdr-brand{display:flex;align-items:center;gap:10px;}
+.hdr-img{width:38px;height:38px;border-radius:50%;object-fit:cover;
+  border:1.5px solid rgba(94,196,192,.45);box-shadow:0 0 14px rgba(94,196,192,.22);}
+.hdr-title{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.03em;line-height:1.2;
+  background:linear-gradient(100deg,var(--teal2),var(--text));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hdr-sub{font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+.hdr-install{display:none;background:var(--tg);border:1px solid var(--teal);color:var(--teal);
+  font-family:var(--sans);font-size:11px;font-weight:500;padding:5px 13px;border-radius:20px;cursor:pointer;}
+.hdr-install.show{display:block;}
 
-/* ── HEADER ─────────────────────────────────────────────── */
-.app-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px 10px;
-  background: linear-gradient(180deg, rgba(13,17,23,0.98) 0%, rgba(13,17,23,0.95) 100%);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.app-logo { display: flex; align-items: center; gap: 10px; }
-.app-logo img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--gold); }
-.app-logo-text { line-height: 1.2; }
-.app-logo-title { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--gold); text-transform: uppercase; }
-.app-logo-sub { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; }
+.cats{display:flex;flex-shrink:0;border-bottom:1px solid var(--b);background:var(--bg2);
+  overflow-x:auto;scrollbar-width:none;}
+.cats::-webkit-scrollbar{display:none;}
+.cat{display:flex;align-items:center;gap:5px;padding:10px 15px;font-size:12px;font-weight:500;
+  letter-spacing:.04em;cursor:pointer;white-space:nowrap;color:var(--text3);
+  border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0;}
+.cat span{font-size:13px;}
+.cat.on{color:var(--teal);border-bottom-color:var(--teal);}
+.cat.on-gold{color:var(--gold2);border-bottom-color:var(--gold);}
+.cat.on-purple{color:#a990e0;border-bottom-color:#8b6fc8;}
 
-.install-btn {
-  background: var(--gold-dim); border: 1px solid var(--gold); color: var(--gold);
-  font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-  padding: 5px 12px; border-radius: 20px; cursor: pointer; display: none;
-}
-.install-btn.show { display: block; }
+.fdrawer{display:flex;gap:7px;padding:8px 14px;flex-shrink:0;
+  border-bottom:1px solid var(--b);background:var(--bg2);overflow-x:auto;scrollbar-width:none;}
+.fdrawer::-webkit-scrollbar{display:none;}
+.fcard{flex-shrink:0;cursor:pointer;border-radius:9px;background:var(--bg3);
+  border:1px solid var(--b);padding:7px 13px;min-width:100px;transition:all .2s;}
+.fcard-name{font-size:12px;font-weight:500;color:var(--text2);white-space:nowrap;}
+.fcard-meta{font-size:10px;color:var(--text3);margin-top:2px;}
+.fcard.on{background:var(--card);border-color:var(--teal);}
+.fcard.on .fcard-name{color:var(--text);}
+.fcard.on .fcard-meta{color:var(--teal);}
 
-/* ── CATEGORY SELECTOR ───────────────────────────────────── */
-.cat-bar {
-  display: flex; gap: 6px; padding: 10px 16px 8px;
-  background: var(--bg); border-bottom: 1px solid var(--border);
-  overflow-x: auto; flex-shrink: 0; scrollbar-width: none;
-}
-.cat-bar::-webkit-scrollbar { display: none; }
-.cat-pill {
-  display: flex; align-items: center; gap: 5px;
-  padding: 6px 14px; border-radius: 20px; cursor: pointer; white-space: nowrap;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
-  border: 1.5px solid var(--border2); color: var(--text2);
-  background: var(--bg2); transition: all 0.2s; flex-shrink: 0;
-}
-.cat-pill .cat-icon { font-size: 14px; }
-.cat-pill.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
-.cat-pill.active-jade { background: var(--jade-dim); border-color: var(--jade); color: var(--jade); }
+#main{display:flex;flex-direction:column;flex:1;overflow:hidden;}
+#practicePanel{display:flex;flex-direction:column;flex:1;overflow:hidden;}
+#practicePanel.hide{display:none;}
 
-/* ── FORM CARDS DRAWER ───────────────────────────────────── */
-.form-drawer {
-  display: flex; gap: 8px; padding: 8px 16px;
-  overflow-x: auto; flex-shrink: 0; scrollbar-width: none;
-  border-bottom: 1px solid var(--border);
-}
-.form-drawer::-webkit-scrollbar { display: none; }
-.form-card {
-  flex-shrink: 0; padding: 7px 14px; border-radius: var(--r-sm);
-  cursor: pointer; border: 1.5px solid var(--border); background: var(--bg2);
-  transition: all 0.2s;
-}
-.form-card .fc-name { font-size: 12px; font-weight: 500; color: var(--text2); white-space: nowrap; }
-.form-card .fc-dur { font-size: 10px; color: var(--text3); margin-top: 1px; }
-.form-card.active { background: var(--card); border-color: var(--gold); }
-.form-card.active .fc-name { color: var(--text); }
-.form-card.active .fc-dur { color: var(--gold); }
+.hero{position:relative;flex-shrink:0;overflow:hidden;padding:16px 20px 14px;
+  background:linear-gradient(165deg,var(--card2) 0%,var(--card) 60%,var(--bg3) 100%);
+  border-bottom:1px solid var(--b);}
+.hero::before{content:'';position:absolute;top:-50px;right:-40px;width:260px;height:260px;
+  border-radius:50%;background:radial-gradient(circle,var(--tglo) 0%,transparent 68%);
+  pointer-events:none;opacity:.6;}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-30px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,var(--pur) 0%,transparent 65%);pointer-events:none;}
+.hero-glyph{position:absolute;right:14px;bottom:-10px;font-family:'Noto Serif SC',serif;
+  font-size:100px;line-height:1;color:rgba(94,196,192,.05);pointer-events:none;user-select:none;z-index:0;}
+.hero-inner{position:relative;z-index:1;}
+.hero-eyebrow{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.pip{width:6px;height:6px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s;}
+.pip.live{background:var(--green);animation:pip 1.2s ease-in-out infinite;}
+@keyframes pip{0%,100%{opacity:.4;transform:scale(.85)}50%{opacity:1;transform:scale(1.25)}}
+.hero-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-weight:500;}
+.hero-step{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1.2;color:var(--text);margin-bottom:3px;}
+.hero-zh{font-family:'Noto Serif SC',serif;font-size:13px;color:var(--teal);letter-spacing:.09em;opacity:.9;}
+.hero-hint{font-size:11px;color:var(--text3);margin-top:3px;}
 
-/* ── MAIN AREA ───────────────────────────────────────────── */
-#mainContent { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+.prog{padding:9px 18px 7px;flex-shrink:0;}
+.prog-bar{height:2px;background:rgba(255,255,255,.07);border-radius:1px;overflow:hidden;margin-bottom:5px;}
+.prog-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--teal),var(--teal2));
+  width:0%;transition:width .5s linear;}
+.prog-row{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text3);}
 
-/* ── PRACTICE PANEL ──────────────────────────────────────── */
-#practicePanel { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
-#practicePanel.hide { display: none; }
+.ctrls{padding:7px 18px 9px;flex-shrink:0;}
+.ctrls-main{display:flex;align-items:center;justify-content:center;gap:13px;margin-bottom:9px;}
+.cbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--b2);background:var(--bg3);
+  color:var(--text2);font-size:15px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;user-select:none;flex-shrink:0;}
+.cbtn:active{transform:scale(.88);background:var(--bg2);}
+.playbtn{width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(145deg,var(--teal2),var(--teal));
+  border:none;color:var(--bg);font-size:18px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;user-select:none;flex-shrink:0;
+  box-shadow:0 0 20px var(--tglo),0 4px 14px rgba(0,0,0,.5);}
+.playbtn:active{transform:scale(.92);box-shadow:0 0 8px var(--tglo);}
+.ctrls-row{display:flex;align-items:center;justify-content:space-between;}
+.seg-grp{display:flex;gap:3px;}
+.seg{padding:4px 9px;border-radius:5px;font-size:11px;font-weight:500;font-family:var(--sans);
+  border:1px solid var(--b);color:var(--text3);background:var(--bg3);cursor:pointer;transition:all .15s;}
+.seg.on{background:var(--tg);border-color:var(--teal);color:var(--teal);}
 
-/* ── STEP DISPLAY ────────────────────────────────────────── */
-.step-hero {
-  background: linear-gradient(180deg, var(--bg3) 0%, var(--card) 100%);
-  padding: 16px 20px 14px; flex-shrink: 0; position: relative; overflow: hidden;
-}
-.step-hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 80% 50%, var(--gold-glow) 0%, transparent 70%);
-  opacity: 0.25; pointer-events: none;
-}
-.step-number-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.step-number-badge .badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--gold); display: inline-block; opacity: 0.7;
-}
-.step-number-badge.playing .badge-dot { background: var(--green); animation: pulse 1s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+.list-shell{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.vtabs{display:flex;border-bottom:1px solid var(--b);flex-shrink:0;padding:0 16px;}
+.vtab{flex:1;text-align:center;padding:7px 4px;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--text3);cursor:pointer;
+  border-bottom:2px solid transparent;transition:all .2s;}
+.vtab.on{color:var(--teal);border-bottom-color:var(--teal);}
+#stepList{flex:1;overflow-y:auto;padding:3px 0;scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;}
+#stepList::-webkit-scrollbar{width:3px;}
+#stepList::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:2px;}
+.sr{display:flex;align-items:center;gap:10px;padding:8px 16px;cursor:pointer;transition:background .1s;}
+.sr:hover{background:rgba(255,255,255,.025);}
+.sr.active{background:var(--card2);}
+.sr.done .sr-name{color:var(--text3);}
+.sr.active .sr-num{background:var(--teal);color:var(--bg);border-color:var(--teal);font-weight:700;}
+.sr-num{width:24px;height:24px;border-radius:50%;flex-shrink:0;border:1px solid var(--b2);background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3);transition:all .15s;}
+.sr-name{flex:1;font-size:13px;color:var(--text);line-height:1.3;}
+.sr-time{font-size:10px;color:var(--text3);font-variant-numeric:tabular-nums;}
 
-.step-title-main { font-size: 22px; font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 3px; }
-.step-title-zh { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--gold); letter-spacing: 0.1em; opacity: 0.9; }
-.step-subtitle { font-size: 12px; color: var(--text3); margin-top: 2px; }
+#historyPanel{display:none;flex:1;overflow-y:auto;padding:0 0 60px;scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;}
+#historyPanel.show{display:block;}
+#historyPanel::-webkit-scrollbar{width:3px;}
+#aboutArea{display:none;overflow-y:auto;flex:1;padding:0 0 60px;scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;}
 
-/* ── PROGRESS ────────────────────────────────────────────── */
-.progress-area { padding: 10px 20px 8px; flex-shrink: 0; }
-.progress-track {
-  height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-bottom: 6px;
-}
-.progress-fill {
-  height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
-  width: 0%; transition: width 0.5s linear; border-radius: 2px;
-}
-.progress-times { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); }
-.progress-meta { font-size: 11px; color: var(--text3); text-align: center; margin-top: 4px; }
+.hist-section{padding:16px 20px 0;}
+.hist-form-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--teal2);
+  margin:20px 0 5px;padding-bottom:6px;border-bottom:1px solid var(--b);}
+.hist-chinese{font-size:11px;color:var(--text3);letter-spacing:.06em;margin-bottom:8px;}
+.hist-body{font-size:13px;color:var(--text2);line-height:1.75;}
+.hist-body p{margin-bottom:10px;}
+.hist-body strong{color:var(--text);}
+.hist-body em{color:var(--teal);font-style:normal;}
 
-/* ── CONTROLS ────────────────────────────────────────────── */
-.controls-area { padding: 8px 20px 10px; flex-shrink: 0; }
-.controls-main { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 10px; }
-.ctrl-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 1.5px solid var(--border2); background: var(--bg2);
-  color: var(--text); font-size: 15px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.15s; user-select: none; flex-shrink: 0;
-}
-.ctrl-btn:active { transform: scale(0.9); background: var(--bg3); }
-.ctrl-btn.muted { color: var(--text3); border-color: var(--border); }
-.play-btn {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: linear-gradient(145deg, var(--gold2), var(--gold));
-  border: none; color: #0d1117; font-size: 22px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.15s; user-select: none; flex-shrink: 0;
-  box-shadow: 0 0 24px var(--gold-glow);
-}
-.play-btn:active { transform: scale(0.93); box-shadow: 0 0 12px var(--gold-glow); }
+.about-hero{position:relative;text-align:center;padding:28px 20px 22px;overflow:hidden;
+  background:linear-gradient(180deg,var(--card2) 0%,var(--bg2) 100%);border-bottom:1px solid var(--b);}
+.about-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,var(--tglo) 0%,transparent 65%);pointer-events:none;opacity:.4;}
+.about-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 11px;
+  border:2px solid var(--teal);box-shadow:0 0 20px var(--tglo);position:relative;z-index:1;}
+.about-name{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);position:relative;z-index:1;}
+.about-tagline{font-size:11px;color:var(--teal);letter-spacing:.09em;text-transform:uppercase;margin-top:3px;position:relative;z-index:1;}
+.about-sec{padding:16px 18px 0;}
+.about-sec-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);font-weight:600;margin-bottom:9px;}
+.lineage-card{background:var(--bg3);border:1px solid var(--b);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.lineage-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--b);}
+.lineage-row:last-child{border:none;}
+.lg-gen{width:26px;height:26px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0;border:1px solid var(--b2);}
+.lg-gen.me{background:var(--tg);border-color:var(--teal);color:var(--teal);}
+.lg-name{flex:1;font-size:13px;color:var(--text);}
+.lg-note{font-size:10px;color:var(--text3);}
+.about-bio{font-size:13px;color:var(--text2);line-height:1.75;}
+.about-bio p{margin-bottom:10px;}
+.about-bio strong{color:var(--text);}
+.medal-card{display:flex;align-items:center;gap:12px;padding:12px 15px;border-radius:10px;margin-bottom:10px;
+  background:linear-gradient(135deg,rgba(201,153,58,.11),rgba(201,153,58,.05));border:1px solid rgba(201,153,58,.28);}
+.medal-icon{font-size:24px;}
+.medal-title{font-size:13px;font-weight:600;color:var(--gold2);}
+.medal-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.pushh-card{background:var(--bg3);border:1px solid var(--b);border-radius:10px;padding:13px 15px;margin-bottom:10px;}
+.pushh-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.pushh-body{font-size:13px;color:var(--text2);line-height:1.7;}
 
-.controls-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.speed-group, .lang-group { display: flex; gap: 4px; }
-.seg-btn {
-  padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
-  font-family: var(--font); border: 1.5px solid var(--border); color: var(--text3);
-  background: var(--bg2); cursor: pointer; transition: all 0.15s; letter-spacing: 0.03em;
-}
-.seg-btn.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+.cdov{display:none;position:fixed;inset:0;z-index:999;background:rgba(7,9,15,.94);backdrop-filter:blur(18px);
+  flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.cdov.show{display:flex;}
+.cd-num{font-family:var(--serif);font-size:90px;font-weight:700;color:var(--teal);line-height:1;text-shadow:0 0 40px var(--tglo);}
+.cd-txt{font-size:14px;color:var(--text2);letter-spacing:.06em;}
 
-/* ── STEP LIST PANEL ─────────────────────────────────────── */
-.list-panel { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-.view-bar {
-  display: flex; padding: 0 16px; gap: 0; flex-shrink: 0;
-  border-bottom: 1px solid var(--border);
-}
-.view-tab {
-  flex: 1; text-align: center; padding: 8px; font-size: 12px; font-weight: 600;
-  color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent;
-  transition: all 0.2s; letter-spacing: 0.04em;
-}
-.view-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-#stepList { flex: 1; overflow-y: auto; padding: 6px 0; scrollbar-width: thin; scrollbar-color: var(--bg3) transparent; }
-.step-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 16px; cursor: pointer; transition: background 0.12s; border-radius: 0;
-}
-.step-row:hover { background: var(--bg2); }
-.step-row.active { background: var(--card); }
-.step-row.done .sr-name { color: var(--text3); }
-.step-row.active .sr-num { background: var(--gold); color: #0d1117; border-color: var(--gold); }
-.sr-num {
-  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
-  border: 1.5px solid var(--border2); background: var(--bg3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 600; color: var(--text3); transition: all 0.15s;
-}
-.sr-name { flex: 1; font-size: 13px; color: var(--text); line-height: 1.3; }
-.sr-time { font-size: 11px; color: var(--text3); font-variant-numeric: tabular-nums; }
-
-/* ── HISTORY / ABOUT PANEL ───────────────────────────────── */
-#historyPanel { display: none; flex: 1; overflow-y: auto; padding: 0 0 40px; scrollbar-width: thin; scrollbar-color: var(--bg3) transparent; }
-#historyPanel.show { display: block; }
-
-#aboutArea { display: none; overflow-y: auto; flex: 1; padding: 0 0 40px; }
-
-.hist-section { padding: 20px 20px 0; }
-.hist-form-title {
-  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--gold); margin: 20px 0 8px; padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.hist-chinese { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; margin-bottom: 10px; }
-.hist-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
-.hist-body p { margin-bottom: 12px; }
-.hist-body strong { color: var(--text); }
-.hist-body em { color: var(--jade); font-style: normal; }
-
-/* About specific */
-.about-photo {
-  width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-  display: block; margin: 20px auto 12px;
-  border: 2.5px solid var(--gold);
-  box-shadow: 0 0 24px var(--gold-glow);
-}
-.about-name { text-align: center; font-size: 17px; font-weight: 700; color: var(--text); }
-.about-title { text-align: center; font-size: 12px; color: var(--gold); margin-top: 2px; letter-spacing: 0.05em; }
-.about-lineage { margin: 14px 20px; background: var(--bg2); border-radius: var(--r); padding: 12px; border: 1px solid var(--border); }
-.about-lineage-title { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
-.lineage-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); }
-.lineage-row:last-child { border: none; }
-.lineage-gen { font-size: 10px; font-weight: 700; color: var(--text3); width: 24px; text-align: center; flex-shrink: 0; }
-.lineage-name { font-size: 13px; color: var(--text); font-weight: 500; flex: 1; }
-.lineage-name.highlight { color: var(--gold); }
-.about-bio { padding: 0 20px; font-size: 13px; color: var(--text2); line-height: 1.7; }
-.about-bio p { margin-bottom: 10px; }
-.about-achievement {
-  display: flex; align-items: center; gap: 12px;
-  margin: 16px 20px; padding: 12px 14px; border-radius: var(--r);
-  background: var(--gold-dim); border: 1px solid var(--gold);
-}
-.achievement-icon { font-size: 26px; }
-.achievement-title { font-size: 13px; font-weight: 600; color: var(--gold); }
-.achievement-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
-
-/* ── COUNTDOWN OVERLAY ───────────────────────────────────── */
-.countdown-overlay {
-  display: none; position: fixed; inset: 0; z-index: 999;
-  background: rgba(13,17,23,0.92); backdrop-filter: blur(8px);
-  flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-}
-.countdown-overlay.show { display: flex; }
-.countdown-num { font-size: 80px; font-weight: 700; color: var(--gold); line-height: 1; }
-.countdown-text { font-size: 16px; color: var(--text2); }
-
-/* ── BOTTOM NAV ──────────────────────────────────────────── */
-.bottom-nav {
-  display: flex; flex-shrink: 0;
-  background: rgba(13,17,23,0.97); border-top: 1px solid var(--border);
-  padding-bottom: var(--safe-bot);
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 8px 0 6px; cursor: pointer; gap: 3px; transition: all 0.15s; color: var(--text3);
-}
-.nav-item.active { color: var(--gold); }
-.nav-icon { font-size: 20px; line-height: 1; }
-.nav-label { font-size: 9px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
-
-/* ── SCROLLBARS ──────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+.bnav{display:flex;flex-shrink:0;background:rgba(7,9,15,.97);border-top:1px solid var(--b);padding-bottom:var(--sb);}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:7px 0 5px;cursor:pointer;gap:2px;transition:all .15s;color:var(--text3);}
+.bni.on{color:var(--teal);}
+.bni-icon{font-size:18px;line-height:1;}
+.bni-lbl{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
 </style>
 </head>
 <body>
 <div id="root">
 
-  <!-- HEADER -->
-  <div class="app-header">
-    <div class="app-logo">
-      <img src="peter.jpg" alt="Golden Lotus Tai Chi">
-      <div class="app-logo-text">
-        <div class="app-logo-title">Golden Lotus</div>
-        <div class="app-logo-sub">Tai Chi · Form Guide</div>
-      </div>
-    </div>
-    <button class="install-btn" id="installBtn">+ Install</button>
-  </div>
-
-  <!-- CATEGORY BAR -->
-  <div class="cat-bar" id="catBar">
-    <div class="cat-pill active" data-cat="forms" onclick="selectCat('forms')">
-      <span class="cat-icon">🥋</span> Tai Chi Forms
-    </div>
-    <div class="cat-pill" data-cat="qigong" onclick="selectCat('qigong')">
-      <span class="cat-icon">☯️</span> Qigong
-    </div>
-    <div class="cat-pill" data-cat="weapons" onclick="selectCat('weapons')">
-      <span class="cat-icon">⚔️</span> Weapons
-    </div>
-    <div class="cat-pill" data-cat="about" onclick="selectCat('about')">
-      <span class="cat-icon">👤</span> About
+<div class="hdr">
+  <div class="hdr-brand">
+    <img class="hdr-img" src="peter.jpg" alt="Peter Davey">
+    <div>
+      <div class="hdr-title">Golden Lotus</div>
+      <div class="hdr-sub">Tai Chi · Form Guide</div>
     </div>
   </div>
+  <button class="hdr-install" id="installBtn">＋ Install</button>
+</div>
 
-  <!-- FORM CARDS DRAWER -->
-  <div class="form-drawer" id="formDrawer"></div>
+<div class="cats" id="cats">
+  <div class="cat on"     data-cat="forms"   onclick="selCat('forms')">  <span>🥋</span>Tai Chi Forms</div>
+  <div class="cat"        data-cat="qigong"  onclick="selCat('qigong')"> <span>☯</span>Qigong</div>
+  <div class="cat"        data-cat="weapons" onclick="selCat('weapons')"><span>⚔</span>Weapons</div>
+  <div class="cat"        data-cat="about"   onclick="selCat('about')">  <span>👤</span>About</div>
+</div>
 
-  <!-- MAIN CONTENT -->
-  <div id="mainContent">
+<div class="fdrawer" id="fdrawer"></div>
 
-    <!-- PRACTICE PANEL -->
-    <div id="practicePanel">
-
-      <!-- STEP HERO -->
-      <div class="step-hero">
-        <div class="step-number-badge" id="stepBadge">
-          <span class="badge-dot"></span>
-          <span id="stepLabel">Ready</span>
+<div id="main">
+  <div id="practicePanel">
+    <div class="hero">
+      <div class="hero-glyph" id="heroGlyph">功</div>
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <div class="pip" id="pip"></div>
+          <span class="hero-lbl" id="heroLbl">Ready</span>
         </div>
-        <div class="step-title-main" id="stepTitle">Press play to begin</div>
-        <div class="step-title-zh" id="stepTitleZh"></div>
-        <div class="step-subtitle" id="stepSubtitle"></div>
+        <div class="hero-step" id="stepTitle">Press play to begin</div>
+        <div class="hero-zh"   id="stepZh"></div>
+        <div class="hero-hint" id="stepHint"></div>
       </div>
+    </div>
 
-      <!-- PROGRESS -->
-      <div class="progress-area">
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-times">
-          <span id="timeElapsed">0:00</span>
-          <span id="metaText">—</span>
-          <span id="timeTotal">0:00</span>
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      <div class="prog-row">
+        <span id="timeEl">0:00</span>
+        <span id="metaTxt">—</span>
+        <span id="timeTot">0:00</span>
+      </div>
+    </div>
+
+    <div class="ctrls">
+      <div class="ctrls-main">
+        <button class="cbtn" onclick="doRestart()">↺</button>
+        <button class="cbtn" onclick="doPrev()">⏮</button>
+        <button class="playbtn" id="playBtn" onclick="doPlay()">▶</button>
+        <button class="cbtn" onclick="doNext()">⏭</button>
+        <button class="cbtn" id="muteBtn" onclick="doMute()">🔊</button>
+      </div>
+      <div class="ctrls-row">
+        <div class="seg-grp">
+          <button class="seg"    onclick="doSpeed(.75)">0.75×</button>
+          <button class="seg on" onclick="doSpeed(1)">1×</button>
+          <button class="seg"    onclick="doSpeed(1.25)">1.25×</button>
+          <button class="seg"    onclick="doSpeed(1.5)">1.5×</button>
+        </div>
+        <div class="seg-grp">
+          <button class="seg"    id="lb-zh"   onclick="doLang('zh')">中文</button>
+          <button class="seg on" id="lb-both" onclick="doLang('both')">中＋EN</button>
+          <button class="seg"    id="lb-en"   onclick="doLang('en')">EN</button>
         </div>
       </div>
+    </div>
 
-      <!-- CONTROLS -->
-      <div class="controls-area">
-        <div class="controls-main">
-          <button class="ctrl-btn" onclick="restart()" title="Restart">↺</button>
-          <button class="ctrl-btn" onclick="prevStep()" title="Previous">⏮</button>
-          <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-          <button class="ctrl-btn" onclick="nextStep()" title="Next">⏭</button>
-          <button class="ctrl-btn" id="muteBtn" onclick="toggleMute()" title="Mute">🔊</button>
-        </div>
-        <div class="controls-row">
-          <div class="speed-group">
-            <button class="seg-btn" onclick="setSpeed(0.75)">0.75×</button>
-            <button class="seg-btn active" onclick="setSpeed(1.0)">1×</button>
-            <button class="seg-btn" onclick="setSpeed(1.25)">1.25×</button>
-            <button class="seg-btn" onclick="setSpeed(1.5)">1.5×</button>
-          </div>
-          <div class="lang-group">
-            <button class="seg-btn" id="lb-zh" onclick="setLang('zh')">中文</button>
-            <button class="seg-btn active" id="lb-both" onclick="setLang('both')">中＋EN</button>
-            <button class="seg-btn" id="lb-en" onclick="setLang('en')">EN</button>
-          </div>
-        </div>
+    <div class="list-shell">
+      <div class="vtabs">
+        <div class="vtab on" id="vt-steps"   onclick="showView('steps')">Steps</div>
+        <div class="vtab"    id="vt-history" onclick="showView('history')">History</div>
       </div>
+      <div id="stepList"></div>
+      <div id="historyPanel"></div>
+    </div>
+  </div>
 
-      <!-- STEP LIST -->
-      <div class="list-panel">
-        <div class="view-bar">
-          <div class="view-tab active" id="vb-practice" onclick="showView('practice')">Steps</div>
-          <div class="view-tab" id="vb-history" onclick="showView('history')">History</div>
-        </div>
-        <div id="stepList"></div>
-        <div id="historyPanel"></div>
-      </div>
-
-    </div><!-- /practicePanel -->
-
-    <!-- ABOUT PANEL -->
-    <div id="aboutArea">
-      <img src="peter.jpg" alt="Peter Davey" class="about-photo"/>
+  <div id="aboutArea">
+    <div class="about-hero">
+      <img class="about-photo" src="peter.jpg" alt="Peter Davey">
       <div class="about-name">Peter Davey</div>
-      <div class="about-title">Direct Yang Family Lineage Holder · 7th Generation</div>
-      <div class="about-lineage">
-        <div class="about-lineage-title">Yang Family Lineage</div>
-        <div class="lineage-row"><span class="lineage-gen">3rd</span><span class="lineage-name">Yang Cheng Fu</span><span style="font-size:11px;color:var(--text3);margin-left:auto;">1883–1936</span></div>
-        <div class="lineage-row"><span class="lineage-gen">4th</span><span class="lineage-name">Fu Zhong Wen</span><span style="font-size:11px;color:var(--text3);margin-left:auto;">1903–1994</span></div>
-        <div class="lineage-row"><span class="lineage-gen">5th</span><span class="lineage-name">Fu Sheng Yuan</span><span style="font-size:11px;color:var(--text3);margin-left:auto;">Perth 1989</span></div>
-        <div class="lineage-row"><span class="lineage-gen">6th</span><span class="lineage-name">Damon Bramich</span><span style="font-size:11px;color:var(--text3);margin-left:auto;">Newcastle</span></div>
-        <div class="lineage-row"><span class="lineage-gen">7th</span><span class="lineage-name highlight">Peter Davey</span><span style="font-size:11px;color:var(--gold);margin-left:auto;">Golden Lotus</span></div>
+      <div class="about-tagline">7th Generation · Direct Yang Family Lineage</div>
+    </div>
+    <div class="about-sec">
+      <div class="about-sec-title">Yang Family Lineage</div>
+      <div class="lineage-card">
+        <div class="lineage-row"><div class="lg-gen">3</div><div class="lg-name">Yang Cheng Fu</div><div class="lg-note">1883–1936 · Grandmaster</div></div>
+        <div class="lineage-row"><div class="lg-gen">4</div><div class="lg-name">Fu Zhong Wen</div><div class="lg-note">1903–1994 · Living Treasure</div></div>
+        <div class="lineage-row"><div class="lg-gen">5</div><div class="lg-name">Fu Sheng Yuan</div><div class="lg-note">Perth 1989 · 8th Dan Silver Dragon</div></div>
+        <div class="lineage-row"><div class="lg-gen">6</div><div class="lg-name">Damon Bramich (Fu Wu Xai)</div><div class="lg-note">Newcastle · World Champion</div></div>
+        <div class="lineage-row"><div class="lg-gen me">7</div><div class="lg-name" style="color:var(--teal)">Peter Davey</div><div class="lg-note" style="color:var(--teal)">Golden Lotus · Newcastle</div></div>
       </div>
+    </div>
+    <div class="about-sec">
+      <div class="about-sec-title">About</div>
       <div class="about-bio">
         <p>Peter Davey is a 7th generation direct lineage holder of the Yang Family Tai Chi tradition, tracing an unbroken line from the great <strong>Yang Cheng Fu</strong> through Fu Zhong Wen, Fu Sheng Yuan, and Damon Bramich.</p>
-        <p><strong>Damon Bramich (Fu Wu Xai)</strong> is the 6th generation Master and Principal of Newcastle Tai Chi. BaShi close-door disciple of Fu Sheng Yuan for 26 years. World Champion. The first non-family lineage successor after receiving Fu Sheng Yuan's final teachings before his passing in March 2017.</p>
-        <p>Peter teaches Yang-style Tai Chi and <strong>Yang Push Hands (推手)</strong> at Golden Lotus Tai Chi, Newcastle — continuing this rare direct transmission from the Yang family heartland.</p>
-      </div>
-      <div class="about-achievement">
-        <div class="achievement-icon">🥈</div>
-        <div>
-          <div class="achievement-title">TCAA Silver Medal</div>
-          <div class="achievement-sub">Yang 28 Competition Form · Tai Chi Australia</div>
-        </div>
+        <p><strong>Damon Bramich (Fu Wu Xai)</strong> is the 6th generation Master and Principal of Newcastle Tai Chi. A BaShi close-door disciple of Fu Sheng Yuan for 26 years, World Champion, and the first non-family lineage successor.</p>
+        <p>Peter teaches Yang-style Tai Chi at <strong>Golden Lotus Tai Chi, Newcastle</strong>, continuing this rare direct transmission from the Yang family heartland.</p>
       </div>
     </div>
-
-  </div><!-- /mainContent -->
-
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <div class="nav-item active" id="nav-practice" onclick="navTo('practice')">
-      <div class="nav-icon">▶</div><div class="nav-label">Practice</div>
-    </div>
-    <div class="nav-item" id="nav-history" onclick="navTo('history')">
-      <div class="nav-icon">📖</div><div class="nav-label">History</div>
-    </div>
-    <div class="nav-item" id="nav-about" onclick="navTo('about')">
-      <div class="nav-icon">👤</div><div class="nav-label">About</div>
+    <div class="about-sec">
+      <div class="medal-card"><div class="medal-icon">🥈</div><div><div class="medal-title">TCAA Silver Medal</div><div class="medal-sub">Yang 28 Competition Form · Tai Chi Australia</div></div></div>
+      <div class="pushh-card"><div class="pushh-title">Push Hands — 推手 Tuī Shǒu</div><div class="pushh-body">The partner practice of Tai Chi. Develops listening energy (听劲) — the ability to sense and redirect an opponent's force. Peter teaches both fixed-step and moving-step Push Hands.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- COUNTDOWN -->
-  <div class="countdown-overlay" id="countdownOverlay">
-    <div class="countdown-num" id="countdownNum">5</div>
-    <div class="countdown-text">Opening Stance</div>
-    <div class="countdown-text">Form begins...</div>
-  </div>
+<div class="bnav">
+  <div class="bni on" id="nav-practice" onclick="navTo('practice')"><div class="bni-icon">▶</div><div class="bni-lbl">Practice</div></div>
+  <div class="bni"    id="nav-history"  onclick="navTo('history')"> <div class="bni-icon">📖</div><div class="bni-lbl">History</div></div>
+  <div class="bni"    id="nav-about"    onclick="navTo('about')">   <div class="bni-icon">👤</div><div class="bni-lbl">About</div></div>
+</div>
 
-</div><!-- /root -->
-
+<div class="cdov" id="cdov">
+  <div class="cd-num" id="cdNum">5</div>
+  <div class="cd-txt" id="cdTxt1">Opening Stance</div>
+  <div class="cd-txt" id="cdTxt2">Form begins...</div>
+</div>
+</div>
 <script>
 const YANG28 = [
   { t: "Raise hands" },
@@ -1150,395 +1035,230 @@ function expandSteps(arr) {
 const ABOUT = { isAbout: true, name:"About", short:"About", cat:"about" };
 
 
-const FORMS = {
-  yang28:    { name:"Yang 28 — Competition",  short:"Competition",    cat:"forms",   duration:290,  steps:YANG28,                     hasOpening:true,  repeats:1, expand:false },
-  standard:  { name:"Yang 28 — Standard",     short:"Standard",       cat:"forms",   duration:315,  steps:STANDARD,                   hasOpening:true,  repeats:1, expand:false },
-  baduan:    { name:"Ba Duan Jin",             short:"Ba Duan Jin",    cat:"qigong",  duration:480,  steps:expandSteps(BADUAN),        hasOpening:false, repeats:1, expand:true  },
-  fiveel:    { name:"Five Element Qigong",     short:"Five Elements",  cat:"qigong",  duration:360,  steps:expandSteps(FIVE_ELEMENTS), hasOpening:false, repeats:1, expand:true  },
-  lotus:     { name:"Lotus Qigong",            short:"Lotus Qigong",   cat:"qigong",  duration:98,   steps:expandSteps(LOTUS),         hasOpening:false, repeats:1, expand:true  },
-  shibashi:  { name:"ShiBaShi Set 1",          short:"ShiBaShi 1",     cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI),      hasOpening:false, repeats:1, expand:true, intro:"Taiji Qigong Shibashi, 太极气功十八式. 18 fluid movements designed to enhance energy, Qi, and relaxation. Created by Professor Lin Housheng in 1979. Each movement is performed with 6 repetitions. Beginning now." },
-  shibashi2: { name:"ShiBaShi Set 2",          short:"ShiBaShi 2",     cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI2),     hasOpening:false, repeats:1, expand:true  },
-  shibashi3: { name:"ShiBaShi Set 3",          short:"ShiBaShi 3",     cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI3),     hasOpening:false, repeats:1, expand:true  },
-  fan36:     { name:"Yang Style 36 Fan",        short:"36 Fan",         cat:"weapons", duration:213,  steps:FAN36,                      hasOpening:false, repeats:1, expand:false },
-  jian:      { name:"Yang Jian — Short Form",  short:"Jian Short",     cat:"weapons", duration:125,  steps:JIAN,                       hasOpening:false, repeats:1, expand:false },
-  jianlong:  { name:"Yang Jian — Long Form",   short:"Jian Long",      cat:"weapons", duration:196,  steps:JIAN_LONG,                  hasOpening:false, repeats:1, expand:false },
-  sabre:     { name:"Yang Sabre (Dao)",         short:"Sabre (Dao)",    cat:"weapons", duration:120,  steps:SABRE,                      hasOpening:false, repeats:1, expand:false }
+
+const FORMS={
+  yang28:  {name:"Yang 28 — Competition",short:"Competition", cat:"forms",  dur:290,steps:YANG28,                    opening:true, intro:false,reps:1,expand:false},
+  standard:{name:"Yang 28 — Standard",   short:"Standard",    cat:"forms",  dur:315,steps:STANDARD,                  opening:true, intro:false,reps:1,expand:false},
+  baduan:  {name:"Ba Duan Jin",           short:"Ba Duan Jin", cat:"qigong", dur:480,steps:expandSteps(BADUAN),       opening:false,intro:false,reps:1,expand:true},
+  fiveel:  {name:"Five Element Qigong",   short:"5 Elements",  cat:"qigong", dur:360,steps:expandSteps(FIVE_ELEMENTS),opening:false,intro:false,reps:1,expand:true},
+  lotus:   {name:"Lotus Qigong",          short:"Lotus Qigong",cat:"qigong", dur:98, steps:expandSteps(LOTUS),        opening:false,intro:false,reps:1,expand:true},
+  shibashi:{name:"ShiBaShi Set 1",        short:"ShiBaShi 1",  cat:"qigong", dur:720,steps:expandSteps(SHIBASHI),     opening:false,intro:true, reps:1,expand:true,
+    introText:"Taiji Qigong Shibashi, 太极气功十八式. 18 fluid movements designed to enhance energy, Qi, and relaxation. Created by Professor Lin Housheng in 1979. Each movement is performed with 6 repetitions. Beginning now."},
+  shibashi2:{name:"ShiBaShi Set 2",       short:"ShiBaShi 2",  cat:"qigong", dur:720,steps:expandSteps(SHIBASHI2),    opening:false,intro:false,reps:1,expand:true},
+  shibashi3:{name:"ShiBaShi Set 3",       short:"ShiBaShi 3",  cat:"qigong", dur:720,steps:expandSteps(SHIBASHI3),    opening:false,intro:false,reps:1,expand:true},
+  fan36:   {name:"Yang Style 36 Fan",     short:"36 Fan",      cat:"weapons",dur:213,steps:FAN36,                     opening:false,intro:false,reps:1,expand:false},
+  jian:    {name:"Yang Jian — Short",     short:"Jian Short",  cat:"weapons",dur:125,steps:JIAN,                      opening:false,intro:false,reps:1,expand:false},
+  jianlong:{name:"Yang Jian — Long",      short:"Jian Long",   cat:"weapons",dur:196,steps:JIAN_LONG,                 opening:false,intro:false,reps:1,expand:false},
+  sabre:   {name:"Yang Sabre (Dao)",      short:"Sabre",       cat:"weapons",dur:120,steps:SABRE,                     opening:false,intro:false,reps:1,expand:false}
 };
+const CAT_GLYPHS={forms:'功',qigong:'氣',weapons:'劍'};
+let cf='yang28',curCat='forms',ci=-1,playing=false,speed=1.0,muted=false,lang='both';
+let synth=window.speechSynthesis,stepStart=0,stepEl=0,raf=null,inOpen=false;
+let zhVoice=null,enVoice=null,deferredPrompt=null;
+const f=()=>FORMS[cf];
+const sdur=()=>f().dur/(f().steps.length*f().reps);
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 
-let cf = 'yang28', currentCat = 'forms';
-let ci = -1, playing = false, speed = 1.0, muted = false;
-let synth = window.speechSynthesis;
-let stepStart = 0, stepElapsed = 0, raf = null;
-let deferredPrompt = null, inOpening = false;
-let lang = 'both', zhVoice = null, enVoice = null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').classList.add('show');});
+document.getElementById('installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById('installBtn').classList.remove('show');};
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
-function form() { return FORMS[cf]; }
-function stepDur() { const f = form(); return f.duration / (f.steps.length * f.repeats); }
-function fmt(s) { s = Math.max(0,Math.round(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault(); deferredPrompt = e;
-  document.getElementById('installBtn').classList.add('show');
-});
-document.getElementById('installBtn').onclick = async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt(); await deferredPrompt.userChoice;
-  deferredPrompt = null; document.getElementById('installBtn').classList.remove('show');
-};
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
-
-function selectCat(cat) {
-  currentCat = cat;
-  document.querySelectorAll('.cat-pill').forEach(p => {
-    p.classList.remove('active','active-jade');
-  });
-  const pill = document.querySelector(`[data-cat="${cat}"]`);
-  if (pill) pill.classList.add(cat === 'qigong' ? 'active-jade' : 'active');
-
-  if (cat === 'about') {
-    document.getElementById('aboutArea').style.display = 'block';
-    document.getElementById('practicePanel').classList.add('hide');
-    document.getElementById('formDrawer').style.display = 'none';
-    renderAbout();
-    updateNav('about');
-    return;
+function selCat(cat){
+  curCat=cat;
+  document.querySelectorAll('.cat').forEach(p=>p.classList.remove('on','on-gold','on-purple'));
+  const pill=document.querySelector(`[data-cat="${cat}"]`);
+  if(pill)pill.classList.add(cat==='qigong'?'on-gold':cat==='weapons'?'on-purple':'on');
+  const isAbout=cat==='about';
+  const aboutEl=document.getElementById('aboutArea');
+  aboutEl.style.display=isAbout?'flex':'none';
+  aboutEl.style.flexDirection='column';
+  document.getElementById('practicePanel').classList.toggle('hide',isAbout);
+  document.getElementById('fdrawer').style.display=isAbout?'none':'flex';
+  if(isAbout){updNav('about');return;}
+  updNav('practice');
+  document.getElementById('heroGlyph').textContent=CAT_GLYPHS[cat]||'功';
+  if(!FORMS[cf]||FORMS[cf].cat!==cat){
+    const first=Object.entries(FORMS).find(([,v])=>v.cat===cat);
+    if(first){cf=first[0];resetPlay();}
   }
-  document.getElementById('aboutArea').style.display = 'none';
-  document.getElementById('practicePanel').classList.remove('hide');
-  document.getElementById('formDrawer').style.display = 'flex';
-  renderFormDrawer(cat);
-  // auto-select first form in category if current doesn't match
-  const inCat = Object.entries(FORMS).filter(([k,v])=>v.cat===cat);
-  if (inCat.length && (!FORMS[cf] || FORMS[cf].cat !== cat)) {
-    cf = inCat[0][0]; ci = -1; stepElapsed = 0;
-    document.getElementById('playBtn').textContent = '▶';
-    playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
-    renderMeta(); renderStep(); renderList();
-  }
-  renderFormDrawer(cat);
-  updateNav('practice');
+  renderDrawer(cat);renderMeta();renderStep();renderList();
 }
-
-function renderFormDrawer(cat) {
-  const entries = Object.entries(FORMS).filter(([k,v])=>v.cat===cat)
-    .sort((a,b)=>a[1].name.localeCompare(b[1].name));
-  const d = document.getElementById('formDrawer');
-  d.innerHTML = entries.map(([k,v]) => `
-    <div class="form-card${k===cf?' active':''}" onclick="selectForm('${k}')">
-      <div class="fc-name">${v.short}</div>
-      <div class="fc-dur">${fmt(v.duration)} · ${v.steps.length} steps</div>
-    </div>`).join('');
+function resetPlay(){
+  inOpen=false;playing=false;cancelAnimationFrame(raf);synth&&synth.cancel();
+  ci=-1;stepEl=0;
+  document.getElementById('playBtn').textContent='▶';
+  document.getElementById('pip').classList.remove('live');
+  document.getElementById('progFill').style.width='0%';
+  document.getElementById('timeEl').textContent='0:00';
+  document.getElementById('cdov').classList.remove('show');
 }
-
-function renderAbout() {
-  // About content is static HTML in #aboutArea — nothing to render
+function renderDrawer(cat){
+  const entries=Object.entries(FORMS).filter(([,v])=>v.cat===cat).sort((a,b)=>a[1].name.localeCompare(b[1].name));
+  document.getElementById('fdrawer').innerHTML=entries.map(([k,v])=>`<div class="fcard${k===cf?' on':''}" onclick="selForm('${k}')"><div class="fcard-name">${v.short}</div><div class="fcard-meta">${fmt(v.dur)} · ${v.steps.length} steps</div></div>`).join('');
 }
-
-function navTo(dest) {
-  if (dest === 'about') { selectCat('about'); return; }
-  if (dest === 'history') {
-    document.getElementById('aboutArea').style.display = 'none';
+function selForm(key){cf=key;resetPlay();renderDrawer(curCat);renderMeta();renderStep();renderList();showView('steps');}
+function navTo(dest){
+  if(dest==='about'){selCat('about');return;}
+  if(dest==='history'){
+    document.getElementById('aboutArea').style.display='none';
     document.getElementById('practicePanel').classList.remove('hide');
-    if (FORMS[cf]) document.getElementById('formDrawer').style.display = 'flex';
-    showView('history');
-    updateNav('history');
+    document.getElementById('fdrawer').style.display=curCat==='about'?'none':'flex';
+    showView('history');updNav('history');return;
+  }
+  if(curCat==='about')selCat('forms');else{selCat(curCat);updNav('practice');}
+}
+function updNav(a){['practice','history','about'].forEach(n=>document.getElementById('nav-'+n).classList.toggle('on',n===a));}
+function showView(v){
+  const isSt=v==='steps';
+  document.getElementById('historyPanel').classList.toggle('show',!isSt);
+  document.getElementById('stepList').style.display=isSt?'':'none';
+  document.getElementById('vt-steps').classList.toggle('on',isSt);
+  document.getElementById('vt-history').classList.toggle('on',!isSt);
+  if(!isSt)renderHistory();
+}
+function renderHistory(){
+  const hp=document.getElementById('historyPanel');
+  if(hp.dataset.r)return;hp.dataset.r='1';
+  hp.innerHTML='<div class="hist-section">'+getHistContent()+'</div>';
+}
+function renderMeta(){
+  document.getElementById('metaTxt').textContent=`${f().steps.length} steps · ${fmt(f().dur)} · ${sdur().toFixed(1)}s`;
+  document.getElementById('timeTot').textContent=fmt(f().dur);
+}
+function renderStep(){
+  if(ci<0){
+    document.getElementById('heroLbl').textContent=f().name;
+    document.getElementById('stepTitle').textContent='Press play to begin';
+    document.getElementById('stepZh').textContent='';
+    document.getElementById('stepHint').textContent='';
+    document.getElementById('pip').classList.remove('live');
     return;
   }
-  // practice
-  selectCat(currentCat === 'about' ? 'forms' : currentCat);
+  document.getElementById('pip').classList.toggle('live',playing);
+  const rep=f().reps>1?Math.floor(ci/f().steps.length)+1:null;
+  document.getElementById('heroLbl').textContent=rep?`Set ${rep}/${f().reps} · Step ${(ci%f().steps.length)+1}/${f().steps.length}`:`Step ${ci} / ${f().steps.length*f().reps-1}`;
+  const st=f().steps[ci%f().steps.length];
+  const sd=typeof st==='string'?st:st.t||st.say||'';
+  const ri=(st&&st.total>1)?`${st.rep} of ${st.total}`:'';
+  const zhd=getZh(ci);
+  if(lang==='zh'&&zhd){document.getElementById('stepTitle').textContent=zhd.c;document.getElementById('stepZh').textContent=zhd.p+(ri?' · '+ri:'');}
+  else if(lang==='both'&&zhd){document.getElementById('stepTitle').textContent=st.orig||sd;document.getElementById('stepZh').textContent=zhd.c+'  '+zhd.p+(ri?' · '+ri:'');}
+  else{document.getElementById('stepTitle').textContent=sd;document.getElementById('stepZh').textContent=ri;}
+  document.getElementById('stepHint').textContent=ci===0&&f().opening?'Timer running':'';
 }
-
-function updateNav(active) {
-  ['practice','history','about'].forEach(n => {
-    document.getElementById('nav-'+n)?.classList.toggle('active', n === active);
-  });
-}
-
-function showView(v) {
-  const isPractice = v === 'practice';
-  document.getElementById('practicePanel') && null; // already visible
-  document.getElementById('historyPanel').classList.toggle('show', !isPractice);
-  document.getElementById('stepList').style.display = isPractice ? '' : 'none';
-  document.getElementById('vb-practice').classList.toggle('active', isPractice);
-  document.getElementById('vb-history').classList.toggle('active', !isPractice);
-  if (!isPractice) renderHistory();
-}
-
-function renderHistory() {
-  const hp = document.getElementById('historyPanel');
-  if (hp.dataset.rendered) return;
-  hp.dataset.rendered = '1';
-  hp.innerHTML = getHistoryHTML();
-}
-
-function renderMeta() {
-  const f = form();
-  document.getElementById('metaText').textContent =
-    `${f.steps.length} steps · ${fmt(f.duration)} · ${stepDur().toFixed(1)}s`;
-  document.getElementById('timeTotal').textContent = fmt(f.duration);
-}
-
-function renderStep() {
-  const f = form();
-  const badge = document.getElementById('stepBadge');
-  if (ci < 0) {
-    document.getElementById('stepLabel').textContent = f.name;
-    document.getElementById('stepTitle').textContent = 'Press play to begin';
-    document.getElementById('stepTitleZh').textContent = '';
-    document.getElementById('stepSubtitle').textContent = '';
-    document.getElementById('progressFill').style.width = '0%';
-    document.getElementById('timeElapsed').textContent = '0:00';
-    badge.classList.remove('playing');
-    return;
+function renderList(){
+  const dur=sdur(),total=f().steps.length*f().reps,rows=[];
+  for(let i=0;i<total;i++){
+    const s=f().steps[i%f().steps.length];
+    const rn=f().reps>1?Math.floor(i/f().steps.length)+1:null;
+    let cls='sr';if(i===ci)cls+=' active';else if(i<ci)cls+=' done';
+    const nm=typeof s==='string'?s:s.t+(s.w?s.w.map(x=>' / '+x[1]).join(''):'');
+    const pre=rn?`<span style="font-size:10px;color:var(--text3);margin-right:3px">S${rn}</span>`:'';
+    rows.push(`<div class="${cls}" id="sr${i}" onclick="jumpTo(${i})"><div class="sr-num">${i%f().steps.length}</div><div class="sr-name">${pre}${nm}</div><div class="sr-time">${fmt(i*dur)}</div></div>`);
   }
-  badge.classList.toggle('playing', playing);
-  const totalSteps = f.steps.length * f.repeats;
-  const rep = f.repeats > 1 ? Math.floor(ci / f.steps.length) + 1 : null;
-  document.getElementById('stepLabel').textContent = rep
-    ? `Set ${rep}/${f.repeats}  ·  Step ${(ci%f.steps.length)+1}/${f.steps.length}`
-    : `Step ${ci} / ${totalSteps - 1}`;
-  const st = f.steps[ci % f.steps.length];
-  const sd = typeof st === 'string' ? st : st.t || st.say || '';
-  const repInfo = (st && st.total > 1) ? `${st.rep} of ${st.total}` : '';
-  const zhd = getZh(ci);
-  if (lang === 'zh' && zhd) {
-    document.getElementById('stepTitle').textContent = zhd.c;
-    document.getElementById('stepTitleZh').textContent = zhd.p + (repInfo ? ' · '+repInfo : '');
-  } else if (lang === 'both' && zhd) {
-    document.getElementById('stepTitle').textContent = st.orig || sd;
-    document.getElementById('stepTitleZh').textContent = zhd.c + '  ' + zhd.p + (repInfo ? ' · '+repInfo : '');
-  } else {
-    document.getElementById('stepTitle').textContent = sd;
-    document.getElementById('stepTitleZh').textContent = repInfo;
-  }
-  document.getElementById('stepSubtitle').textContent =
-    ci === 0 && f.hasOpening ? 'Timer running' : '';
+  document.getElementById('stepList').innerHTML=rows.join('');
 }
-
-function renderList() {
-  const f = form(); const dur = stepDur();
-  const totalRows = f.steps.length * f.repeats;
-  const rows = [];
-  for (let i = 0; i < totalRows; i++) {
-    const s = f.steps[i % f.steps.length];
-    const repN = f.repeats > 1 ? Math.floor(i / f.steps.length) + 1 : null;
-    let cls = 'step-row'; if (i===ci) cls+=' active'; else if (i<ci) cls+=' done';
-    const name = typeof s==="string" ? s : s.t+(s.w?s.w.map(x=>" / "+x[1]).join(""):"");
-    const prefix = repN ? `<span style="font-size:10px;color:var(--text3);margin-right:4px">S${repN}</span>` : '';
-    rows.push(`<div class="${cls}" id="sr${i}" onclick="jumpTo(${i})">
-      <div class="sr-num">${i%f.steps.length}</div>
-      <div class="sr-name">${prefix}${name}</div>
-      <div class="sr-time">${fmt(i*dur)}</div></div>`);
-  }
-  document.getElementById('stepList').innerHTML = rows.join('');
+function scrollTo(i){const el=document.getElementById('sr'+i);if(el)el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+function loadVoices(){const v=synth.getVoices();zhVoice=v.find(x=>x.lang.startsWith('zh'))||null;enVoice=v.find(x=>x.lang.startsWith('en-AU'))||v.find(x=>x.lang.startsWith('en-GB'))||v.find(x=>x.lang.startsWith('en'))||null;}
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=loadVoices;
+setTimeout(loadVoices,400);
+function isSlow(){return['shibashi','shibashi2','shibashi3','lotus'].includes(cf);}
+function utter(txt,isZh){
+  if(!synth||muted)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  if(isZh&&zhVoice)u.voice=zhVoice;if(!isZh&&enVoice)u.voice=enVoice;
+  const slow=isSlow();
+  u.rate=isZh?(slow?0.55:Math.min(speed*.7,.9)):(slow?Math.min(speed*.35,.5):Math.min(speed*.55,.75));
+  u.pitch=1;synth.speak(u);
 }
-
-function scrollToStep(i) {
-  const el = document.getElementById('sr'+i);
-  if (el) el.scrollIntoView({block:'nearest',behavior:'smooth'});
+function getZh(idx){
+  const km={yang28:'yang28',standard:'standard',shibashi:'shibashi',shibashi3:'shibashi3',sabre:'sabre',jian:'jian',baduan:'baduan',fiveel:'fiveel',fan36:'fan36',jianlong:'jianlong'};
+  const key=km[cf];if(!key)return null;
+  const arr=ZH[key];if(!arr)return null;
+  const st=f().steps[idx%f().steps.length];
+  if(f().expand&&st&&st.orig){const base=cf==='shibashi'?SHIBASHI:null;if(base){const bi=base.findIndex(x=>(x.t||x)===st.orig);return bi>=0?arr[bi]:null;}return null;}
+  return arr[idx%f().steps.length]||null;
 }
-
-function loadVoices() {
-  const v = synth.getVoices();
-  zhVoice = v.find(x=>x.lang.startsWith('zh')) || null;
-  enVoice = v.find(x=>x.lang.startsWith('en-AU')) || v.find(x=>x.lang.startsWith('en-GB')) || v.find(x=>x.lang.startsWith('en')) || null;
-}
-if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
-setTimeout(loadVoices, 500);
-
-function isShibashi() { return ['shibashi','shibashi2','shibashi3','lotus'].includes(cf); }
-
-function utter(txt, isZh) {
-  if (!synth || muted) return;
-  const u = new SpeechSynthesisUtterance(txt);
-  if (isZh && zhVoice) u.voice = zhVoice;
-  if (!isZh && enVoice) u.voice = enVoice;
-  const slow = isShibashi();
-  u.rate = isZh ? (slow?0.55:Math.min(speed*0.7,0.9)) : (slow?Math.min(speed*0.35,0.5):Math.min(speed*0.55,0.75));
-  u.pitch = 1.0; synth.speak(u);
-}
-function speakOne(txt) { utter(txt, false); }
-
-function getZh(idx) {
-  const keyMap = {yang28:'yang28',standard:'standard',shibashi:'shibashi',shibashi3:'shibashi3',sabre:'sabre',jian:'jian',baduan:'baduan',fiveel:'fiveel',fan36:'fan36',jianlong:'jianlong'};
-  const key = keyMap[cf]; if (!key) return null;
-  const arr = ZH[key]; if (!arr) return null;
-  const f = form(); const st = f.steps[idx % f.steps.length];
-  if (f.expand && st && st.orig) {
-    const baseArr = cf==='shibashi'?SHIBASHI:null;
-    if (baseArr) { const bi = baseArr.findIndex(x=>(x.t||x)===st.orig); return bi>=0?arr[bi]:null; }
-    return null;
-  }
-  return arr[idx % f.steps.length] || null;
-}
-
-function speak(step, ciIdx) {
-  if (!synth || muted) return; synth.cancel();
-  const s = typeof step==='string'?{t:step}:step;
-  const sayText = s.say || s.t;
-  const zh = lang!=='en' ? getZh(ciIdx!==undefined?ciIdx:ci) : null;
-  if (lang==='zh' && zh) { utter(zh.c, true); }
-  else if (lang==='both' && zh) {
-    utter(zh.c, true);
-    const zhDelay = Math.max(1200, zh.c.length*350)/speed;
-    setTimeout(()=>{ if(!muted) utter(sayText,false); }, zhDelay);
-    if (s.w) { let d=zhDelay; s.w.forEach(([sec,ph])=>{ d+=(sec*1000)/speed; const dd=d; setTimeout(()=>{ if(!muted) utter(ph,false); },dd); }); }
-  } else {
-    utter(sayText, false);
-    if (s.w) { let d=0; s.w.forEach(([sec,ph])=>{ d+=(sec*1000)/speed; const dd=d; setTimeout(()=>{ if(!muted) utter(ph,false); },dd); }); }
+function speak(step,idx){
+  if(!synth||muted)return;synth.cancel();
+  const s=typeof step==='string'?{t:step}:step;
+  const say=s.say||s.t;
+  const zh=lang!=='en'?getZh(idx!==undefined?idx:ci):null;
+  if(lang==='zh'&&zh){utter(zh.c,true);}
+  else if(lang==='both'&&zh){
+    utter(zh.c,true);
+    const d=Math.max(1200,zh.c.length*350)/speed;
+    setTimeout(()=>{if(!muted)utter(say,false);},d);
+    if(s.w){let d2=d;s.w.forEach(([sec,ph])=>{d2+=(sec*1000)/speed;const dd=d2;setTimeout(()=>{if(!muted)utter(ph,false);},dd);});}
+  }else{
+    utter(say,false);
+    if(s.w){let d=0;s.w.forEach(([sec,ph])=>{d+=(sec*1000)/speed;const dd=d;setTimeout(()=>{if(!muted)utter(ph,false);},dd);});}
   }
 }
-
-function tick() {
-  if (!playing) return;
-  stepElapsed = (performance.now()-stepStart)/1000;
-  const total = ci*stepDur() + stepElapsed*speed;
-  document.getElementById('timeElapsed').textContent = fmt(total);
-  document.getElementById('progressFill').style.width = Math.min((total/form().duration)*100,100)+'%';
-  if (stepElapsed >= stepDur()/speed) advance(); else raf = requestAnimationFrame(tick);
+function tick(){
+  if(!playing)return;
+  stepEl=(performance.now()-stepStart)/1000;
+  const total=ci*sdur()+stepEl*speed;
+  document.getElementById('timeEl').textContent=fmt(total);
+  document.getElementById('progFill').style.width=Math.min((total/f().dur)*100,100)+'%';
+  if(stepEl>=sdur()/speed)advance();else raf=requestAnimationFrame(tick);
 }
-function startTimer() { stepStart=performance.now(); stepElapsed=0; cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
-
-function advance() {
+function startTimer(){stepStart=performance.now();stepEl=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);}
+function advance(){
   ci++;
-  const f = form();
-  if (ci >= f.steps.length*f.repeats) {
-    ci=f.steps.length-1; playing=false;
+  if(ci>=f().steps.length*f().reps){
+    ci=f().steps.length-1;playing=false;
     document.getElementById('playBtn').textContent='▶';
-    badge.classList.remove('playing');
-    document.getElementById('progressFill').style.width='100%';
-    document.getElementById('timeElapsed').textContent=fmt(f.duration);
-    speak('Form complete. Well done.'); renderStep(); renderList(); return;
+    document.getElementById('pip').classList.remove('live');
+    document.getElementById('progFill').style.width='100%';
+    document.getElementById('timeEl').textContent=fmt(f().dur);
+    speak('Form complete. Well done.');renderStep();renderList();return;
   }
-  const repNum = f.repeats>1?Math.floor(ci/f.steps.length)+1:null;
-  const _idx = ci%f.steps.length;
-  if (f.repeats>1 && _idx===0 && ci>0) { speakOne('Set '+repNum); setTimeout(()=>speak(f.steps[0],ci),1200/speed); }
-  else speak(f.steps[_idx], ci);
-  renderStep(); renderList(); scrollToStep(ci); startTimer();
+  const rn=f().reps>1?Math.floor(ci/f().steps.length)+1:null;
+  const idx=ci%f().steps.length;
+  if(f().reps>1&&idx===0&&ci>0){utter('Set '+rn,false);setTimeout(()=>speak(f().steps[0],ci),1200/speed);}
+  else speak(f().steps[idx],ci);
+  renderStep();renderList();scrollTo(ci);startTimer();
 }
-
-function doIntro() {
-  inOpening = true;
-  const introText = form().intro;
-  const overlay = document.getElementById('countdownOverlay');
-  document.querySelectorAll('.countdown-text')[0].textContent = 'Taiji Qigong Shibashi';
-  document.querySelectorAll('.countdown-text')[1].textContent = 'Beginning shortly...';
-  document.getElementById('countdownNum').textContent = '☯';
-  overlay.classList.add('show');
-  utter(introText, false);
-  const introMs = Math.max(8000, introText.split(' ').length*600/Math.min(speed*0.35,0.5));
-  setTimeout(()=>{
-    overlay.classList.remove('show'); inOpening=false; ci=0;
-    speak(form().steps[0],0); renderStep(); renderList(); scrollToStep(0); startTimer();
-  }, introMs);
+function doCountdown(then){
+  inOpen=true;
+  const ov=document.getElementById('cdov'),n=document.getElementById('cdNum');
+  document.getElementById('cdTxt1').textContent='Opening Stance';
+  document.getElementById('cdTxt2').textContent='Form begins...';
+  ov.classList.add('show');n.textContent='5';
+  [4,3,2,1].forEach((v,i)=>setTimeout(()=>n.textContent=v,(i+1)*1000));
+  setTimeout(()=>{ov.classList.remove('show');inOpen=false;then();},5200);
 }
-
-function doOpeningStance() {
-  inOpening=true; speak('Opening stance');
-  const overlay=document.getElementById('countdownOverlay');
-  const numEl=document.getElementById('countdownNum');
-  document.querySelectorAll('.countdown-text')[0].textContent='Opening Stance';
-  document.querySelectorAll('.countdown-text')[1].textContent='Form begins...';
-  overlay.classList.add('show'); numEl.textContent='5';
-  [4,3,2,1].forEach((n,i)=>setTimeout(()=>numEl.textContent=n,(i+1)*1000));
-  setTimeout(()=>{
-    overlay.classList.remove('show'); inOpening=false; ci=0;
-    speak(form().steps[0]); renderStep(); renderList(); scrollToStep(0); startTimer();
-  }, 5200);
+function doIntro(then){
+  inOpen=true;
+  const ov=document.getElementById('cdov'),n=document.getElementById('cdNum');
+  document.getElementById('cdTxt1').textContent='Taiji Qigong Shibashi';
+  document.getElementById('cdTxt2').textContent='Beginning shortly...';
+  n.textContent='☯';ov.classList.add('show');
+  utter(f().introText,false);
+  const ms=Math.max(8000,f().introText.split(' ').length*600/Math.min(speed*.35,.5));
+  setTimeout(()=>{ov.classList.remove('show');inOpen=false;then();},ms);
 }
-
-function togglePlay() {
-  if (inOpening) return;
-  if (playing) {
-    playing=false; document.getElementById('playBtn').textContent='▶';
-    document.getElementById('stepBadge').classList.remove('playing');
-    synth&&synth.cancel(); cancelAnimationFrame(raf);
-  } else {
-    playing=true; document.getElementById('playBtn').textContent='⏸';
-    document.getElementById('stepBadge').classList.add('playing');
-    if (ci<0) {
-      if (form().intro) doIntro();
-      else if (form().hasOpening) doOpeningStance();
-      else { ci=0; speak(form().steps[0]); renderStep(); renderList(); scrollToStep(0); startTimer(); }
-    } else startTimer();
-  }
+function doPlay(){
+  if(inOpen)return;
+  if(playing){playing=false;document.getElementById('playBtn').textContent='▶';document.getElementById('pip').classList.remove('live');synth&&synth.cancel();cancelAnimationFrame(raf);return;}
+  playing=true;document.getElementById('playBtn').textContent='⏸';document.getElementById('pip').classList.add('live');
+  if(ci<0){
+    const start=()=>{ci=0;speak(f().steps[0],0);renderStep();renderList();scrollTo(0);startTimer();};
+    if(f().intro&&f().introText)doIntro(start);
+    else if(f().opening){speak('Opening stance');doCountdown(start);}
+    else start();
+  }else startTimer();
 }
-
-function prevStep() {
-  if (inOpening||ci<=0) return;
-  ci--; speak(form().steps[ci%form().steps.length],ci);
-  renderStep(); renderList(); scrollToStep(ci); if(playing) startTimer();
-}
-function nextStep() {
-  if (inOpening||ci>=form().steps.length-1) return;
-  ci++; speak(form().steps[ci%form().steps.length],ci);
-  renderStep(); renderList(); scrollToStep(ci); if(playing) startTimer();
-}
-function jumpTo(i) {
-  if (inOpening) return;
-  ci=i; speak(form().steps[i%form().steps.length],i);
-  renderStep(); renderList(); scrollToStep(i);
-  if (!playing) { playing=true; document.getElementById('playBtn').textContent='⏸'; document.getElementById('stepBadge').classList.add('playing'); }
-  startTimer();
-}
-function restart() {
-  inOpening=false;
-  document.getElementById('countdownOverlay').classList.remove('show');
-  playing=false; cancelAnimationFrame(raf); synth&&synth.cancel();
-  ci=-1; stepElapsed=0;
-  document.getElementById('playBtn').textContent='▶';
-  document.getElementById('stepBadge').classList.remove('playing');
-  document.getElementById('progressFill').style.width='0%';
-  document.getElementById('timeElapsed').textContent='0:00';
-  renderStep(); renderList();
-}
-function setLang(l) {
-  lang=l;
-  ['zh','both','en'].forEach(x=>document.getElementById('lb-'+x).classList.toggle('active',x===l));
-}
-function setSpeed(s) {
-  speed=s;
-  document.querySelectorAll('.seg-btn').forEach(b=>{
-    if(['0.75×','1×','1.25×','1.5×'].includes(b.textContent))
-      b.classList.toggle('active', parseFloat(b.textContent)===s);
-  });
-}
-function toggleMute() {
-  muted=!muted;
-  document.getElementById('muteBtn').textContent = muted ? '🔇' : '🔊';
-  if (muted) synth&&synth.cancel();
-}
-function selectForm(key) {
-  if (!FORMS[key]) return;
-  inOpening=false; playing=false; cancelAnimationFrame(raf); synth&&synth.cancel();
-  cf=key; ci=-1; stepElapsed=0;
-  document.getElementById('playBtn').textContent='▶';
-  document.getElementById('stepBadge').classList.remove('playing');
-  renderFormDrawer(currentCat);
-  renderMeta(); renderStep(); renderList();
-  showView('practice');
-}
-
-setInterval(()=>{ if(playing&&synth&&synth.paused) synth.resume(); }, 3000);
-
-// Init
-selectCat('forms');
-renderMeta(); renderStep(); renderList();
-
-function getHistoryHTML() {
-  return `<div class="hist-section">` + getHistoryContent() + `</div>`;
-}
-
-function getHistoryContent() {
-  return `
-
-`;
-}
-function getHistoryContent() {
-  return `
-<div class="hist-section">
-
-      <div class="hist-form-title">Yang Family Lineage</div>
+function doPrev(){if(inOpen||ci<=0)return;ci--;speak(f().steps[ci%f().steps.length],ci);renderStep();renderList();scrollTo(ci);if(playing)startTimer();}
+function doNext(){if(inOpen||ci>=f().steps.length-1)return;ci++;speak(f().steps[ci%f().steps.length],ci);renderStep();renderList();scrollTo(ci);if(playing)startTimer();}
+function jumpTo(i){if(inOpen)return;ci=i;speak(f().steps[i%f().steps.length],i);renderStep();renderList();scrollTo(i);if(!playing){playing=true;document.getElementById('playBtn').textContent='⏸';document.getElementById('pip').classList.add('live');}startTimer();}
+function doRestart(){resetPlay();renderStep();renderList();}
+function doMute(){muted=!muted;document.getElementById('muteBtn').textContent=muted?'🔇':'🔊';if(muted)synth&&synth.cancel();}
+function doSpeed(s){speed=s;document.querySelectorAll('.seg-grp:first-child .seg').forEach(b=>b.classList.toggle('on',parseFloat(b.textContent)===s));}
+function doLang(l){lang=l;['zh','both','en'].forEach(x=>document.getElementById('lb-'+x).classList.toggle('on',x===l));}
+setInterval(()=>{if(playing&&synth&&synth.paused)synth.resume();},3000);
+function getHistContent(){return `      <div class="hist-form-title">Yang Family Lineage</div>
       <div class="hist-chinese">杨氏太极拳传承 · The Yang Family Tree · Chen Village → Newcastle</div>
       <div class="hist-body">
 
@@ -1800,1179 +1520,8 @@ function getHistoryContent() {
     </div>
   </div>
 </div>
-
-  <!-- Countdown overlay for Opening Stance -->
-  <div class="countdown-overlay" id="countdownOverlay">
-    <div class="countdown-text">Opening Stance</div>
-    <div class="countdown-num" id="countdownNum">2</div>
-    <div class="countdown-text">Form begins...</div>
-  </div>
-
-</div>
-<script>
-// Yang 28 — 38 timed steps (Opening Stance announced pre-timer, then 38 steps over 4:50)
-// Timer starts on "Opening Form". Each step announced at its start.
-const YANG28 = [
-  { t: "Raise hands" },
-  { t: "Ward off left" },
-  { t: "Ward off right" },
-  { t: "Roll back", w: [[2, "and press"]] },
-  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
-  { t: "Single whip" },
-  { t: "Raise hands" },
-  { t: "White crane spreads its wings" },
-  { t: "Left brush knee" },
-  { t: "Step up and strum the lute" },
-  { t: "Fist under elbow" },
-  { t: "Left repulse the monkey" },
-  { t: "Right repulse the monkey" },
-  { t: "High pat the horse, stand tall" },
-  { t: "Right toe kick" },
-  { t: "Left toe kick" },
-  { t: "Left tame the tiger" },
-  { t: "Right tame the tiger" },
-  { t: "Cloud hands" },
-  { t: "Fair lady works at shuttles left" },
-  { t: "Fair lady works at shuttles right" },
-  { t: "Parting the wild horse's mane, left" },
-  { t: "Parting the wild horse's mane, right" },
-  { t: "Left knee brushing and high punch" },
-  { t: "Ward off right" },
-  { t: "Roll back", w: [[2, "and press"]] },
-  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
-  { t: "Single whip" },
-  { t: "Snake creeps down" },
-  { t: "Step up to form seven stars" },
-  { t: "Retreat to ride the tiger" },
-  { t: "Block and push" },
-  { t: "Turn about" },
-  { t: "Sweep the lotus leg" },
-  { t: "Bend the bow and shoot the tiger" },
-  { t: "Step up to parry and punch" },
-  { t: "Apparent close up" },
-  { t: "Cross hands and closing form" }
-];
-
-const STANDARD = [
-  { t: "Raise hands" },
-  { t: "Ward off left" },
-  { t: "Ward off right" },
-  { t: "Roll back", w: [[2, "and press"]] },
-  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
-  { t: "Single whip" },
-  { t: "Raise hands" },
-  { t: "White crane spreads its wings" },
-  { t: "Left brush knee" },
-  { t: "Step up and strum the lute" },
-  { t: "Fist under elbow" },
-  { t: "Left repulse the monkey" },
-  { t: "Right repulse the monkey" },
-  { t: "High pat the horse, stand tall" },
-  { t: "Right toe kick" },
-  { t: "Left toe kick" },
-  { t: "Left tame the tiger" },
-  { t: "Right tame the tiger" },
-  { t: "Cloud hands one" },
-  { t: "Cloud hands two" },
-  { t: "Fair lady works at shuttles left" },
-  { t: "Fair lady works at shuttles right" },
-  { t: "Parting the wild horse's mane, left" },
-  { t: "Parting the wild horse's mane, right" },
-  { t: "Left knee brushing and high punch" },
-  { t: "Ward off right" },
-  { t: "Roll back", w: [[2, "and press"]] },
-  { t: "Sit back", w: [[2, "and bring hands in"], [2, "and push"]] },
-  { t: "Single whip" },
-  { t: "Snake creeps down" },
-  { t: "Golden rooster stands on one leg, right" },
-  { t: "Then left" },
-  { t: "Step up to form seven stars" },
-  { t: "Retreat to ride the tiger" },
-  { t: "Block and push" },
-  { t: "Turn about" },
-  { t: "Sweep the lotus leg" },
-  { t: "Bend the bow and shoot the tiger" },
-  { t: "Step up to parry and punch" },
-  { t: "Apparent close up" },
-  { t: "Cross hands and closing form" }
-];
-
-const SHIBASHI = [
-  { t:"Awaken qi and regulate breathing",   reps:6,  mode:"repeat" },
-  { t:"Opening the chest",                  reps:6,  mode:"repeat" },
-  { t:"Dancing with a rainbow",             reps:6,  mode:"repeat" },
-  { t:"Gather qi and part the clouds",      reps:6,  mode:"repeat" },
-  { t:"Changing palms and rolling arms",    reps:6,  mode:"repeat" },
-  { t:"Rowing the boat",                    reps:6,  mode:"repeat" },
-  { t:"Lifting the ball of qi",             reps:6,  mode:"repeat" },
-  { t:"Turn and gaze at the moon",          reps:6,  mode:"repeat" },
-  { t:"Twisting waist and pushing palms",   reps:6,  mode:"repeat" },
-  { t:"Playing with clouds",                reps:6,  mode:"repeat" },
-  { t:"Scooping from the sea",              reps:6,  mode:"repeat" },
-  { t:"Playing with waves",                 reps:6,  mode:"repeat" },
-  { t:"Spreading your wings",               reps:6,  mode:"repeat" },
-  { t:"Scooping from the sea — right side", reps:6,  mode:"repeat" },
-  { t:"Playing with waves — right side",    reps:6,  mode:"repeat" },
-  { t:"Spreading your wings — right side",  reps:6,  mode:"repeat" },
-  { t:"Punching in horse stance",           reps:6,  mode:"repeat" },
-  { t:"Flying like a wild goose",           reps:6,  mode:"repeat" },
-  { t:"Spinning wheels",                    reps:3,  mode:"side"   },
-  { t:"Bouncing the ball of qi",            reps:6,  mode:"repeat" },
-  { t:"Pressing the palms",                 reps:6,  mode:"repeat" }
-];
-
-const SABRE = [
-  "Opening — hold sabre","Protect the knee — left step","Immortal points the way",
-  "Three rings around the moon","Swallow skims the water","Right intercept",
-  "Left intercept","Little star of Dipper","Swallow skims the water — second",
-  "Holding the moon","Wind sweeps plum blossom","Lion shakes its head",
-  "Tiger holds its head","Wild horse leaps over stream","Turn body to downward chop",
-  "Rein in horse on the cliff","Compass — left and right",
-  "Night traveler searches the sea","Shoot the wild goose",
-  "Blue dragon coming out of water","Wind sweeps plum blossom — second",
-  "Blocking and stabbing","Embrace the moon — closing"
-];
-
-const JIAN = [
-  "Opening — hold sword","Three rings around the moon","Wild horse jumps the stream",
-  "Little star of the Dipper","Swallow skims the water","Blocking right",
-  "Left intercept thrust","Bee enters the hive","Spirit cat catches the rat",
-  "Phoenix spreads both wings","Yellow bee enters the hive","Swallow enters the nest",
-  "Lift knee to thrust upward","Shoot the wild goose","White ape presents fruit",
-  "Fishing in the dragon pond","Embrace the moon","Wind sweeps the plum blossom",
-  "Stand on one leg — thrust upward","Bow step — thrust forward",
-  "Crouch down to sweep","Golden cock stands alone","Whirlwind",
-  "Compass — left and right","Steady the sea needle","Support the sky",
-  "Swallow skims the water — closing","Step forward — parry and thrust",
-  "Closing — return sword"
-];
-
-
-const ZH = {
-  yang28: [
-    {c:"起势",p:"Qǐ shì"},
-    {c:"提手上势",p:"Tí shǒu shàng shì"},
-    {c:"左掤",p:"Zuǒ péng"},
-    {c:"右掤捋挤",p:"Yòu péng lǚ jǐ"},
-    {c:"按势",p:"Àn shì"},
-    {c:"单鞭",p:"Dān biān"},
-    {c:"提手",p:"Tí shǒu"},
-    {c:"白鹤亮翅",p:"Bái hè liàng chì"},
-    {c:"左搂膝拗步",p:"Zuǒ lōu xī ào bù"},
-    {c:"手挥琵琶",p:"Shǒu huī pí pá"},
-    {c:"肘底捶",p:"Zhǒu dǐ chuí"},
-    {c:"左倒撵猴",p:"Zuǒ dào niǎn hóu"},
-    {c:"右倒撵猴",p:"Yòu dào niǎn hóu"},
-    {c:"高探马",p:"Gāo tàn mǎ"},
-    {c:"右分脚",p:"Yòu fēn jiǎo"},
-    {c:"左分脚",p:"Zuǒ fēn jiǎo"},
-    {c:"左伏虎势",p:"Zuǒ fú hǔ shì"},
-    {c:"右伏虎势",p:"Yòu fú hǔ shì"},
-    {c:"云手一",p:"Yún shǒu yī"},
-    {c:"左玉女穿梭",p:"Zuǒ yù nǚ chuān suō"},
-    {c:"右玉女穿梭",p:"Yòu yù nǚ chuān suō"},
-    {c:"左野马分鬃",p:"Zuǒ yě mǎ fēn zōng"},
-    {c:"右野马分鬃",p:"Yòu yě mǎ fēn zōng"},
-    {c:"搂膝栽捶",p:"Lōu xī zāi chuí"},
-    {c:"右掤",p:"Yòu péng"},
-    {c:"捋挤",p:"Lǚ jǐ"},
-    {c:"按势",p:"Àn shì"},
-    {c:"单鞭",p:"Dān biān"},
-    {c:"蛇身下势",p:"Shé shēn xià shì"},
-    {c:"上步七星",p:"Shàng bù qī xīng"},
-    {c:"退步跨虎",p:"Tuì bù kuà hǔ"},
-    {c:"搬拦捶",p:"Bān lán chuí"},
-    {c:"转身",p:"Zhuǎn shēn"},
-    {c:"摆莲腿",p:"Bǎi lián tuǐ"},
-    {c:"弯弓射虎",p:"Wān gōng shè hǔ"},
-    {c:"上步搬拦捶",p:"Shàng bù bān lán chuí"},
-    {c:"如封似闭",p:"Rú fēng sì bì"},
-    {c:"十字手收势",p:"Shí zì shǒu shōu shì"}
-  ],
-  standard: [
-    {c:"提手上势",p:"Tí shǒu shàng shì"},
-    {c:"左掤",p:"Zuǒ péng"},
-    {c:"右掤",p:"Yòu péng"},
-    {c:"捋挤",p:"Lǚ jǐ"},
-    {c:"按势",p:"Àn shì"},
-    {c:"单鞭",p:"Dān biān"},
-    {c:"提手",p:"Tí shǒu"},
-    {c:"白鹤亮翅",p:"Bái hè liàng chì"},
-    {c:"左搂膝拗步",p:"Zuǒ lōu xī ào bù"},
-    {c:"手挥琵琶",p:"Shǒu huī pí pá"},
-    {c:"肘底捶",p:"Zhǒu dǐ chuí"},
-    {c:"左倒撵猴",p:"Zuǒ dào niǎn hóu"},
-    {c:"右倒撵猴",p:"Yòu dào niǎn hóu"},
-    {c:"高探马",p:"Gāo tàn mǎ"},
-    {c:"右分脚",p:"Yòu fēn jiǎo"},
-    {c:"左分脚",p:"Zuǒ fēn jiǎo"},
-    {c:"左伏虎势",p:"Zuǒ fú hǔ shì"},
-    {c:"右伏虎势",p:"Yòu fú hǔ shì"},
-    {c:"云手一",p:"Yún shǒu yī"},
-    {c:"云手二",p:"Yún shǒu èr"},
-    {c:"左玉女穿梭",p:"Zuǒ yù nǚ chuān suō"},
-    {c:"右玉女穿梭",p:"Yòu yù nǚ chuān suō"},
-    {c:"左野马分鬃",p:"Zuǒ yě mǎ fēn zōng"},
-    {c:"右野马分鬃",p:"Yòu yě mǎ fēn zōng"},
-    {c:"搂膝栽捶",p:"Lōu xī zāi chuí"},
-    {c:"右掤",p:"Yòu péng"},
-    {c:"捋挤",p:"Lǚ jǐ"},
-    {c:"按势",p:"Àn shì"},
-    {c:"单鞭",p:"Dān biān"},
-    {c:"蛇身下势",p:"Shé shēn xià shì"},
-    {c:"右金鸡独立",p:"Yòu jīn jī dú lì"},
-    {c:"左金鸡独立",p:"Zuǒ jīn jī dú lì"},
-    {c:"上步七星",p:"Shàng bù qī xīng"},
-    {c:"退步跨虎",p:"Tuì bù kuà hǔ"},
-    {c:"搬拦捶",p:"Bān lán chuí"},
-    {c:"转身",p:"Zhuǎn shēn"},
-    {c:"摆莲腿",p:"Bǎi lián tuǐ"},
-    {c:"弯弓射虎",p:"Wān gōng shè hǔ"},
-    {c:"上步搬拦捶",p:"Shàng bù bān lán chuí"},
-    {c:"如封似闭",p:"Rú fēng sì bì"},
-    {c:"十字手收势",p:"Shí zì shǒu shōu shì"}
-  ],
-  shibashi3: [
-    {c:"伸展向天",   p:"Shēn zhǎn xiàng tiān"},
-    {c:"扩胸展臂",   p:"Kuò xiōng zhǎn bì"},
-    {c:"左右摇摆",   p:"Zuǒ yòu yáo bǎi"},
-    {c:"莲花盛开",   p:"Lián huā shèng kāi"},
-    {c:"望落日",     p:"Wàng luò rì"},
-    {c:"海底针",     p:"Hǎi dǐ zhēn"},
-    {c:"开天辟地",   p:"Kāi tiān pì dì"},
-    {c:"内力冲拳",   p:"Nèi lì chōng quán"},
-    {c:"合掌摆胯",   p:"Hé zhǎng bǎi kuà"},
-    {c:"展翅飞翔",   p:"Zhǎn chì fēi xiáng"},
-    {c:"野马分鬃",   p:"Yě mǎ fēn zōng"},
-    {c:"推掌前行",   p:"Tuī zhǎng qián xíng"},
-    {c:"按摩丹田",   p:"Àn mó dān tián"},
-    {c:"采气排浊",   p:"Cǎi qì pái zhuó"},
-    {c:"疏通经络",   p:"Shū tōng jīng luò"},
-    {c:"导气强身",   p:"Dǎo qì qiáng shēn"},
-    {c:"感受快乐",   p:"Gǎn shòu kuài lè"},
-    {c:"按掌收功",   p:"Àn zhǎng shōu gōng"}
-  ],
-  shibashi: [
-    {c:"起势调息",     p:"Qǐ Shì Tiáo Xī"},
-    {c:"开阔胸怀",     p:"Kāikuò Xiōnghuái"},
-    {c:"挥舞彩虹",     p:"Huīwǔ Cǎihóng"},
-    {c:"轮臂分云",     p:"Lúnbì Fēnyún"},
-    {c:"定步倒卷肱",   p:"Dìngbù Dàojuǎngōng"},
-    {c:"湖心划船",     p:"Húxīn Huáchuán"},
-    {c:"肩前托球",     p:"Jiānqián Tuōqiú"},
-    {c:"转体望月",     p:"Zhuǎntǐ Wàngyuè"},
-    {c:"转腰推掌",     p:"Zhuǎnyāo Tuīzhǎng"},
-    {c:"马步云手",     p:"Mǎbù Yúnshǒu"},
-    {c:"捞海观天",     p:"Lāo Hǎi Guān Tiān"},
-    {c:"推波助澜",     p:"Tuībō Zhùlán"},
-    {c:"飞鸽展翅",     p:"Fēigē Zhǎnchì"},
-    {c:"马步冲拳",     p:"Mǎbù Chōngquán"},
-    {c:"大雁飞翔",     p:"Dàyàn Fēixiáng"},
-    {c:"环转飞轮",     p:"Huánzhuǎn Fēilún"},
-    {c:"踏步拍球",     p:"Tàbù Pāiqiú"},
-    {c:"按掌平气",     p:"Ànzhǎng Píngqì"}
-  ],
-  sabre: [
-    {c:"持刀起势",p:"Chí dāo qǐ shì"},
-    {c:"护膝上步",p:"Hù xī shàng bù"},
-    {c:"仙人指路",p:"Xiān rén zhǐ lù"},
-    {c:"三环套月",p:"Sān huán tào yuè"},
-    {c:"燕子抄水",p:"Yàn zi chāo shuǐ"},
-    {c:"右截刀",p:"Yòu jié dāo"},
-    {c:"左截刀",p:"Zuǒ jié dāo"},
-    {c:"摘星换斗",p:"Zhāi xīng huàn dǒu"},
-    {c:"燕子抄水二",p:"Yàn zi chāo shuǐ èr"},
-    {c:"抱月势",p:"Bào yuè shì"},
-    {c:"风扫梅花",p:"Fēng sǎo méi huā"},
-    {c:"狮子摇头",p:"Shī zi yáo tóu"},
-    {c:"虎抱头",p:"Hǔ bào tóu"},
-    {c:"野马跳涧",p:"Yě mǎ tiào jiàn"},
-    {c:"转身斜劈",p:"Zhuǎn shēn xié pī"},
-    {c:"悬崖勒马",p:"Xuán yá lè mǎ"},
-    {c:"左右车轮",p:"Zuǒ yòu chē lún"},
-    {c:"夜叉探海",p:"Yè chā tàn hǎi"},
-    {c:"射雁式",p:"Shè yàn shì"},
-    {c:"青龙出水",p:"Qīng lóng chū shuǐ"},
-    {c:"风扫梅花二",p:"Fēng sǎo méi huā èr"},
-    {c:"架刺势",p:"Jià cì shì"},
-    {c:"抱月收势",p:"Bào yuè shōu shì"}
-  ],
-  jianlong: [
-    {c:"预备势", p:"Yù bèi shì"},
-    {c:"起势",   p:"Qǐ shì"},
-    {c:"三环套月", p:"Sān huán tào yuè"},
-    {c:"魁星势", p:"Kuí xīng shì"},
-    {c:"燕子抄水", p:"Yàn zi chāo shuǐ"},
-    {c:"右边拦扫", p:"Yòu biān lán sǎo"},
-    {c:"左边拦扫", p:"Zuǒ biān lán sǎo"},
-    {c:"小魁星", p:"Xiǎo kuí xīng"},
-    {c:"燕子入巢", p:"Yàn zi rù cháo"},
-    {c:"灵猫捕鼠", p:"Líng māo bǔ shǔ"},
-    {c:"凤凰抬头", p:"Fèng huáng tái tóu"},
-    {c:"黄蜂入洞", p:"Huáng fēng rù dòng"},
-    {c:"凤凰右展翅", p:"Fèng huáng yòu zhǎn chì"},
-    {c:"小魁星", p:"Xiǎo kuí xīng"},
-    {c:"凤凰左展翅", p:"Fèng huáng zuǒ zhǎn chì"},
-    {c:"等鱼势", p:"Děng yú shì"},
-    {c:"右龙行势", p:"Yòu lóng xíng shì"},
-    {c:"左龙行势", p:"Zuǒ lóng xíng shì"},
-    {c:"右龙行势", p:"Yòu lóng xíng shì"},
-    {c:"怀中抱月", p:"Huái zhōng bào yuè"},
-    {c:"宿鸟投林", p:"Sù niǎo tóu lín"},
-    {c:"乌龙摆尾", p:"Wū lóng bǎi wěi"},
-    {c:"青龙出水", p:"Qīng lóng chū shuǐ"},
-    {c:"风卷荷叶", p:"Fēng juǎn hé yè"},
-    {c:"左狮子摇头", p:"Zuǒ shī zi yáo tóu"},
-    {c:"右狮子摇头", p:"Yòu shī zi yáo tóu"},
-    {c:"虎抱头", p:"Hǔ bào tóu"},
-    {c:"野马跳涧", p:"Yě mǎ tiào jiàn"},
-    {c:"勒马势", p:"Lè mǎ shì"},
-    {c:"指南针", p:"Zhǐ nán zhēn"},
-    {c:"左迎风掸尘", p:"Zuǒ yíng fēng dǎn chén"},
-    {c:"右迎风掸尘", p:"Yòu yíng fēng dǎn chén"},
-    {c:"左迎风掸尘", p:"Zuǒ yíng fēng dǎn chén"},
-    {c:"顺水推舟", p:"Shùn shuǐ tuī zhōu"},
-    {c:"流星赶月", p:"Liú xīng gǎn yuè"},
-    {c:"天马飞瀑", p:"Tiān mǎ fēi pù"},
-    {c:"挑帘势", p:"Tiāo lián shì"},
-    {c:"左车轮", p:"Zuǒ chē lún"},
-    {c:"右车轮", p:"Yòu chē lún"},
-    {c:"燕子衔泥", p:"Yàn zi xián ní"},
-    {c:"大鹏展翅", p:"Dà péng zhǎn chì"},
-    {c:"海底捞月", p:"Hǎi dǐ lāo yuè"},
-    {c:"哪吒探海", p:"Nǎ zhā tàn hǎi"},
-    {c:"犀牛望月", p:"Xī niú wàng yuè"},
-    {c:"射雁势", p:"Shè yàn shì"},
-    {c:"青龙现爪", p:"Qīng lóng xiàn zhuǎ"},
-    {c:"凤凰双展翅", p:"Fèng huáng shuāng zhǎn chì"},
-    {c:"左跨拦", p:"Zuǒ kuà lán"},
-    {c:"右跨拦", p:"Yòu kuà lán"},
-    {c:"射雁势", p:"Shè yàn shì"},
-    {c:"白猿献果", p:"Bái yuán xiàn guǒ"},
-    {c:"右落花势", p:"Yòu luò huā shì"},
-    {c:"左落花势", p:"Zuǒ luò huā shì"},
-    {c:"右落花势", p:"Yòu luò huā shì"},
-    {c:"左落花势", p:"Zuǒ luò huā shì"},
-    {c:"右落花势", p:"Yòu luò huā shì"},
-    {c:"玉女穿梭", p:"Yù nǚ chuān suō"},
-    {c:"白虎搅尾", p:"Bái hǔ jiǎo wěi"},
-    {c:"虎抱头", p:"Hǔ bào tóu"},
-    {c:"鱼跳龙门", p:"Yú tiào lóng mén"},
-    {c:"左乌龙搅柱", p:"Zuǒ wū lóng jiǎo zhù"},
-    {c:"右乌龙搅柱", p:"Yòu wū lóng jiǎo zhù"},
-    {c:"仙人指路", p:"Xiān rén zhǐ lù"},
-    {c:"朝天一柱香", p:"Cháo tiān yī zhù xiāng"},
-    {c:"凤扫梅花", p:"Fèng sǎo méi huā"},
-    {c:"牙笏势", p:"Yá hù shì"},
-    {c:"抱剑归原", p:"Bào jiàn guī yuán"}
-  ],
-  fan36: [
-    {c:"起勢",     p:"Qǐ shì"},
-    {c:"懷中抱月", p:"Huái zhōng bào yuè"},
-    {c:"帶子抄水", p:"Dài zǐ chāo shuǐ"},
-    {c:"順水推舟", p:"Shùn shuǐ tuī zhōu"},
-    {c:"華佗垂帘", p:"Huà tuó chuí lián"},
-    {c:"黃鶯落架", p:"Huáng yīng luò jià"},
-    {c:"鳳凰旋舞", p:"Fèng huáng xuán wǔ"},
-    {c:"烏龍擺尾", p:"Wū lóng bǎi wěi"},
-    {c:"翻身打虎", p:"Fān shēn dǎ hǔ"},
-    {c:"神龍返首", p:"Shén lóng fǎn shǒu"},
-    {c:"葉底采蓮", p:"Yè dǐ cǎi lián"},
-    {c:"雲雁南飛", p:"Yún yàn nán fēi"},
-    {c:"昭君扑蝶", p:"Zhāo jūn pū dié"},
-    {c:"轉身拋接", p:"Zhuǎn shēn pāo jiē"},
-    {c:"回首展臂", p:"Huí shǒu zhǎn bì"},
-    {c:"掩手挑帘", p:"Yǎn shǒu tiāo lián"},
-    {c:"烏龍倒卷", p:"Wū lóng dào juǎn"},
-    {c:"义步撩擊", p:"Yì bù liāo jī"},
-    {c:"振臂看花", p:"Zhèn bì kàn huā"},
-    {c:"隨風擺柳", p:"Suí fēng bǎi liǔ"},
-    {c:"迎風揮塵", p:"Yíng fēng huī chén"},
-    {c:"推波助瀾", p:"Tuī bō zhù lán"},
-    {c:"轉身擊扇", p:"Zhuǎn shēn jī shàn"},
-    {c:"舞袖翻花", p:"Wǔ xiù fān huā"},
-    {c:"插花蓋頂", p:"Chā huā gài dǐng"},
-    {c:"金瓶倒水", p:"Jīn píng dào shuǐ"},
-    {c:"回身看花", p:"Huí shēn kàn huā"},
-    {c:"霸王舉鼎", p:"Bà wáng jǔ dǐng"},
-    {c:"神扇穿霧", p:"Shén shàn chuān wù"},
-    {c:"四維雄風", p:"Sì wéi xióng fēng"},
-    {c:"仆步端扇", p:"Pū bù duān shàn"},
-    {c:"白鶴亮翅", p:"Bái hè liàng chì"},
-    {c:"風掃秋葉", p:"Fēng sǎo qiū yè"},
-    {c:"大地春色", p:"Dà dì chūn sè"},
-    {c:"彩蝶翻飛", p:"Cǎi dié fān fēi"},
-    {c:"收勢",     p:"Shōu shì"}
-  ],
-  fiveel: [
-    {c:"木 — 如树生长",  p:"Mù — rú shù shēng zhǎng"},
-    {c:"火 — 推掌开展",  p:"Huǒ — tuī zhǎng kāi zhǎn"},
-    {c:"土 — 举手下按",  p:"Tǔ — jǔ shǒu xià àn"},
-    {c:"金 — 收敛聚气",  p:"Jīn — shōu liǎn jù qì"},
-    {c:"水 — 沉降上浮",  p:"Shuǐ — chén jiàng shàng fú"}
-  ],
-  baduan: [
-    {c:"双手托天理三焦",   p:"Shuāng shǒu tuō tiān lǐ sān jiāo"},
-    {c:"左右开弓似射雕",   p:"Zuǒ yòu kāi gōng sì shè diāo"},
-    {c:"调理脾胃须单举",   p:"Tiáo lǐ pí wèi xū dān jǔ"},
-    {c:"五劳七伤往后瞧",   p:"Wǔ láo qī shāng wǎng hòu qiáo"},
-    {c:"摇头摆尾去心火",   p:"Yáo tóu bǎi wěi qù xīn huǒ"},
-    {c:"两手攀足固肾腰",   p:"Liǎng shǒu pān zú gù shèn yāo"},
-    {c:"攥拳怒目增气力",   p:"Zuàn quán nù mù zēng qì lì"},
-    {c:"背后七颠百病消",   p:"Bèi hòu qī diān bǎi bìng xiāo"}
-  ],
-  jian: [
-    {c:"持剑起势",p:"Chí jiàn qǐ shì"},
-    {c:"三环套月",p:"Sān huán tào yuè"},
-    {c:"野马跳涧",p:"Yě mǎ tiào jiàn"},
-    {c:"摘星换斗",p:"Zhāi xīng huàn dǒu"},
-    {c:"燕子抄水",p:"Yàn zi chāo shuǐ"},
-    {c:"右拦剑",p:"Yòu lán jiàn"},
-    {c:"左截刺",p:"Zuǒ jié cì"},
-    {c:"蜜蜂入洞",p:"Mì fēng rù dòng"},
-    {c:"灵猫扑鼠",p:"Líng māo pū shǔ"},
-    {c:"凤凰双展翅",p:"Fèng huáng shuāng zhǎn chì"},
-    {c:"黄蜂入洞",p:"Huáng fēng rù dòng"},
-    {c:"燕子入巢",p:"Yàn zi rù cháo"},
-    {c:"提膝上刺",p:"Tí xī shàng cì"},
-    {c:"射雁式",p:"Shè yàn shì"},
-    {c:"白猿献果",p:"Bái yuán xiàn guǒ"},
-    {c:"龙潭取水",p:"Lóng tán qǔ shuǐ"},
-    {c:"抱月势",p:"Bào yuè shì"},
-    {c:"风扫梅花",p:"Fēng sǎo méi huā"},
-    {c:"独立上刺",p:"Dú lì shàng cì"},
-    {c:"弓步平刺",p:"Gōng bù píng cì"},
-    {c:"仆步横扫",p:"Pū bù héng sǎo"},
-    {c:"金鸡独立",p:"Jīn jī dú lì"},
-    {c:"旋风势",p:"Xuàn fēng shì"},
-    {c:"左右车轮",p:"Zuǒ yòu chē lún"},
-    {c:"定海神针",p:"Dìng hǎi shén zhēn"},
-    {c:"托天势",p:"Tuō tiān shì"},
-    {c:"燕子抄水收",p:"Yàn zi chāo shuǐ shōu"},
-    {c:"上步搬拦刺",p:"Shàng bù bān lán cì"},
-    {c:"收剑还原",p:"Shōu jiàn huán yuán"}
-  ]
-};
-
-
-const SHIBASHI2 = [
-  { t:"Peacock unfolds its tail",                reps:6, mode:"repeat"   },
-  { t:"Heavenly roll",                           reps:6, mode:"repeat"   },
-  { t:"Breeze blowing at the willow tree",       reps:3, mode:"alternate"},
-  { t:"Needle at sea bottom",                    reps:6, mode:"repeat"   },
-  { t:"Fisherman casting net",                   reps:3, mode:"alternate"},
-  { t:"Dragon circles the mountain",             reps:6, mode:"repeat"   },
-  { t:"Heel kick to the front",                  reps:3, mode:"alternate"},
-  { t:"Warrior in meditation",                   reps:6, mode:"repeat"   },
-  { t:"Yellow dragon clawing",                   reps:3, mode:"alternate"},
-  { t:"Shooting arrow",                          reps:3, mode:"alternate"},
-  { t:"Two dragons flying out to sea",           reps:6, mode:"repeat"   },
-  { t:"The waves lapping or rolling",            reps:6, mode:"repeat"   },
-  { t:"The lion playing the ball",               reps:3, mode:"alternate"},
-  { t:"Carrying the moon towards your body",     reps:6, mode:"repeat"   },
-  { t:"Phoenix spreading its wings",             reps:3, mode:"alternate"},
-  { t:"Hit tiger's ears",                        reps:3, mode:"alternate"},
-  { t:"Farmer grinds the corn",                  reps:3, mode:"alternate"},
-  { t:"Press the palms in calmness",             reps:6, mode:"repeat"   }
-];
-
-
-const SHIBASHI3 = [
-  { t:"Stretch to the sky",                                    reps:6, mode:"repeat" },
-  { t:"Expand the chest",                                      reps:6, mode:"repeat" },
-  { t:"Swing to the left and right",                           reps:6, mode:"repeat" },
-  { t:"Blossoming lotus",                                      reps:6, mode:"repeat" },
-  { t:"Look at the setting sun",                               reps:6, mode:"repeat" },
-  { t:"Point to needle at the bottom of the sea",              reps:6, mode:"repeat" },
-  { t:"Open heaven and earth",                                 reps:6, mode:"repeat" },
-  { t:"Thrust the fist with inner power",                      reps:6, mode:"repeat" },
-  { t:"With prayer-like palms, sway hips left and right",      reps:6, mode:"repeat" },
-  { t:"Spread wings to fly",                                   reps:6, mode:"repeat" },
-  { t:"Part the wild horse's mane",                            reps:6, mode:"repeat" },
-  { t:"Push palms forward",                                    reps:6, mode:"repeat" },
-  { t:"Massage dantian",                                       reps:6, mode:"repeat" },
-  { t:"Gather in good energy and remove bad energy",           reps:6, mode:"repeat" },
-  { t:"Open and clear the meridians",                          reps:6, mode:"repeat" },
-  { t:"Directing qi to strengthen the body and mind",          reps:6, mode:"repeat" },
-  { t:"Feel happiness",                                        reps:6, mode:"repeat" },
-  { t:"Push down palms, closing movement",                     reps:6, mode:"repeat" }
-];
-
-const LOTUS = [
-  { t:"Wuji — opening stillness",                       reps:1, mode:"repeat" },
-  { t:"Waving hands in the air",                        reps:1, mode:"repeat" },
-  { t:"Turtle treads water",                            reps:1, mode:"repeat" },
-  { t:"Rabbit digs the earth",                          reps:1, mode:"repeat" },
-  { t:"Fair maiden sprinkles water on the young lotus", reps:1, mode:"repeat" },
-  { t:"Young lotus blossoms",                           reps:1, mode:"repeat" },
-  { t:"Turn to press the wind — left hand",             reps:1, mode:"repeat" },
-  { t:"Turn to press the wind — right hand",            reps:1, mode:"repeat" },
-  { t:"Lift to the sky",                                reps:1, mode:"repeat" },
-  { t:"Press to the earth",                             reps:1, mode:"repeat" },
-  { t:"White crane spreads wings left then right",      reps:1, mode:"repeat" },
-  { t:"Rabbit digs the earth",                          reps:1, mode:"repeat" },
-  { t:"Waving hands in the air",                        reps:1, mode:"repeat" },
-  { t:"Wuji — closing stillness",                       reps:1, mode:"repeat" }
-];
-
-
-
-
-
-const JIAN_LONG = [
-  { t:"Prepare" },
-  { t:"Opening" },
-  { t:"Circle the moon with three rings" },
-  { t:"Big Dipper" },
-  { t:"Swallow skims the water" },
-  { t:"Block and sweep right" },
-  { t:"Block and sweep left" },
-  { t:"Little Dipper" },
-  { t:"Swallow returns to its nest" },
-  { t:"Agile cat seizes the mouse" },
-  { t:"Phoenix lifts its head" },
-  { t:"Wasp enters the cave" },
-  { t:"Phoenix opens its right wing" },
-  { t:"Little Dipper" },
-  { t:"Phoenix opens its left wing" },
-  { t:"Casting the fishing rod" },
-  { t:"Poking the grass to seek the snake, one" },
-  { t:"Poking the grass to seek the snake, two" },
-  { t:"Poking the grass to seek the snake, three" },
-  { t:"Embracing the moon" },
-  { t:"Birds lodging in the forest" },
-  { t:"Black dragon swings its tail" },
-  { t:"Green dragon comes out of the water" },
-  { t:"Lotus swirls around in the wind" },
-  { t:"Lion shakes its head left" },
-  { t:"Lion shakes its head right" },
-  { t:"Tiger covers its head" },
-  { t:"Mustang jumps the ravine" },
-  { t:"Reining in the stallion" },
-  { t:"Compass" },
-  { t:"Dusting in the wind, one" },
-  { t:"Dusting in the wind, two" },
-  { t:"Dusting in the wind, three" },
-  { t:"Pushing the canoe with the current" },
-  { t:"Shooting star chases the moon" },
-  { t:"Heavenly steed flies over the waterfall" },
-  { t:"Lifting up the curtain" },
-  { t:"Left cart wheel" },
-  { t:"Right cart wheel" },
-  { t:"Swallow carries pieces of earth in its beak" },
-  { t:"Roc extends its wings" },
-  { t:"Fishing for the moon at the sea bottom" },
-  { t:"Naza explores the sea bottom" },
-  { t:"Rhinoceros looks at the moon" },
-  { t:"Shooting the wild goose" },
-  { t:"Green dragon shows its claws" },
-  { t:"Phoenix opens both its wings" },
-  { t:"Step over and block up left" },
-  { t:"Step over and block up right" },
-  { t:"Shooting the wild goose" },
-  { t:"White ape presents the fruit" },
-  { t:"Falling flowers, one" },
-  { t:"Falling flowers, two" },
-  { t:"Falling flowers, three" },
-  { t:"Falling flowers, four" },
-  { t:"Falling flowers, five" },
-  { t:"Fair lady works at shuttles" },
-  { t:"White tiger swings its tail" },
-  { t:"Tiger covers its head" },
-  { t:"Fish jumps over the dragon gate" },
-  { t:"Black dragon twists around the pole left" },
-  { t:"Black dragon twists around the pole right" },
-  { t:"Fairy points the way" },
-  { t:"An incense for heaven" },
-  { t:"Plum flowers being swept by the wind" },
-  { t:"Presenting the tablet" },
-  { t:"Return the sword to its original position" }
-];
-
-const FAN36 = [
-  { t:"Opening posture" },
-  { t:"Embrace the moon" },
-  { t:"Scoop water with the sash" },
-  { t:"Push the boat with the current" },
-  { t:"Hua Tuo lowers the curtain" },
-  { t:"Golden oriole lands on the perch" },
-  { t:"Phoenix spins and dances" },
-  { t:"Black dragon wags its tail" },
-  { t:"Turn body and strike the tiger" },
-  { t:"Divine dragon turns its head" },
-  { t:"Pick lotus beneath the leaves" },
-  { t:"Wild geese fly south through clouds" },
-  { t:"Lady Zhaojun chases butterflies" },
-  { t:"Turn body and toss and catch" },
-  { t:"Turn head and extend arms" },
-  { t:"Cover hand and lift the curtain" },
-  { t:"Black dragon rolls back" },
-  { t:"Cross step and upward strike" },
-  { t:"Raise arms and admire flowers" },
-  { t:"Willows sway in the breeze" },
-  { t:"Wave the duster into the wind" },
-  { t:"Push the waves and stir the waters" },
-  { t:"Turn body and strike with fan" },
-  { t:"Dance sleeves and turn flowers" },
-  { t:"Insert flower over the crown" },
-  { t:"Golden vase pours water" },
-  { t:"Turn body and admire flowers" },
-  { t:"Overlord lifts the cauldron" },
-  { t:"Spirit fan pierces the mist" },
-  { t:"Mighty wind in four directions" },
-  { t:"Low stance, hold fan level" },
-  { t:"White crane spreads wings" },
-  { t:"Wind sweeps autumn leaves" },
-  { t:"Spring colours of the earth" },
-  { t:"Colourful butterflies flutter" },
-  { t:"Closing posture" }
-];
-
-const FIVE_ELEMENTS = [
-  { t:"Wood — rise like a tree",              reps:6, mode:"repeat"    },
-  { t:"Fire — push and open to the sides",    reps:3, mode:"alternate" },
-  { t:"Earth — lift and lower with intention",reps:6, mode:"repeat"    },
-  { t:"Metal — gather and concentrate",       reps:6, mode:"repeat"    },
-  { t:"Water — sink and flow upward",         reps:6, mode:"repeat"    }
-];
-
-const BADUAN = [
-  { t:"Two hands hold up the heavens",          reps:6, mode:"repeat" },
-  { t:"Draw the bow to shoot the eagle",         reps:6, mode:"side"   },
-  { t:"Separate heaven and earth",               reps:6, mode:"alternate" },
-  { t:"Wise owl gazes backwards",                reps:6, mode:"alternate" },
-  { t:"Sway the head and shake the tail",        reps:6, mode:"alternate" },
-  { t:"Two hands hold the feet",                 reps:6, mode:"repeat" },
-  { t:"Clench the fists and glare fiercely",     reps:6, mode:"alternate" },
-  { t:"Bouncing on the toes",                    reps:7, mode:"repeat" }
-];
-
-// Expand step objects into individual timed entries with spoken text
-function expandSteps(arr) {
-  const out = [];
-  arr.forEach(s => {
-    const base = typeof s === 'string' ? { t: s, reps: 1, mode: 'repeat' } : s;
-    const nm = base.t;
-    const ordWord = ["second","third","fourth","fifth","sixth","seventh","eighth"];
-
-    if (base.mode === 'repeat') {
-      // 1: name
-      // 2: Then name
-      // 3: A third name
-      // 4: A fourth name ...
-      // last: And finally a sixth name
-      for (let r = 0; r < base.reps; r++) {
-        let say;
-        if      (r === 0)             say = nm;
-        else if (r === 1)             say = "Then " + nm.toLowerCase();
-        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " " + nm.toLowerCase();
-        else                          say = "A " + ordWord[r-1] + " " + nm.toLowerCase();
-        out.push({ t: nm, say, orig: nm, rep: r+1, total: base.reps });
-      }
-
-    } else if (base.mode === 'alternate') {
-      // 1: "Painting rainbows left"
-      // 2: "Then painting rainbows right"
-      // 3: "Then painting rainbows left"
-      // 4: "Then painting rainbows right"
-      // 5: "Left"
-      // 6: "Right"
-      const total = base.reps * 2;
-      const sideList = ['left','right','left','right','left','right','left','right'];
-      for (let r = 0; r < total; r++) {
-        const side = sideList[r];
-        let say;
-        if      (r === 0) say = nm + " left";
-        else if (r === 1) say = "Then " + nm.toLowerCase() + " right";
-        else if (r === 2) say = "Then " + nm.toLowerCase() + " left";
-        else if (r === 3) say = "Then " + nm.toLowerCase() + " right";
-        else              say = r % 2 === 0 ? "Left" : "Right";
-        out.push({ t: nm + ", " + side, say, orig: nm, rep: r+1, total });
-      }
-
-    } else if (base.mode === 'side') {
-      // left first: name left / A second left / And finally a third left
-      //             name right / A second right / And finally a third right
-      for (let r = 0; r < base.reps; r++) {
-        let say;
-        if      (r === 0)             say = nm + ", left side";
-        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " left";
-        else                          say = "A " + ordWord[r-1] + " left";
-        out.push({ t: nm + ", left", say, orig: nm, rep: r+1, total: base.reps });
-      }
-      for (let r = 0; r < base.reps; r++) {
-        let say;
-        if      (r === 0)             say = nm + ", right side";
-        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " right";
-        else                          say = "A " + ordWord[r-1] + " right";
-        out.push({ t: nm + ", right", say, orig: nm, rep: r+1, total: base.reps });
-      }
-
-    } else if (base.mode === 'side-right') {
-      // right first: name right / A second right / And finally a third right
-      //              name left  / A second left  / And finally a third left
-      for (let r = 0; r < base.reps; r++) {
-        let say;
-        if      (r === 0)             say = nm + ", right side";
-        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " right";
-        else                          say = "A " + ordWord[r-1] + " right";
-        out.push({ t: nm + ", right", say, orig: nm, rep: r+1, total: base.reps });
-      }
-      for (let r = 0; r < base.reps; r++) {
-        let say;
-        if      (r === 0)             say = nm + ", left side";
-        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " left";
-        else                          say = "A " + ordWord[r-1] + " left";
-        out.push({ t: nm + ", left", say, orig: nm, rep: r+1, total: base.reps });
-      }
-    }
-  });
-  return out;
-}
-
-const ABOUT = { isAbout: true, name:"About", short:"About", cat:"about" };
-
-const FORMS = {
-  yang28:    { name:"Yang 28 — Competition",  short:"Yang 28 — Competition",  cat:"forms",   duration:290,  steps:YANG28,                     hasOpening:true,  repeats:1, expand:false },
-  standard:  { name:"Yang 28 — Standard",     short:"Yang 28 — Standard",     cat:"forms",   duration:315,  steps:STANDARD,                   hasOpening:true,  repeats:1, expand:false },
-  baduan:    { name:"Ba Duan Jin",             short:"Ba Duan Jin",             cat:"qigong",  duration:480,  steps:expandSteps(BADUAN),        hasOpening:false, repeats:1, expand:true  },
-  fiveel:    { name:"Five Element Qigong",     short:"Five Element Qigong",     cat:"qigong",  duration:360,  steps:expandSteps(FIVE_ELEMENTS), hasOpening:false, repeats:1, expand:true  },
-  lotus:     { name:"Lotus Qigong",            short:"Lotus Qigong",            cat:"qigong",  duration:98,   steps:expandSteps(LOTUS),         hasOpening:false, repeats:1, expand:true  },
-  shibashi:  { name:"ShiBaShi Set 1",          short:"ShiBaShi Set 1",          cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI),      hasOpening:false, repeats:1, expand:true, intro:"Taiji Qigong Shibashi, 太极气功十八式. 18 fluid movements designed to enhance energy, Qi, and relaxation. Created by Professor Lin Housheng in 1979. Each movement is performed with 6 repetitions. Beginning now." },
-  shibashi2: { name:"ShiBaShi Set 2",          short:"ShiBaShi Set 2",          cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI2),     hasOpening:false, repeats:1, expand:true  },
-  shibashi3: { name:"ShiBaShi Set 3",          short:"ShiBaShi Set 3",          cat:"qigong",  duration:720,  steps:expandSteps(SHIBASHI3),     hasOpening:false, repeats:1, expand:true  },
-  fan36:     { name:"Yang Style 36 Fan",        short:"Yang Style 36 Fan",       cat:"weapons", duration:213,  steps:FAN36,                      hasOpening:false, repeats:1, expand:false },
-  jian:      { name:"Yang Jian — Short Form",  short:"Yang Jian — Short Form",  cat:"weapons", duration:125,  steps:JIAN,                       hasOpening:false, repeats:1, expand:false },
-  jianlong:  { name:"Yang Jian — Long Form",   short:"Yang Jian — Long Form",   cat:"weapons", duration:196,  steps:JIAN_LONG,                  hasOpening:false, repeats:1, expand:false },
-  sabre:     { name:"Yang Sabre (Dao)",         short:"Yang Sabre (Dao)",         cat:"weapons", duration:120,  steps:SABRE,                      hasOpening:false, repeats:1, expand:false }
-};
-
-let cf = 'yang28';
-let ci = -1;
-let playing = false;
-let speed = 1.0;
-let muted = false;
-let synth = window.speechSynthesis;
-let stepStart = 0;
-let stepElapsed = 0;
-let raf = null;
-let deferredPrompt = null;
-let inOpening = false;
-let lang = 'both'; // 'zh' | 'both' | 'en'
-let zhVoice = null;
-let enVoice = null;
-
-function form() { return FORMS[cf]; }
-function stepDur() { const f = form(); return f.duration / (f.steps.length * f.repeats); }
-function fmt(s) {
-  s = Math.max(0, Math.round(s));
-  return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
-}
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault(); deferredPrompt = e;
-  document.getElementById('installBanner').classList.add('show');
-});
-document.getElementById('installBtn').onclick = async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  document.getElementById('installBanner').classList.remove('show');
-};
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
-
-function showView(v) {
-  const isPractice = v === 'practice';
-  document.getElementById('practicePanel').classList.toggle('hide', !isPractice);
-  document.getElementById('historyPanel').classList.toggle('show', !isPractice);
-  document.getElementById('vb-practice').classList.toggle('active', isPractice);
-  document.getElementById('vb-history').classList.toggle('active', !isPractice);
-}
-
-function renderTabs() {
-  const cats = [
-    { key:'forms',   label:'Tai Chi Forms' },
-    { key:'qigong',  label:'Qigong'        },
-    { key:'weapons', label:'Weapons'       }
-  ];
-  let html = '';
-  // About tab first
-  html += \`<div class="tab\${cf==='about'?' active':''}" onclick="selectForm('about')">About</div>\`;
-  html += \`<div class="tab-cat" style="margin-left:4px;margin-right:4px;">|</div>\`;
-  cats.forEach(cat => {
-    const entries = Object.entries(FORMS)
-      .filter(([k,v]) => v.cat === cat.key)
-      .sort((a,b) => a[1].short.localeCompare(b[1].short));
-    if (!entries.length) return;
-    html += \`<div class="tab-cat">\${cat.label}</div>\`;
-    entries.forEach(([k,v]) => {
-      html += \`<div class="tab\${k===cf?' active':''}" onclick="selectForm('\${k}')">\${v.short}</div>\`;
-    });
-  });
-  document.getElementById('tabs').innerHTML = html;
-}
-
-function renderMeta() {
-  const f = form();
-  const repStr = f.repeats > 1 ? \` × \${f.repeats} sets\` : '';
-  document.getElementById('metaText').textContent =
-    \`\${f.steps.length} steps\${repStr} · \${fmt(f.duration)} · \${stepDur().toFixed(1)}s each\`;
-  document.getElementById('timeTotal').textContent = fmt(f.duration);
-  document.getElementById('listHeader').textContent = f.name + ' — Steps';
-}
-
-function renderStep() {
-  const f = form();
-  if (ci < 0) {
-    document.getElementById('stepLabel').innerHTML = '&nbsp;';
-    document.getElementById('stepTitle').textContent = 'Press play to begin';
-    document.getElementById('stepSubtitle').textContent = '';
-    document.getElementById('progressFill').style.width = '0%';
-    document.getElementById('timeElapsed').textContent = '0:00';
-    return;
-  }
-  const rep = f.repeats > 1 ? Math.floor(ci / f.steps.length) + 1 : null;
-  const stepInRep = ci % f.steps.length;
-  const totalSteps = f.steps.length * f.repeats;
-  document.getElementById('stepLabel').textContent = rep
-    ? \`Set \${rep} of \${f.repeats}  ·  Step \${stepInRep + 1} of \${f.steps.length}\`
-    : \`Step \${ci} of \${totalSteps - 1}\`;
-    const _si = ci % f.steps.length;
-  const st = f.steps[_si];
-  const sd = typeof st === 'string' ? st : st.t || st.say || '';
-  const repInfo = (st && st.total > 1) ? st.rep + ' of ' + st.total : '';
-  const zhd = getZh(ci);
-  if (lang === 'zh' && zhd) {
-    document.getElementById('stepTitle').textContent = zhd.c;
-    document.getElementById('stepSubtitle').textContent = zhd.p + (repInfo ? '  · ' + repInfo : '');
-  } else if (lang === 'both' && zhd) {
-    document.getElementById('stepTitle').textContent = zhd.c + '  ' + (st.orig || sd);
-    document.getElementById('stepSubtitle').textContent = zhd.p + (repInfo ? '  ·  ' + repInfo : '');
-  } else {
-    document.getElementById('stepTitle').textContent = sd;
-    document.getElementById('stepSubtitle').textContent = repInfo ? repInfo : (ci === 0 && f.hasOpening ? 'Timer running' : '');
-  }
-  document.getElementById('stepSubtitle').textContent =
-    ci === 0 && f.hasOpening ? 'Timer running — 4:50' : '';
-}
-
-function renderList() {
-  const f = form();
-  const dur = stepDur();
-  const totalRows = f.steps.length * f.repeats;
-  const rows = [];
-  for (let i = 0; i < totalRows; i++) {
-    const s = f.steps[i % f.steps.length];
-    const repN = f.repeats > 1 ? Math.floor(i / f.steps.length) + 1 : null;
-    let cls = 'step-row';
-    if (i === ci) cls += ' active';
-    else if (i < ci) cls += ' done';
-    const name = typeof s === "string" ? s : s.t + (s.w ? s.w.map(x=>" / "+x[1]).join("") : "");
-    const prefix = repN ? \`<span style="font-size:10px;color:var(--text3);margin-right:4px">S\${repN}</span>\` : '';
-    rows.push(\`<div class="\${cls}" id="sr\${i}" onclick="jumpTo(\${i})">
-      <div class="sr-num">\${i % f.steps.length}</div>
-      <div class="sr-name">\${prefix}\${name}</div>
-      <div class="sr-time">\${fmt(i * stepDur())}</div>
-    </div>\`);
-  }
-  document.getElementById('stepList').innerHTML = rows.join('');
-}
-
-function scrollToStep(i) {
-  const el = document.getElementById('sr'+i);
-  if (el) el.scrollIntoView({ block:'nearest', behavior:'smooth' });
-}
-
-function loadVoices() {
-  const voices = synth.getVoices();
-  zhVoice = voices.find(v => v.lang.startsWith('zh')) || null;
-  enVoice = voices.find(v => v.lang.startsWith('en-AU')) ||
-            voices.find(v => v.lang.startsWith('en-GB')) ||
-            voices.find(v => v.lang.startsWith('en')) || null;
-}
-if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
-setTimeout(loadVoices, 500);
-
-function isShibashi() { return cf === 'shibashi' || cf === 'shibashi2' || cf === 'shibashi3' || cf === 'lotus'; }
-
-function utter(txt, isZh) {
-  if (!synth || muted) return;
-  const u = new SpeechSynthesisUtterance(txt);
-  if (isZh && zhVoice) u.voice = zhVoice;
-  if (!isZh && enVoice) u.voice = enVoice;
-  const slow = isShibashi();
-  // ShiBaShi: very slow so full phrase completes before next step
-  // English rate 0.35 for ShiBaShi, 0.55 for other forms
-  u.rate = isZh
-    ? (slow ? 0.55 : Math.min(speed * 0.7, 0.9))
-    : (slow ? Math.min(speed * 0.35, 0.5) : Math.min(speed * 0.55, 0.75));
-  u.pitch = 1.0;
-  synth.speak(u);
-}
-
-function speakOne(txt) { utter(txt, false); }
-
-function getZh(idx) {
-  const key = cf === 'yang28' ? 'yang28' : cf === 'standard' ? 'standard' :
-              cf === 'shibashi' ? 'shibashi' : cf === 'shibashi3' ? 'shibashi3' : cf === 'sabre' ? 'sabre' :
-              cf === 'jian' ? 'jian' : cf === 'baduan' ? 'baduan' : cf === 'fiveel' ? 'fiveel' : cf === 'fan36' ? 'fan36' : cf === 'jianlong' ? 'jianlong' : null;
-  if (!key) return null;
-  const arr = ZH[key];
-  if (!arr) return null;
-  const f = form();
-  const st = f.steps[idx % f.steps.length];
-  // For expanded forms find base step index by orig name
-  if (f.expand && st && st.orig) {
-    const baseArr = cf === 'shibashi' ? SHIBASHI : null;
-    if (baseArr) {
-      const bi = baseArr.findIndex(x => (x.t || x) === st.orig);
-      return bi >= 0 ? arr[bi] : null;
-    }
-    return null;
-  }
-  const realIdx = idx % f.steps.length;
-  return arr[realIdx] || null;
-}
-
-function speak(step, ciIdx) {
-  if (!synth || muted) return;
-  synth.cancel();
-  const s = typeof step === 'string' ? { t: step } : step;
-  const sayText = s.say || s.t;
-  const zh = (lang !== 'en') ? getZh(ciIdx !== undefined ? ciIdx : ci) : null;
-
-  if (lang === 'zh' && zh) {
-    utter(zh.c, true);
-  } else if (lang === 'both' && zh) {
-    utter(zh.c, true);
-    const zhDelay = Math.max(1200, zh.c.length * 350) / speed;
-    setTimeout(() => { if (!muted) utter(sayText, false); }, zhDelay);
-    if (s.w) {
-      let delay = zhDelay;
-      s.w.forEach(([sec, phrase]) => {
-        delay += (sec * 1000) / speed;
-        const d = delay;
-        setTimeout(() => { if (!muted) utter(phrase, false); }, d);
-      });
-    }
-  } else {
-    // English only
-    utter(sayText, false);
-    if (s.w) {
-      let delay = 0;
-      s.w.forEach(([sec, phrase]) => {
-        delay += (sec * 1000) / speed;
-        const d = delay;
-        setTimeout(() => { if (!muted) utter(phrase, false); }, d);
-      });
-    }
-  }
-}
-
-function tick() {
-  if (!playing) return;
-  stepElapsed = (performance.now() - stepStart) / 1000;
-  const realDur = stepDur() / speed;
-  const total = ci * stepDur() + stepElapsed * speed;
-  document.getElementById('timeElapsed').textContent = fmt(total);
-  document.getElementById('progressFill').style.width = Math.min((total / form().duration) * 100, 100) + '%';
-  if (stepElapsed >= realDur) advance();
-  else raf = requestAnimationFrame(tick);
-}
-
-function startTimer() {
-  stepStart = performance.now(); stepElapsed = 0;
-  cancelAnimationFrame(raf);
-  raf = requestAnimationFrame(tick);
-}
-
-function advance() {
-  ci++;
-  const f = form();
-  if (ci >= f.steps.length * f.repeats) {
-    ci = f.steps.length - 1; playing = false;
-    document.getElementById('playBtn').innerHTML = '&#9654;';
-    document.getElementById('progressFill').style.width = '100%';
-    document.getElementById('timeElapsed').textContent = fmt(f.duration);
-    speak('Form complete. Well done.');
-    renderStep(); renderList(); return;
-  }
-  const repNum = f.repeats > 1 ? Math.floor(ci / f.steps.length) + 1 : null;
-  const _idx = ci % f.steps.length;
-  if (f.repeats > 1 && _idx === 0 && ci > 0) {
-    speakOne('Set ' + repNum);
-    setTimeout(() => speak(f.steps[0], ci), 1200 / speed);
-  } else {
-    speak(f.steps[_idx], ci);
-  }
-  renderStep(); renderList(); scrollToStep(ci);
-  startTimer();
-}
-
-// Intro announcement before shibashi-style forms
-function doIntro() {
-  inOpening = true;
-  const introText = form().intro;
-  // Show overlay with intro text
-  const overlay = document.getElementById('countdownOverlay');
-  const numEl = document.getElementById('countdownNum');
-  document.querySelector('.countdown-text').textContent = 'Taiji Qigong Shibashi';
-  document.querySelectorAll('.countdown-text')[1].textContent = 'Beginning shortly...';
-  numEl.textContent = '☯';
-  overlay.classList.add('show');
-  utter(introText, false);
-  // Estimate reading time: ~12 words per second at slow rate, intro is ~50 words = ~7s
-  const introMs = Math.max(8000, introText.split(' ').length * 600 / Math.min(speed * 0.35, 0.5));
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    inOpening = false;
-    ci = 0;
-    speak(form().steps[0], 0);
-    renderStep(); renderList(); scrollToStep(0);
-    startTimer();
-  }, introMs);
-}
-
-// Opening stance: announce, show countdown overlay, then start timed form
-function doOpeningStance() {
-  inOpening = true;
-  speak('Opening stance');
-  const overlay = document.getElementById('countdownOverlay');
-  const numEl = document.getElementById('countdownNum');
-  overlay.classList.add('show');
-  numEl.textContent = '5';
-  setTimeout(() => { numEl.textContent = '4'; }, 1000);
-  setTimeout(() => { numEl.textContent = '3'; }, 2000);
-  setTimeout(() => { numEl.textContent = '2'; }, 3000);
-  setTimeout(() => { numEl.textContent = '1'; }, 4000);
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    inOpening = false;
-    ci = 0;
-    speak(form().steps[0]);
-    renderStep(); renderList(); scrollToStep(0);
-    startTimer();
-  }, 5200);
-}
-
-function togglePlay() {
-  if (inOpening) return;
-  if (playing) {
-    playing = false;
-    document.getElementById('playBtn').innerHTML = '&#9654;';
-    synth && synth.cancel();
-    cancelAnimationFrame(raf);
-  } else {
-    playing = true;
-    document.getElementById('playBtn').innerHTML = '&#9646;&#9646;';
-    if (ci < 0) {
-      // Yang 28 gets the Opening Stance pre-announcement
-      if (form().hasOpening) {
-        doOpeningStance();
-      } else {
-        ci = 0;
-        speak(form().steps[0]);
-        renderStep(); renderList(); scrollToStep(0);
-        startTimer();
-      }
-    } else {
-      startTimer();
-    }
-  }
-}
-
-function prevStep() {
-  if (inOpening || ci <= 0) return;
-  ci--; speak(form().steps[ci % form().steps.length], ci);
-  renderStep(); renderList(); scrollToStep(ci);
-  if (playing) startTimer();
-}
-
-function nextStep() {
-  if (inOpening || ci >= form().steps.length - 1) return;
-  ci++; speak(form().steps[ci % form().steps.length], ci);
-  renderStep(); renderList(); scrollToStep(ci);
-  if (playing) startTimer();
-}
-
-function jumpTo(i) {
-  if (inOpening) return;
-  ci = i; speak(form().steps[i % form().steps.length], i);
-  renderStep(); renderList(); scrollToStep(i);
-  if (!playing) { playing = true; document.getElementById('playBtn').innerHTML = '&#9646;&#9646;'; }
-  startTimer();
-}
-
-function restart() {
-  inOpening = false;
-  document.getElementById('countdownOverlay').classList.remove('show');
-  document.querySelector('.countdown-text').textContent = 'Opening Stance';
-  document.querySelectorAll('.countdown-text')[1].textContent = 'Form begins...';
-  playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
-  ci = -1; stepElapsed = 0;
-  document.getElementById('playBtn').innerHTML = '&#9654;';
-  document.getElementById('progressFill').style.width = '0%';
-  document.getElementById('timeElapsed').textContent = '0:00';
-  renderStep(); renderList();
-}
-
-function setLang(l) {
-  lang = l;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('lb-' + l).classList.add('active');
-}
-
-function setSpeed(s) {
-  speed = s;
-  document.querySelectorAll('.speed-btn').forEach(b => {
-    b.classList.toggle('active', parseFloat(b.textContent) === s);
-  });
-}
-
-function toggleMute() {
-  muted = !muted;
-  document.getElementById('muteBtn').innerHTML = muted ? '&#128263;' : '&#128264;';
-  if (muted) synth && synth.cancel();
-}
-
-function selectForm(key) {
-  inOpening = false;
-  document.getElementById('countdownOverlay').classList.remove('show');
-  document.querySelector('.countdown-text').textContent = 'Opening Stance';
-  document.querySelectorAll('.countdown-text')[1].textContent = 'Form begins...';
-  playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
-  cf = key; ci = -1; stepElapsed = 0;
-  document.getElementById('playBtn').innerHTML = '&#9654;';
-
-  const aboutArea = document.getElementById('aboutArea');
-  const practicePanel = document.getElementById('practicePanel');
-  const viewToggle = document.querySelector('.view-toggle');
-  if (key === 'about') {
-    aboutArea.style.display = 'block';
-    if (practicePanel) practicePanel.classList.add('hide');
-    if (viewToggle) viewToggle.style.display = 'none';
-  } else {
-    aboutArea.style.display = 'none';
-    if (practicePanel) practicePanel.classList.remove('hide');
-    if (viewToggle) viewToggle.style.display = '';
-  }
-
-  renderTabs(); renderMeta(); renderStep(); renderList();
-}
-
-// Keep iOS speech alive
-setInterval(() => { if (playing && synth && synth.paused) synth.resume(); }, 3000);
-
-renderTabs(); renderMeta(); renderStep(); renderList();
-</script>
-</body>
-</html>
-`;
-}
+`;}
+selCat('forms');
 </script>
 </body>
 </html>
