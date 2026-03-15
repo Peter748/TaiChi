@@ -62,6 +62,22 @@
   .step-row.active .sr-num{border-color:var(--gold);color:var(--gold);}
   .sr-name{flex:1;font-size:14px;color:var(--text2);line-height:1.3;}
   .sr-time{font-size:11px;color:var(--text3);white-space:nowrap;}
+  .view-toggle{display:flex;gap:6px;padding:8px 16px 0;flex-shrink:0;}
+  .view-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:0.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s;}
+  .view-btn.active{border-color:var(--border2);color:var(--gold);background:rgba(200,169,110,0.08);}
+  #historyPanel{display:none;flex:1;overflow-y:auto;padding:0 20px 32px;scrollbar-width:none;}
+  #historyPanel.show{display:block;}
+  #historyPanel::-webkit-scrollbar{display:none;}
+  .hist-section{margin-bottom:2rem;}
+  .hist-form-title{font-size:16px;font-weight:500;color:var(--gold);margin:1.5rem 0 0.5rem;padding-bottom:6px;border-bottom:0.5px solid var(--border);}
+  .hist-chinese{font-size:13px;color:var(--text3);margin-bottom:8px;letter-spacing:0.04em;}
+  .hist-body{font-size:14px;color:var(--text2);line-height:1.75;}
+  .hist-body p{margin-bottom:0.75rem;}
+  .hist-body strong{color:var(--text);font-weight:500;}
+  #practicePanel{display:flex;flex-direction:column;flex:1;overflow:hidden;}
+  #practicePanel.hide{display:none;}
+  #listWrap{flex:1;overflow-y:auto;padding:4px 16px 16px;scrollbar-width:none;}
+  #listWrap::-webkit-scrollbar{display:none;}
   #installBanner{display:none;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(200,169,110,0.1);border-bottom:0.5px solid var(--border2);flex-shrink:0;}
   #installBanner.show{display:flex;}
   .install-text{font-size:13px;color:var(--text);}
@@ -120,10 +136,144 @@
     </div>
   </div>
 
-  <div class="step-list-wrap">
-    <div class="list-header" id="listHeader">Steps</div>
-    <div id="stepList"></div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="vb-practice" onclick="showView('practice')">Practice</button>
+    <button class="view-btn" id="vb-history" onclick="showView('history')">History</button>
   </div>
+
+  <div id="practicePanel">
+    <div id="listWrap">
+      <div class="list-header" id="listHeader">Steps</div>
+      <div id="stepList"></div>
+    </div>
+  </div>
+
+  <div id="historyPanel">
+    <div class="hist-section">
+
+      <div class="hist-form-title">Yang 28 — Competition Form</div>
+      <div class="hist-chinese">杨氏太极拳 (Yángshì Tàijíquán) · Australian Competition Form</div>
+      <div class="hist-body">
+        <p>This Competition Form was <strong>created by Damon Bramich</strong> specifically for Australian Tai Chi competition, designed to fit within the standard <strong>5-minute solo time limit</strong>. It distils the essence of the Yang style long form into 38 flowing postures that showcase the characteristic large, open movements and even tempo of the Yang tradition.</p>
+        <p>Yang-style Tai Chi traces its origins to <strong>Yang Luchan (1799–1872)</strong>, a peasant farmer from Yongnian, Hebei Province. After spending 18 years studying at the Chen family village under master Chen Changxing, Yang Luchan moved to Beijing where he became famous for never losing a challenge match, earning the title <em>"Yang the Invincible"</em> (杨无敌). In 1850 he was invited to teach the Imperial Guard, beginning Tai Chi's spread from a village family art to a worldwide practice.</p>
+        <p>His grandson <strong>Yang Chengfu (1883–1936)</strong> standardised the style into the large, slow, graceful form practised today, removing explosive fa jin movements in favour of continuous, meditative flow. This made the art accessible to millions and remains the world's most widely practised martial art style.</p>
+      </div>
+
+      <div class="hist-form-title">Yang 28 — Standard Form</div>
+      <div class="hist-chinese">杨氏太极拳二十八式 · Standard Training Form · 5 min 15 sec</div>
+      <div class="hist-body">
+        <p>The Standard Form shares the same Yang Chengfu lineage as the Competition Form but follows a fuller sequence at a more relaxed pace of <strong>5 minutes 15 seconds</strong>. It is used as the primary teaching and practice form at Newcastle Tai Chi, providing students with additional time to settle into each posture and develop internal awareness.</p>
+        <p>The Standard Form includes the full <strong>Golden Rooster Stands on One Leg</strong> sequence on both sides, giving students longer exposure to balance training and weight shifting — key hallmarks of Yang-style practice.</p>
+      </div>
+
+      <div class="hist-form-title">Taiji Qigong ShiBaShi — Set 1</div>
+      <div class="hist-chinese">太极气功十八式 · Tàijí Qìgōng Shí Bā Shì · Created 1979 · Professor Lin Housheng</div>
+      <div class="hist-body">
+        <p>ShiBaShi was created in <strong>1979 by Professor Lin Housheng</strong> at the Shanghai Institute of Traditional Chinese Medicine. It synthesises Yang-style Tai Chi with traditional Qigong breathing, making it accessible to all ages and fitness levels. It is one of the most widely practised Qigong routines in the world.</p>
+        <p>The routine begins in <strong>Wuji Stance</strong> and closes in <strong>Holding an Energy Ball Stance</strong> (palms facing the lower Dan Tian). Breathing throughout is abdominal — inhale through the nose expanding the lower belly, exhale contracting it.</p>
+        <p>Movements 11–13 (Scooping from the Sea, Playing with Waves, Spreading Your Wings) are performed first on the <strong>left side</strong> then repeated on the <strong>right side</strong> before continuing to Movement 14.</p>
+        <p><strong>Health benefits by movement:</strong></p>
+        <p><strong>1. Awaken Qi and Regulate Breathing</strong> — Strengthens Heart and Liver, balances blood pressure. Activates Qi flow throughout the meridian network via shoulders, elbows, wrists, fingers and knees.</p>
+        <p><strong>2. Opening the Chest</strong> — Opens Heart and embraces Nature. Strengthens Heart, Lungs and nervous system. Opens chest Qi, regulates breathing, increases blood supply. Reduces depression, insomnia and hypertension.</p>
+        <p><strong>3. Dancing with a Rainbow</strong> — Relieves back pain, balances blood pressure, reduces stress. Strengthens Stomach and digestive system, relieves stomach ache and decreases fat around the waist.</p>
+        <p><strong>4. Gather Qi and Part the Clouds</strong> — Relieves shoulder pain and boosts stamina. Stimulates Kidney, benefits Lungs and Heart, improves blood circulation. Beneficial for chronic fatigue syndrome.</p>
+        <p><strong>5. Changing Palms and Rolling Arms</strong> — Stimulates Liver and Gallbladder, unblocking and dispersing Qi. Relieves shoulder, elbow and wrist pain, arthritis. Improves chronic fatigue syndrome and asthma.</p>
+        <p><strong>6. Rowing the Boat</strong> — Helps digestion and increases mental clarity. Strengthens back, relieves backache and headache. Stimulates Kidney and bladder. Stretches the bladder meridian along the back.</p>
+        <p><strong>7. Lifting the Ball of Qi</strong> — Beneficial for insomnia and blood pressure. Improves Kidney function and increases spiritual energy. Activates the Spleen's lifting function, stimulates and strengthens the Spleen channel.</p>
+        <p><strong>8. Turn and Gaze at the Moon</strong> — Helps digestion, stimulates Liver and gallbladder channels, slims waist and hips. Encourages flexibility in the lumbar spine and improves Kidney function.</p>
+        <p><strong>9. Twisting Waist and Pushing Palms</strong> — Strengthens Dantian, legs and back. Promotes Qi through legs and back, reduces waist strain. Aids digestion, improves Stomach, Spleen and Kidney function.</p>
+        <p><strong>10. Playing with Clouds</strong> — Circulates Qi around internal organs from the lower Dantian. Helps digestion, prevents arthritis, calms the nervous system. Stimulates brain activity — beneficial for Alzheimer's.</p>
+        <p><strong>11. Scooping from the Sea</strong> — Induces muscle relaxation, relieves waist and leg pain, balances blood pressure. Opens chest Qi, strengthens Heart and Lungs. Connects Earth and Heaven Qi.</p>
+        <p><strong>12. Playing with Waves</strong> — Improves Spleen, Liver and Lungs. Decreases insomnia, strengthens legs, hip joints and waist. Stimulates the Yongquan (bubbling spring) point on the soles of the feet.</p>
+        <p><strong>13. Spreading Your Wings</strong> — Improves Heart, Liver, nervous system and Lungs. Opens and expands chest Qi, dispels depression, aids asthma and digestive system.</p>
+        <p><strong>14. Punching in Horse Stance</strong> — Increases Lung capacity, promotes strength and cultivates Qi. Aids digestion, regulates bowels, stimulates mental clarity. Moves Qi in the lower Dantian.</p>
+        <p><strong>15. Flying like a Wild Goose</strong> — Stimulates Lungs, lifts depression, relieves anxiety and headaches. Strengthens Kidney, knees and legs. Opens and expands Qi in the chest.</p>
+        <p><strong>16. Spinning Wheels</strong> — Helps balance blood pressure. Promotes blood circulation, strengthens Kidney, boosts stamina. Works on bowel, Liver and Kidney meridians. The circling action facilitates bowel and Liver function.</p>
+        <p><strong>17. Bouncing the Ball of Qi</strong> — Relaxes the whole body, improves coordination and balance. Harmonises left and right brain hemispheres. Stimulates all Qi channels in the soles of the feet.</p>
+        <p><strong>18. Pressing the Palms</strong> — Returns Qi to Earth. Improves Heart and Stomach conditions, calms the mind. Settles vital energy in the Dantian, absorbing Yin quality of Earth Qi and Yang quality of Heaven Qi.</p>
+      </div>
+
+      <div class="hist-form-title">Taiji Qigong ShiBaShi — Set 3</div>
+      <div class="hist-chinese">太极气功十八式第三套 · Created 1990 · Professor Lin Housheng</div>
+      <div class="hist-body">
+        <p>ShiBaShi Set 3 was created by <strong>Professor Lin Housheng in 1990</strong>, the third in his series of six complete sets. Where Set 1 focuses on general Qi cultivation and Set 2 on connecting with earth energy, Set 3 is distinguished by its <strong>therapeutic specificity</strong> — each movement is named for the organ system or condition it addresses, making the health intention explicit during practice.</p>
+        <p>The movements are designed to be practised with feeling and at a variable pace, letting the breath animate the movement rather than forcing a mechanical rhythm.</p>
+        <p><strong>Health benefits by movement:</strong></p>
+        <p><strong>1. Stretch to the Sky</strong> — Cleans and regulates meridians and bones.</p>
+        <p><strong>2. Expand the Chest</strong> — Strengthens Heart and Lungs.</p>
+        <p><strong>3. Swing to the Left and Right</strong> — For Stomach and Spleen.</p>
+        <p><strong>4. Blossoming Lotus</strong> — For healthy joints.</p>
+        <p><strong>5. Look at the Setting Sun</strong> — Increases vital energy and nourishes the Kidneys.</p>
+        <p><strong>6. Point to Needle at the Bottom of the Sea</strong> — For Liver and Gallbladder.</p>
+        <p><strong>7. Open Heaven and Earth</strong> — Strengthens and energises the nervous system.</p>
+        <p><strong>8. Thrust the Fist with Inner Power</strong> — Speeds the flow of vital life energy.</p>
+        <p><strong>9. With Prayer-like Palms, Sway Hips</strong> — For regulating the spine.</p>
+        <p><strong>10. Spread Wings to Fly</strong> — Stimulates and energises the shoulders and back.</p>
+        <p><strong>11. Part the Wild Horse's Mane</strong> — For proper blood sugar levels.</p>
+        <p><strong>12. Push Palms Forward</strong> — Straightens the back.</p>
+        <p><strong>13. Massage Dantian</strong> — Supports and restores the stomach and intestines.</p>
+        <p><strong>14. Gather In Good Energy, Remove Bad Energy</strong> — Absorbs righteous Qi, expels stagnant Qi.</p>
+        <p><strong>15. Open and Clear the Meridians</strong> — Roots out the basis of disease.</p>
+        <p><strong>16. Directing Qi</strong> — Strengthens the body and mind through whole-body Qi circulation.</p>
+        <p><strong>17. Feel Happiness</strong> — Benefits sleeping.</p>
+        <p><strong>18. Push Down Palms</strong> — Feel a calm happiness to close the training.</p>
+      </div>
+
+      <div class="hist-form-title">Qigong Lotus Form</div>
+      <div class="hist-chinese">气功莲花功 · Qìgōng Liánhuā Gōng</div>
+      <div class="hist-body">
+        <p>The Lotus Form draws its imagery from the lotus flower — a profound symbol in Chinese culture representing <strong>purity, enlightenment and resilience</strong>. Like the lotus that rises from muddy water to bloom in perfect beauty, the form guides practitioners through movements that cultivate inner stillness and radiant energy regardless of external circumstances.</p>
+        <p>The flowing circular movements of the Lotus Form are designed to open the major energy meridians, particularly those associated with the heart and lungs, while the grounding postures encourage a deep sense of rootedness and calm. It is often used as a meditative practice, bridging the active movement of Tai Chi with the stillness of seated meditation.</p>
+      </div>
+
+      <div class="hist-form-title">Yang Sabre — Dao (刀)</div>
+      <div class="hist-chinese">杨氏太极刀 · Yángshì Tàijí Dāo · Single-edged curved blade</div>
+      <div class="hist-body">
+        <p>The Dao (sabre or broadsword) is a single-edged curved blade and one of the four major traditional Chinese weapons alongside the spear, staff and straight sword. In Yang-style Tai Chi, the <strong>Dao form is traditionally taught before the Jian</strong> (straight sword), as it develops the basic blocking angles, power training and stepping patterns that form the prerequisite for the more refined Jian techniques.</p>
+        <p>The Yang family Dao form was documented by <strong>Chen Yen-lin in 1932</strong> based on writings compiled by Wu Ho-ching, a student of Yang Luchan. The form features dramatic sweeping cuts, thrusts and deflections that express a more martial character than the bare-hand forms, while still embodying the Tai Chi principles of yielding, redirecting and circular motion.</p>
+        <p>At Newcastle Tai Chi the Dao is practised over <strong>2 minutes</strong> — 23 postures that take the practitioner through the full range of sabre techniques while maintaining the flowing, connected quality of Yang-style movement.</p>
+      </div>
+
+      <div class="hist-form-title">Yang Sword — Jian (剑)</div>
+      <div class="hist-chinese">杨氏太极剑 · Yángshì Tàijí Jiàn · The Gentleman of Weapons</div>
+      <div class="hist-body">
+        <p>The Jian (straight double-edged sword) is known in Chinese martial lore as <em>"The Gentleman of Weapons"</em> and <em>"The King of Short Weapons"</em>. Unlike the powerful chopping action of the Dao, the Jian relies on subtle deflections, precise thrusting and the ability to <strong>stick to and redirect an opponent's blade</strong> — a perfect physical expression of Tai Chi's yielding philosophy.</p>
+        <p>The Yang and Wu families taught Jian technique to Qing dynasty military officers, and the traditional Yang Jian form has been passed down largely intact through the generations. The straight sword was historically associated with <strong>scholarly refinement and Daoist spiritual practice</strong> — Daoist priests used the Jian in ceremonies to cut through veils of illusion and banish negative influences.</p>
+        <p>Mastering the Jian is considered the highest expression of Yang-style weapons training. Its 29 postures — practised over <strong>1 minute 40 seconds</strong> at Newcastle Tai Chi — demand precise coordination, sensitivity and an understanding of the sword as an extension of the body's Qi rather than merely a physical implement.</p>
+        <p>The <strong>13 fundamental Jian techniques</strong> (striking, thrusting, deflecting, slicing, pressing, lifting, carrying, intercepting, cutting, pointing, sweeping, blocking and circling) underpin all movements of the form and connect it directly to the 13 original principles of Tai Chi itself.</p
+
+      <div class="hist-form-title">Ba Duan Jin — Eight Section Brocade</div>
+      <div class="hist-chinese">八段锦 · Bāduànjǐn · Eight Pieces of Silk Brocade · Song Dynasty c.960–1279 CE</div>
+      <div class="hist-body">
+        <p>Ba Duan Jin is one of the oldest and most widely practised Qigong forms in the world, with a history of over 1,000 years. <strong>Ba (八)</strong> means eight, <strong>Duan (段)</strong> means sections, and <strong>Jin (锦)</strong> means silk brocade — the name reflects both the eight movements and the silken, flowing quality they should embody. After practising the sequence, one should feel as though wearing the finest silk.</p>
+        <p>References appear in Song Dynasty medical manuals (960–1279 CE), and the form is traditionally attributed to the military general <strong>Yue Fei</strong>, who is said to have taught these exercises to his soldiers to build physical and mental resilience. The form was further developed through Daoist and Shaolin monastic lineages and has been practised continuously for centuries across China and East Asia.</p>
+        <p>In 2003 the Chinese Health Qigong Association standardised the modern standing version, which is now the most widely taught. Each of the eight movements targets a specific organ system and meridian network according to Traditional Chinese Medicine.</p>
+        <p><strong>Health benefits by movement:</strong></p>
+        <p><strong>1. Two hands hold up the heavens</strong> — Regulates the Triple Burner (Sanjiao), activates overall Qi circulation, balances energy throughout the body.</p>
+        <p><strong>2. Draw the bow to shoot the eagle</strong> — Strengthens the Kidneys and Spleen, opens the chest, strengthens the lower body through the horse stance.</p>
+        <p><strong>3. Separate heaven and earth</strong> — Regulates the Spleen and Stomach, benefits the Liver and Gallbladder, aids digestion.</p>
+        <p><strong>4. Wise owl gazes backwards</strong> — Eliminates the five strains and seven impairments, relieves neck and shoulder tension, strengthens the optic nerve, calms the mind.</p>
+        <p><strong>5. Sway the head and shake the tail</strong> — Removes Heart fire (excess energy/stress), cools and calms the entire system, loosens the spine and hips.</p>
+        <p><strong>6. Two hands hold the feet</strong> — Strengthens the Kidneys and lower back, stretches the entire posterior chain, stimulates the bladder meridian.</p>
+        <p><strong>7. Clench the fists and glare fiercely</strong> — Increases overall Qi and physical strength, stimulates the Liver meridian, builds vitality and inner power.</p>
+        <p><strong>8. Bouncing on the toes</strong> — Stimulates all meridians and the Du Mai (Governing Vessel), massages the Kidney 1 (Bubbling Spring) point on the soles, said to eliminate one hundred diseases.</p>
+      <div class="hist-form-title">Five Element Qigong</div>
+      <div class="hist-chinese">五行气功 · Wǔ Xíng Qìgōng · Wood · Fire · Earth · Metal · Water</div>
+      <div class="hist-body">
+        <p>Five Element Qigong is rooted in one of the oldest frameworks of Chinese philosophy and medicine — the <strong>Five Phases (五行, Wǔ Xíng)</strong>. Unlike Ba Duan Jin or Shibashi, which are standardised forms, Five Element Qigong exists in many versions across different schools, all sharing the same underlying theory: five movements, one for each element, performed in sequence to harmonise the internal organs and balance the body's energetic system.</p>
+        <p>The five elements — <strong>Wood, Fire, Earth, Metal and Water</strong> — are not static substances but dynamic phases of energy in constant transformation. Each element corresponds to a season, a direction, an organ pair, an emotion, and a movement quality. The Taoist philosophers observed these patterns in nature and mapped them onto the human body to understand health, illness, and healing.</p>
+        <p>Each element and its practice:</p>
+        <p><strong>Wood (木 Mù) — Spring · East · Liver &amp; Gallbladder</strong><br>Rising, expansive movement like a tree growing upward. Cultivates patience, flexibility and creativity. Addresses anger, frustration and stagnation. The movement quality is upward.</p>
+        <p><strong>Fire (火 Huǒ) — Summer · South · Heart &amp; Small Intestine</strong><br>Opening, outward movement that ignites inner warmth. Cultivates joy, clarity and enthusiasm. Addresses anxiety, excessive excitement and confusion. The movement quality is outward and expansive.</p>
+        <p><strong>Earth (土 Tǔ) — Late Summer · Centre · Spleen &amp; Stomach</strong><br>Grounded, centred lifting and lowering. Cultivates stability, nourishment and groundedness. Addresses worry, overthinking and doubt. The movement quality is centred and stable.</p>
+        <p><strong>Metal (金 Jīn) — Autumn · West · Lungs &amp; Large Intestine</strong><br>Gathering, contracting movement from wide to concentrated. Cultivates clarity, precision and letting go. Addresses grief, sadness and holding on. The movement quality is inward and condensing.</p>
+        <p><strong>Water (水 Shuǐ) — Winter · North · Kidneys &amp; Bladder</strong><br>Sinking and flowing movement, like water finding its level. Cultivates wisdom, willpower and fearlessness. Addresses fear, exhaustion and lack of will. The movement quality is downward and flowing.</p>
+        <p>Each exercise is typically repeated <strong>5 or 6 times</strong>, and the whole cycle can be repeated 3–5 times. It is recommended to practice in alignment with the seasons — emphasising the Wood exercise in spring, Fire in summer, and so on — though the complete cycle is beneficial year-round.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <!-- Countdown overlay for Opening Stance -->
   <div class="countdown-overlay" id="countdownOverlay">
@@ -222,24 +372,27 @@ const STANDARD = [
 ];
 
 const SHIBASHI = [
-  { t:"Commencing form, rising and lowering hands", reps:6, mode:"repeat" },
-  { t:"Broadening the chest",                       reps:6, mode:"repeat" },
-  { t:"Painting rainbows",                          reps:3, mode:"alternate" },
-  { t:"Separating clouds",                          reps:3, mode:"alternate" },
-  { t:"Fixed stance whirling arms",                 reps:3, mode:"alternate" },
-  { t:"Rowing in the still lake",                   reps:6, mode:"repeat" },
-  { t:"Holding the ball in front of shoulders",     reps:3, mode:"alternate" },
-  { t:"Turning to gaze at the moon",                reps:6, mode:"repeat" },
-  { t:"Turning the waist and pushing palms",        reps:6, mode:"repeat" },
-  { t:"Cloud hands",                                reps:3, mode:"alternate" },
-  { t:"Scooping the sea while looking at the sky",  reps:3, mode:"side" },
-  { t:"Pushing the waves",                          reps:3, mode:"side" },
-  { t:"Flying dove spreads its wings",              reps:3, mode:"side" },
-  { t:"Punching in horse-riding stance",            reps:3, mode:"alternate" },
-  { t:"Flying wild goose",                          reps:6, mode:"repeat" },
-  { t:"Spinning wheels",                            reps:3, mode:"side" },
-  { t:"Stepping and bouncing ball",                 reps:3, mode:"side" },
-  { t:"Pressing palms in calmness, closing form",   reps:6, mode:"repeat" }
+  { t:"Awaken qi and regulate breathing",   reps:6,  mode:"repeat" },
+  { t:"Opening the chest",                  reps:6,  mode:"repeat" },
+  { t:"Dancing with a rainbow",             reps:6,  mode:"repeat" },
+  { t:"Gather qi and part the clouds",      reps:6,  mode:"repeat" },
+  { t:"Changing palms and rolling arms",    reps:6,  mode:"repeat" },
+  { t:"Rowing the boat",                    reps:6,  mode:"repeat" },
+  { t:"Lifting the ball of qi",             reps:6,  mode:"repeat" },
+  { t:"Turn and gaze at the moon",          reps:6,  mode:"repeat" },
+  { t:"Twisting waist and pushing palms",   reps:6,  mode:"repeat" },
+  { t:"Playing with clouds",                reps:6,  mode:"repeat" },
+  { t:"Scooping from the sea",              reps:6,  mode:"repeat" },
+  { t:"Playing with waves",                 reps:6,  mode:"repeat" },
+  { t:"Spreading your wings",               reps:6,  mode:"repeat" },
+  { t:"Scooping from the sea — right side", reps:6,  mode:"repeat" },
+  { t:"Playing with waves — right side",    reps:6,  mode:"repeat" },
+  { t:"Spreading your wings — right side",  reps:6,  mode:"repeat" },
+  { t:"Punching in horse stance",           reps:6,  mode:"repeat" },
+  { t:"Flying like a wild goose",           reps:6,  mode:"repeat" },
+  { t:"Spinning wheels",                    reps:3,  mode:"side"   },
+  { t:"Bouncing the ball of qi",            reps:6,  mode:"repeat" },
+  { t:"Pressing the palms",                 reps:6,  mode:"repeat" }
 ];
 
 const SABRE = [
@@ -354,24 +507,24 @@ const ZH = {
     {c:"十字手收势",p:"Shí zì shǒu shōu shì"}
   ],
   shibashi: [
-    {c:"起势调息",p:"Qǐ shì tiáo xī"},
-    {c:"开阔胸怀",p:"Kāi kuò xiōng huái"},
-    {c:"挥舞彩虹",p:"Huī wǔ cǎi hóng"},
-    {c:"挥臂分云",p:"Huī bì fēn yún"},
-    {c:"定步倒卷肱",p:"Dìng bù dào juǎn gōng"},
-    {c:"湖心划舟",p:"Hú xīn huá zhōu"},
-    {c:"肩前抱球",p:"Jiān qián bào qiú"},
-    {c:"转身望月",p:"Zhuǎn shēn wàng yuè"},
-    {c:"转腰推掌",p:"Zhuǎn yāo tuī zhǎng"},
-    {c:"马步云手",p:"Mǎ bù yún shǒu"},
-    {c:"捞海观天",p:"Lāo hǎi guān tiān"},
-    {c:"推波助浪",p:"Tuī bō zhù làng"},
-    {c:"鸽子展翅",p:"Gē zi zhǎn chì"},
-    {c:"马步冲拳",p:"Mǎ bù chōng quán"},
-    {c:"飞雁式",p:"Fēi yàn shì"},
-    {c:"转身拍球",p:"Zhuǎn shēn pāi qiú"},
-    {c:"行步拍球",p:"Xíng bù pāi qiú"},
-    {c:"按掌平气",p:"Àn zhǎng píng qì"}
+    {c:"起势调息",     p:"Qǐ Shì Tiáo Xī"},
+    {c:"开阔胸怀",     p:"Kāikuò Xiōnghuái"},
+    {c:"挥舞彩虹",     p:"Huīwǔ Cǎihóng"},
+    {c:"轮臂分云",     p:"Lúnbì Fēnyún"},
+    {c:"定步倒卷肱",   p:"Dìngbù Dàojuǎngōng"},
+    {c:"湖心划船",     p:"Húxīn Huáchuán"},
+    {c:"肩前托球",     p:"Jiānqián Tuōqiú"},
+    {c:"转体望月",     p:"Zhuǎntǐ Wàngyuè"},
+    {c:"转腰推掌",     p:"Zhuǎnyāo Tuīzhǎng"},
+    {c:"马步云手",     p:"Mǎbù Yúnshǒu"},
+    {c:"捞海观天",     p:"Lāo Hǎi Guān Tiān"},
+    {c:"推波助澜",     p:"Tuībō Zhùlán"},
+    {c:"飞鸽展翅",     p:"Fēigē Zhǎnchì"},
+    {c:"马步冲拳",     p:"Mǎbù Chōngquán"},
+    {c:"大雁飞翔",     p:"Dàyàn Fēixiáng"},
+    {c:"环转飞轮",     p:"Huánzhuǎn Fēilún"},
+    {c:"踏步拍球",     p:"Tàbù Pāiqiú"},
+    {c:"按掌平气",     p:"Ànzhǎng Píngqì"}
   ],
   sabre: [
     {c:"持刀起势",p:"Chí dāo qǐ shì"},
@@ -397,6 +550,23 @@ const ZH = {
     {c:"风扫梅花二",p:"Fēng sǎo méi huā èr"},
     {c:"架刺势",p:"Jià cì shì"},
     {c:"抱月收势",p:"Bào yuè shōu shì"}
+  ],
+  fiveel: [
+    {c:"木 — 如树生长",  p:"Mù — rú shù shēng zhǎng"},
+    {c:"火 — 推掌开展",  p:"Huǒ — tuī zhǎng kāi zhǎn"},
+    {c:"土 — 举手下按",  p:"Tǔ — jǔ shǒu xià àn"},
+    {c:"金 — 收敛聚气",  p:"Jīn — shōu liǎn jù qì"},
+    {c:"水 — 沉降上浮",  p:"Shuǐ — chén jiàng shàng fú"}
+  ],
+  baduan: [
+    {c:"双手托天理三焦",   p:"Shuāng shǒu tuō tiān lǐ sān jiāo"},
+    {c:"左右开弓似射雕",   p:"Zuǒ yòu kāi gōng sì shè diāo"},
+    {c:"调理脾胃须单举",   p:"Tiáo lǐ pí wèi xū dān jǔ"},
+    {c:"五劳七伤往后瞧",   p:"Wǔ láo qī shāng wǎng hòu qiáo"},
+    {c:"摇头摆尾去心火",   p:"Yáo tóu bǎi wěi qù xīn huǒ"},
+    {c:"两手攀足固肾腰",   p:"Liǎng shǒu pān zú gù shèn yāo"},
+    {c:"攥拳怒目增气力",   p:"Zuàn quán nù mù zēng qì lì"},
+    {c:"背后七颠百病消",   p:"Bèi hòu qī diān bǎi bìng xiāo"}
   ],
   jian: [
     {c:"持剑起势",p:"Chí jiàn qǐ shì"},
@@ -433,24 +603,24 @@ const ZH = {
 
 
 const SHIBASHI2 = [
-  { t:"Connecting heaven and earth",                reps:6, mode:"repeat" },
-  { t:"Setting the sun",                            reps:6, mode:"repeat" },
-  { t:"Pushing palms alternating",                  reps:3, mode:"alternate" },
-  { t:"Plucking stars",                             reps:3, mode:"alternate" },
-  { t:"Turning to look behind",                     reps:3, mode:"alternate" },
-  { t:"Flying and landing",                         reps:6, mode:"repeat" },
-  { t:"Embracing the moon",                         reps:3, mode:"alternate" },
-  { t:"Chest expansion",                            reps:6, mode:"repeat" },
-  { t:"Turning body and pushing palms",             reps:6, mode:"repeat" },
-  { t:"Horse stance cloud hands",                   reps:3, mode:"alternate" },
-  { t:"Lifting water",                              reps:3, mode:"side" },
-  { t:"Pushing the mountain",                       reps:3, mode:"side" },
-  { t:"Eagle spreads its wings",                    reps:3, mode:"side" },
-  { t:"Horse stance punching",                      reps:3, mode:"alternate" },
-  { t:"Wild goose in flight",                       reps:6, mode:"repeat" },
-  { t:"Turning the wheel",                          reps:3, mode:"side" },
-  { t:"Stepping and swinging arms",                 reps:3, mode:"side" },
-  { t:"Closing form, peaceful breath",              reps:6, mode:"repeat" }
+  { t:"Stretch to the sky",                                    reps:6, mode:"repeat" },
+  { t:"Expand the chest",                                      reps:6, mode:"repeat" },
+  { t:"Swing to the left and right",                           reps:6, mode:"repeat" },
+  { t:"Blossoming lotus",                                      reps:6, mode:"repeat" },
+  { t:"Look at the setting sun",                               reps:6, mode:"repeat" },
+  { t:"Point to needle at the bottom of the sea",              reps:6, mode:"repeat" },
+  { t:"Open heaven and earth",                                 reps:6, mode:"repeat" },
+  { t:"Thrust the fist with inner power",                      reps:6, mode:"repeat" },
+  { t:"With prayer-like palms, sway hips left and right",      reps:6, mode:"repeat" },
+  { t:"Spread wings to fly",                                   reps:6, mode:"repeat" },
+  { t:"Part the wild horse's mane",                            reps:6, mode:"repeat" },
+  { t:"Push palms forward",                                    reps:6, mode:"repeat" },
+  { t:"Massage dantian",                                       reps:6, mode:"repeat" },
+  { t:"Gather in good energy and remove bad energy",           reps:6, mode:"repeat" },
+  { t:"Open and clear the meridians",                          reps:6, mode:"repeat" },
+  { t:"Directing qi to strengthen the body and mind",          reps:6, mode:"repeat" },
+  { t:"Feel happiness",                                        reps:6, mode:"repeat" },
+  { t:"Push down palms, closing movement",                     reps:6, mode:"repeat" }
 ];
 
 const LOTUS = [
@@ -469,26 +639,104 @@ const LOTUS = [
   { t:"Closing, return to stillness",               reps:1, mode:"repeat" }
 ];
 
+
+
+const FIVE_ELEMENTS = [
+  { t:"Wood — rise like a tree",              reps:6, mode:"repeat"    },
+  { t:"Fire — push and open to the sides",    reps:3, mode:"alternate" },
+  { t:"Earth — lift and lower with intention",reps:6, mode:"repeat"    },
+  { t:"Metal — gather and concentrate",       reps:6, mode:"repeat"    },
+  { t:"Water — sink and flow upward",         reps:6, mode:"repeat"    }
+];
+
+const BADUAN = [
+  { t:"Two hands hold up the heavens",          reps:6, mode:"repeat" },
+  { t:"Draw the bow to shoot the eagle",         reps:6, mode:"side"   },
+  { t:"Separate heaven and earth",               reps:6, mode:"alternate" },
+  { t:"Wise owl gazes backwards",                reps:6, mode:"alternate" },
+  { t:"Sway the head and shake the tail",        reps:6, mode:"alternate" },
+  { t:"Two hands hold the feet",                 reps:6, mode:"repeat" },
+  { t:"Clench the fists and glare fiercely",     reps:6, mode:"alternate" },
+  { t:"Bouncing on the toes",                    reps:7, mode:"repeat" }
+];
+
 // Expand step objects into individual timed entries with spoken text
 function expandSteps(arr) {
   const out = [];
   arr.forEach(s => {
     const base = typeof s === 'string' ? { t: s, reps: 1, mode: 'repeat' } : s;
+    const nm = base.t;
+    const ordWord = ["second","third","fourth","fifth","sixth","seventh","eighth"];
+
     if (base.mode === 'repeat') {
+      // 1: name
+      // 2: Then name
+      // 3: A third name
+      // 4: A fourth name ...
+      // last: And finally a sixth name
       for (let r = 0; r < base.reps; r++) {
-        out.push({ t: base.t, say: r === 0 ? base.t : (r + 1) + (["st","nd","rd"][r] || "th") + " time", orig: base.t, rep: r + 1, total: base.reps });
+        let say;
+        if      (r === 0)             say = nm;
+        else if (r === 1)             say = "Then " + nm.toLowerCase();
+        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " " + nm.toLowerCase();
+        else                          say = "A " + ordWord[r-1] + " " + nm.toLowerCase();
+        out.push({ t: nm, say, orig: nm, rep: r+1, total: base.reps });
       }
+
     } else if (base.mode === 'alternate') {
-      for (let r = 0; r < base.reps; r++) {
-        out.push({ t: base.t + (r % 2 === 0 ? ", left" : ", right"), say: base.t + (r % 2 === 0 ? ", left side" : ", right side"), orig: base.t, rep: r + 1, total: base.reps });
+      // 1: "Painting rainbows left"
+      // 2: "Then painting rainbows right"
+      // 3: "Then painting rainbows left"
+      // 4: "Then painting rainbows right"
+      // 5: "Left"
+      // 6: "Right"
+      const total = base.reps * 2;
+      const sideList = ['left','right','left','right','left','right','left','right'];
+      for (let r = 0; r < total; r++) {
+        const side = sideList[r];
+        let say;
+        if      (r === 0) say = nm + " left";
+        else if (r === 1) say = "Then " + nm.toLowerCase() + " right";
+        else if (r === 2) say = "Then " + nm.toLowerCase() + " left";
+        else if (r === 3) say = "Then " + nm.toLowerCase() + " right";
+        else              say = r % 2 === 0 ? "Left" : "Right";
+        out.push({ t: nm + ", " + side, say, orig: nm, rep: r+1, total });
       }
+
     } else if (base.mode === 'side') {
-      // 3 times left first, then 3 times right
+      // left first: name left / A second left / And finally a third left
+      //             name right / A second right / And finally a third right
       for (let r = 0; r < base.reps; r++) {
-        out.push({ t: base.t + ", left", say: r === 0 ? base.t + ", left side" : (r + 1) + (["st","nd","rd"][r] || "th") + " time left", orig: base.t, rep: r + 1, total: base.reps });
+        let say;
+        if      (r === 0)             say = nm + ", left side";
+        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " left";
+        else                          say = "A " + ordWord[r-1] + " left";
+        out.push({ t: nm + ", left", say, orig: nm, rep: r+1, total: base.reps });
       }
       for (let r = 0; r < base.reps; r++) {
-        out.push({ t: base.t + ", right", say: r === 0 ? base.t + ", right side" : (r + 1) + (["st","nd","rd"][r] || "th") + " time right", orig: base.t, rep: r + 1, total: base.reps });
+        let say;
+        if      (r === 0)             say = nm + ", right side";
+        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " right";
+        else                          say = "A " + ordWord[r-1] + " right";
+        out.push({ t: nm + ", right", say, orig: nm, rep: r+1, total: base.reps });
+      }
+
+    } else if (base.mode === 'side-right') {
+      // right first: name right / A second right / And finally a third right
+      //              name left  / A second left  / And finally a third left
+      for (let r = 0; r < base.reps; r++) {
+        let say;
+        if      (r === 0)             say = nm + ", right side";
+        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " right";
+        else                          say = "A " + ordWord[r-1] + " right";
+        out.push({ t: nm + ", right", say, orig: nm, rep: r+1, total: base.reps });
+      }
+      for (let r = 0; r < base.reps; r++) {
+        let say;
+        if      (r === 0)             say = nm + ", left side";
+        else if (r === base.reps - 1) say = "And finally a " + ordWord[r-1] + " left";
+        else                          say = "A " + ordWord[r-1] + " left";
+        out.push({ t: nm + ", left", say, orig: nm, rep: r+1, total: base.reps });
       }
     }
   });
@@ -498,11 +746,13 @@ function expandSteps(arr) {
 const FORMS = {
   yang28:    { name:"Yang 28 — Competition", short:"Competition", duration:290,  steps:YANG28,    hasOpening:true,  repeats:1, expand:false },
   standard:  { name:"Yang 28 — Standard",    short:"Standard",    duration:315,  steps:STANDARD,  hasOpening:true,  repeats:1, expand:false },
-  shibashi:  { name:"ShiBaShi Set 1",        short:"ShiBaShi 1",  duration:600,  steps:expandSteps(SHIBASHI),  hasOpening:false, repeats:1, expand:true },
-  shibashi2: { name:"ShiBaShi Set 2",        short:"ShiBaShi 2",  duration:600,  steps:expandSteps(SHIBASHI2), hasOpening:false, repeats:1, expand:true },
+  shibashi:  { name:"ShiBaShi Set 1",        short:"ShiBaShi 1",  duration:720,  steps:expandSteps(SHIBASHI),  hasOpening:false, repeats:1, expand:true, intro:"Taiji Qigong Shibashi, 太极气功十八式. 18 fluid movements designed to enhance energy, Qi, and relaxation. Created by Professor Lin Housheng in 1979. Each movement is performed with 6 repetitions. Beginning now." },
+  shibashi2: { name:"ShiBaShi Set 3",        short:"ShiBaShi 3",  duration:720,  steps:expandSteps(SHIBASHI2), hasOpening:false, repeats:1, expand:true },
   lotus:     { name:"Qigong Lotus Form",     short:"Lotus",       duration:480,  steps:expandSteps(LOTUS),     hasOpening:false, repeats:1, expand:true },
   sabre:     { name:"Yang Sabre",            short:"Sabre",       duration:120,  steps:SABRE,     hasOpening:false, repeats:1, expand:false },
-  jian:      { name:"Yang Jian (Sword)",     short:"Jian",        duration:100,  steps:JIAN,      hasOpening:false, repeats:1, expand:false }
+  jian:      { name:"Yang Jian (Sword)",     short:"Jian",        duration:100,  steps:JIAN,      hasOpening:false, repeats:1, expand:false },
+  baduan:    { name:"Ba Duan Jin",            short:"Ba Duan Jin", duration:480,  steps:expandSteps(BADUAN),        hasOpening:false, repeats:1, expand:true },
+  fiveel:    { name:"Five Element Qigong",    short:"5 Elements",  duration:360,  steps:expandSteps(FIVE_ELEMENTS), hasOpening:false, repeats:1, expand:true }
 };
 
 let cf = 'yang28';
@@ -541,6 +791,14 @@ document.getElementById('installBtn').onclick = async () => {
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+function showView(v) {
+  const isPractice = v === 'practice';
+  document.getElementById('practicePanel').classList.toggle('hide', !isPractice);
+  document.getElementById('historyPanel').classList.toggle('show', !isPractice);
+  document.getElementById('vb-practice').classList.toggle('active', isPractice);
+  document.getElementById('vb-history').classList.toggle('active', !isPractice);
 }
 
 function renderTabs() {
@@ -630,12 +888,19 @@ function loadVoices() {
 if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
 setTimeout(loadVoices, 500);
 
+function isShibashi() { return cf === 'shibashi' || cf === 'shibashi2' || cf === 'lotus'; }
+
 function utter(txt, isZh) {
   if (!synth || muted) return;
   const u = new SpeechSynthesisUtterance(txt);
   if (isZh && zhVoice) u.voice = zhVoice;
   if (!isZh && enVoice) u.voice = enVoice;
-  u.rate = isZh ? Math.min(speed * 0.7, 0.9) : Math.min(speed * 0.55, 0.75);
+  const slow = isShibashi();
+  // ShiBaShi: very slow so full phrase completes before next step
+  // English rate 0.35 for ShiBaShi, 0.55 for other forms
+  u.rate = isZh
+    ? (slow ? 0.55 : Math.min(speed * 0.7, 0.9))
+    : (slow ? Math.min(speed * 0.35, 0.5) : Math.min(speed * 0.55, 0.75));
   u.pitch = 1.0;
   synth.speak(u);
 }
@@ -645,7 +910,7 @@ function speakOne(txt) { utter(txt, false); }
 function getZh(idx) {
   const key = cf === 'yang28' ? 'yang28' : cf === 'standard' ? 'standard' :
               cf === 'shibashi' ? 'shibashi' : cf === 'sabre' ? 'sabre' :
-              cf === 'jian' ? 'jian' : null;
+              cf === 'jian' ? 'jian' : cf === 'baduan' ? 'baduan' : cf === 'fiveel' ? 'fiveel' : null;
   if (!key) return null;
   const arr = ZH[key];
   if (!arr) return null;
@@ -739,6 +1004,30 @@ function advance() {
   startTimer();
 }
 
+// Intro announcement before shibashi-style forms
+function doIntro() {
+  inOpening = true;
+  const introText = form().intro;
+  // Show overlay with intro text
+  const overlay = document.getElementById('countdownOverlay');
+  const numEl = document.getElementById('countdownNum');
+  document.querySelector('.countdown-text').textContent = 'Taiji Qigong Shibashi';
+  document.querySelectorAll('.countdown-text')[1].textContent = 'Beginning shortly...';
+  numEl.textContent = '☯';
+  overlay.classList.add('show');
+  utter(introText, false);
+  // Estimate reading time: ~12 words per second at slow rate, intro is ~50 words = ~7s
+  const introMs = Math.max(8000, introText.split(' ').length * 600 / Math.min(speed * 0.35, 0.5));
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    inOpening = false;
+    ci = 0;
+    speak(form().steps[0], 0);
+    renderStep(); renderList(); scrollToStep(0);
+    startTimer();
+  }, introMs);
+}
+
 // Opening stance: announce, show countdown overlay, then start timed form
 function doOpeningStance() {
   inOpening = true;
@@ -812,6 +1101,8 @@ function jumpTo(i) {
 function restart() {
   inOpening = false;
   document.getElementById('countdownOverlay').classList.remove('show');
+  document.querySelector('.countdown-text').textContent = 'Opening Stance';
+  document.querySelectorAll('.countdown-text')[1].textContent = 'Form begins...';
   playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
   ci = -1; stepElapsed = 0;
   document.getElementById('playBtn').innerHTML = '&#9654;';
@@ -842,6 +1133,8 @@ function toggleMute() {
 function selectForm(key) {
   inOpening = false;
   document.getElementById('countdownOverlay').classList.remove('show');
+  document.querySelector('.countdown-text').textContent = 'Opening Stance';
+  document.querySelectorAll('.countdown-text')[1].textContent = 'Form begins...';
   playing = false; cancelAnimationFrame(raf); synth && synth.cancel();
   cf = key; ci = -1; stepElapsed = 0;
   document.getElementById('playBtn').innerHTML = '&#9654;';
