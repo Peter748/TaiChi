@@ -348,17 +348,19 @@ function doOpeningStance() {
   const overlay = document.getElementById('countdownOverlay');
   const numEl = document.getElementById('countdownNum');
   overlay.classList.add('show');
-  numEl.textContent = '2';
-  setTimeout(() => { numEl.textContent = '1'; }, 1000);
+  numEl.textContent = '5';
+  setTimeout(() => { numEl.textContent = '4'; }, 1000);
+  setTimeout(() => { numEl.textContent = '3'; }, 2000);
+  setTimeout(() => { numEl.textContent = '2'; }, 3000);
+  setTimeout(() => { numEl.textContent = '1'; }, 4000);
   setTimeout(() => {
     overlay.classList.remove('show');
     inOpening = false;
-    // Now start the timed form from step 0 (Opening form)
     ci = 0;
     speak(form().steps[0]);
     renderStep(); renderList(); scrollToStep(0);
     startTimer();
-  }, 2200);
+  }, 5200);
 }
 
 function togglePlay() {
